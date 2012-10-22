@@ -1,0 +1,31 @@
+<add>
+    <doc>
+        <field name="id">1</field>
+        <field name="screen_name">@thelabdude</field>
+        <field name="type">post</field>
+        <field name="lang">en</field>
+        <field name="timestamp">2012-05-22T09:30:22Z/HOUR</field>
+        <field name="favourites_count">10</field>
+        <field name="text">#Yummm :) Drinking a latte at Caffe Grecco in SF's historic North Beach... Learning text analysis with #SolrInAction by @Manning on my i-Pad</field>
+    </doc>
+    <doc>
+        <field name="id">2</field>
+        <field name="screen_name">@thelabdude</field>
+        <field name="type">post</field>
+        <field name="lang">en</field>
+        <field name="timestamp">2012-05-23T09:30:22Z/HOUR</field>
+        <field name="favourites_count">10</field>
+        <field name="text">Just downloaded the MEAP for #SolrInAction from @Manning http://bit.ly/15tzw to learn more about #Solr http://bit.ly/3ynriE</field>
+        <field name="link">http://manning.com/</field>
+        <field name="link">http://lucene.apache.org/solr/</field>
+    </doc>
+    <doc>
+        <field name="id">3</field>
+        <field name="screen_name">@thelabdude</field>
+        <field name="type">post</field>
+        <field name="timestamp">2012-05-24T09:35:22Z/HOUR</field>
+        <field name="favourites_count">10</field>
+        <field name="text">Le vrai philosphe n'attend rien des homes, et il leur fait tout le bien don't il est capable. Voltaire</field>
+    </doc>
+</add>
+
