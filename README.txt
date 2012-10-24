@@ -13,7 +13,7 @@ running the example code provided in the book.
   |   |__main
   |      |__java - contains all the Java source files from examples in the book
   |
-  |__example-docs - contains example XML and JSON documents to create content
+  |__example-docs - contains example config and content files for each chapter
   |
   |__pom.xml - maven build file
   |
