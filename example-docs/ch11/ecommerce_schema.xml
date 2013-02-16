@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <schema name="example" version="1.5">
   <types>
-    <!-- The StrField type is not analyzed, but indexed/stored verbatim. -->
     <fieldType name="string" class="solr.StrField" sortMissingLast="true" />
 
     <fieldType name="int" class="solr.TrieIntField" precisionStep="0" positionIncrementGap="0"/>    
