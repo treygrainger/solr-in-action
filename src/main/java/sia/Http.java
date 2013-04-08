@@ -24,6 +24,7 @@ public class Http implements ExampleDriver.Example {
 
     static final Map<String, String> listings = new HashMap<String, String>();
     static {
+        // chapter 4: Configuring Solr
         listings.put("4.4",
           "/collection1/select?q=iPod&fq=manu%3ABelkin&sort=price+asc&fl=name%2Cprice%2Cfeatures%2Cscore&df=text&wt=xml&start=0&rows=10");
         listings.put("4.7",
@@ -42,6 +43,22 @@ public class Http implements ExampleDriver.Example {
           "/admin/cores?action=CREATE&name=SolrInAction&instanceDir=sia&config=solrconfig.xml&schema=schema.xml&dataDir=data");
         listings.put("4.18",
           "/admin/cores?action=RELOAD&core=SolrInAction");
+        
+        // chapter 9: Hit Highlighting
+        listings.put("9.1",
+            "/ufo/select?q=blue+fireball+in+the+rain&df=sighting_en&rows=10&wt=xml&hl=true");
+        listings.put("9.2",
+            "/ufo/select?q=blue+fireball+in+the+rain&df=sighting_en&wt=xml&hl=true&hl.snippets=2");
+        listings.put("9.4",
+            "/ufo/select?q=blue+fireball+in+the+rain&df=sighting_en&wt=xml&hl=true&hl.snippets=2&hl.fl=sighting_en&" +
+            "facet=true&facet.limit=4&facet.field=shape_s&facet.field=location_s&facet.field=month_s");
+        listings.put("9.5",
+            "/ufo/select?q=blue+fireball+in+the+rain&df=sighting_en&wt=xml&hl=true&hl.snippets=2&hl.fl=sighting_en&" +
+            "hl.q=blue+fireball+in+the+rain+light&fq=shape_s%3Alight");        
+        listings.put("9.6",
+            "/ufo/select?q=fire+cluster+clouds+thunder&df=nearby_objects_en&wt=xml&hl=true&hl.snippets=2");
+        listings.put("9.7",
+            "/ufo/select?q=blue+fireball+in+the+rain&df=sighting_en&wt=xml&hl=true&hl.snippets=2&hl.useFastVectorHighlighter=true");    
     }
 
     @Override
