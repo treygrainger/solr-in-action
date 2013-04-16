@@ -6,9 +6,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.URL;
+import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -239,6 +241,21 @@ public class ExampleDriver {
         return OptionBuilder.hasArg().isRequired((defaultValue == null)).withDescription(shortDescription)
             .create(argName);
     }
+    
+    public static final String getMD5Hash(final String msg) {
+        try {
+            MessageDigest md5 = MessageDigest.getInstance("MD5");
+            md5.reset();
+            byte[] aby = md5.digest(msg.getBytes("UTF-8"));            
+            StringBuffer sb = new StringBuffer(32);
+            for (int i = 0; i < aby.length; ++i) {
+                sb.append(Integer.toHexString((aby[i] & 0xFF) | 0x100).substring(1,3));
+            }
+            return sb.toString();
+        } catch (Exception exc) {
+            throw new RuntimeException(exc);
+        }
+    }    
 
     protected CommandLine cli;
     protected Example example;
@@ -360,6 +377,24 @@ public class ExampleDriver {
         rememberCloseable(writer);
         return writer;
     }
+    
+    /**
+     * Opens a reader for a file specified on the command-line.
+     * @param arg
+     * @return
+     * @throws IOException
+     */
+    public InputStreamReader readFile(String arg) throws IOException {
+        String path = cli.getOptionValue(arg);
+        File file = new File(path);
+        if (!file.isFile())
+            throw new IllegalArgumentException("Required file '"+
+               file.getAbsolutePath()+"' supplied by arg '"+arg+"' not found!");
+        
+        InputStreamReader reader = new InputStreamReader(new FileInputStream(file), "UTF-8");
+        rememberCloseable(reader);
+        return reader;
+    }
 
     /**
      * Format and log an informational message using varargs.
@@ -370,7 +405,7 @@ public class ExampleDriver {
     public void out(String msg, Object... args) {
         log.info(String.format(msg, args));
     }
-
+    
     /**
      * Utility method for scanning JARs on the classpath for example classes.
      */
