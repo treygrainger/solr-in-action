@@ -21,7 +21,7 @@
                         </goals>
                         <configuration>
                             <finalName>sia-examples</finalName>
-                            <appendAssemblyId>false</appendAssemblyId>                        
+                            <appendAssemblyId>false</appendAssemblyId>
                             <descriptorRefs>
                                 <descriptorRef>jar-with-dependencies</descriptorRef>
                             </descriptorRefs>
@@ -40,12 +40,17 @@
         <dependency>
             <groupId>org.apache.solr</groupId>
             <artifactId>solr-core</artifactId>
-            <version>4.0.0</version>
+            <version>4.1.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.solr</groupId>
             <artifactId>solr-solrj</artifactId>
-            <version>4.0.0</version>
+            <version>4.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.solr</groupId>
+            <artifactId>solr-langid</artifactId>
+            <version>4.1.0</version>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
