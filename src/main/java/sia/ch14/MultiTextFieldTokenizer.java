@@ -47,7 +47,7 @@ public class MultiTextFieldTokenizer extends Tokenizer {
 		super(input);
 		this.indexSchema = indexSchema;
 		this.fieldName = fieldName;
-		this.settings = settings;;
+		this.settings = settings;
 		this.lastInput = input;
 		init();		
 	}
@@ -174,7 +174,7 @@ public class MultiTextFieldTokenizer extends Tokenizer {
 	}
 	
          
-	protected SortedMap<Integer, LinkedList<Token>> createPositionsToTokensMap(LinkedHashMap<String, Analyzer> namedAnalyzers, String text) throws IOException{
+	private SortedMap<Integer, LinkedList<Token>> createPositionsToTokensMap(LinkedHashMap<String, Analyzer> namedAnalyzers, String text) throws IOException{
 
 		// Maps Position in document (PositionIncrement) to List of tokens at that position
 		// this allows similarly tokenized token streams to store identical tokens at the same
@@ -246,7 +246,7 @@ public class MultiTextFieldTokenizer extends Tokenizer {
 		
 	}
 	
-	public static String convertReaderToString(Reader reader){
+	private static String convertReaderToString(Reader reader){
 		try {
             StringBuilder readInto = new StringBuilder();
             CharBuffer buffer = CharBuffer.allocate(100);
@@ -265,7 +265,7 @@ public class MultiTextFieldTokenizer extends Tokenizer {
      * Convert the mapping{position, terms} to a list of tokens 
      * with appropriate position increments.
      */
-	public static LinkedList<Token> mergeToSingleTokenStream(SortedMap<Integer, LinkedList<Token>> tokenHash) {
+	private static LinkedList<Token> mergeToSingleTokenStream(SortedMap<Integer, LinkedList<Token>> tokenHash) {
     	
     	LinkedList<Token> result = new LinkedList<Token>();
         

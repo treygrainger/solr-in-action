@@ -23,27 +23,28 @@ public class MultiTextField extends TextField  {
 	private final static String IGNORE_INVALID_MAPPINGS = "ignoreMissingMappings";
 	private final static String KEY_FROM_TEXT_DELIMITER = "keyFromTextDelimiter";
 	private final static String MULTI_KEY_DELIMITER = "multiKeyDelimiter";
+	private final static String REMOVE_DUPLICATES = "removeDuplicates";
 	
 	@Override
 	protected void init(IndexSchema schema, Map<String,String> args) {
 		super.init(schema, args);
 		
-		MultiTextFieldSettings indexSettings = new MultiTextFieldSettings();
-		indexSettings.analyzerMode = AnalyzerModes.index;
-		MultiTextFieldSettings querySettings = new MultiTextFieldSettings();
-		querySettings.analyzerMode = AnalyzerModes.query;
-		MultiTextFieldSettings multiTermSettings = new MultiTextFieldSettings();
-		multiTermSettings.analyzerMode = AnalyzerModes.multiTerm;
+		//defaults
+		char keyFromTextDelimiter = '|';
+		char multiKeyDelimiter = ',';
+		String defaultFieldTypeName = "";
+		HashMap<String, String> fieldMappings = null;
+		boolean ignoreMissingMappings = false;
+		boolean removeDuplicates = true;
+		
 		
 		if (args.containsKey(KEY_FROM_TEXT_DELIMITER)){
-			String keyFromTextDelimiter = args.get(KEY_FROM_TEXT_DELIMITER);
-			if (keyFromTextDelimiter.length() == 1){			
-				indexSettings.keyFromTextDelimiter = keyFromTextDelimiter.charAt(0);
-				querySettings.keyFromTextDelimiter = indexSettings.keyFromTextDelimiter;
-				indexSettings.keyFromTextDelimiter = indexSettings.keyFromTextDelimiter;
+			String delimiter = args.get(KEY_FROM_TEXT_DELIMITER);
+			if (delimiter.length() == 1){			
+				keyFromTextDelimiter = delimiter.charAt(0);
 			}
 			else{
-				if (keyFromTextDelimiter.length() > 1){
+				if (delimiter.length() > 1){
 					throw new SolrException(SolrException.ErrorCode.SERVER_ERROR, "Schema configuration"
 							+ " error for " + this.getClass().getSimpleName() + "."
 							+ "Attribute 'keyFromTextDelimiter' must be a single character.");
@@ -53,14 +54,12 @@ public class MultiTextField extends TextField  {
 		}
 		
 		if (args.containsKey(MULTI_KEY_DELIMITER)){
-			String multiKeyDelimiter = args.get(MULTI_KEY_DELIMITER);
-			if (multiKeyDelimiter.length() == 1){			
-				indexSettings.multiKeyDelimiter = multiKeyDelimiter.charAt(0);
-				querySettings.multiKeyDelimiter = indexSettings.multiKeyDelimiter;
-				indexSettings.multiKeyDelimiter = indexSettings.multiKeyDelimiter;
+			String delimiter = args.get(MULTI_KEY_DELIMITER);
+			if (delimiter.length() == 1){			
+				multiKeyDelimiter = delimiter.charAt(0);
 			}
 			else{
-				if (multiKeyDelimiter.length() > 1){
+				if (delimiter.length() > 1){
 					throw new SolrException(SolrException.ErrorCode.SERVER_ERROR, "Schema configuration"
 							+ " error for " + this.getClass().getSimpleName() + "."
 							+ "Attribute 'multiKeyDelimiter' must be a single character.");
@@ -69,13 +68,9 @@ public class MultiTextField extends TextField  {
 			args.remove(MULTI_KEY_DELIMITER);
 		}
 		
-
-		
 		if (args.containsKey(DEFAULT_FIELDTYPE)){
 			if (schema.getFieldTypes().containsKey(args.get(DEFAULT_FIELDTYPE))){
-				indexSettings.defaultFieldTypeName = args.get(DEFAULT_FIELDTYPE);
-				querySettings.defaultFieldTypeName = indexSettings.defaultFieldTypeName;
-				multiTermSettings.defaultFieldTypeName = indexSettings.defaultFieldTypeName;
+				defaultFieldTypeName = args.get(DEFAULT_FIELDTYPE);
 			}
 			else {
 				throw new SolrException(SolrException.ErrorCode.SERVER_ERROR, "Invalid defaultFieldType defined in " 
@@ -123,21 +118,35 @@ public class MultiTextField extends TextField  {
 						
 				}
 				
-				indexSettings.fieldMappings = possibleFieldMappings;
-				querySettings.fieldMappings = indexSettings.fieldMappings;
-				multiTermSettings.fieldMappings = indexSettings.fieldMappings;
+				fieldMappings = possibleFieldMappings;
 			}
 			args.remove(FIELD_MAPPINGS);
 		}
 		
 		if (args.containsKey(IGNORE_INVALID_MAPPINGS)){
-			boolean ignoreMissingMappings = Boolean.parseBoolean(args.get(IGNORE_INVALID_MAPPINGS));
-			indexSettings.ignoreMissingMappings = ignoreMissingMappings;
-			querySettings.ignoreMissingMappings = indexSettings.ignoreMissingMappings;
-			multiTermSettings.ignoreMissingMappings = indexSettings.ignoreMissingMappings;	
-			
+			ignoreMissingMappings = Boolean.parseBoolean(args.get(IGNORE_INVALID_MAPPINGS));	
 			args.remove(IGNORE_INVALID_MAPPINGS);
 		}
+		
+		if (args.containsKey(REMOVE_DUPLICATES)){
+			removeDuplicates = Boolean.parseBoolean(args.get(REMOVE_DUPLICATES));	
+			args.remove(REMOVE_DUPLICATES);
+		}
+		
+		MultiTextFieldSettings indexSettings = new MultiTextFieldSettings(
+			AnalyzerModes.index, keyFromTextDelimiter, multiKeyDelimiter, 
+			defaultFieldTypeName, fieldMappings, ignoreMissingMappings, removeDuplicates
+		);
+		
+		MultiTextFieldSettings querySettings = new MultiTextFieldSettings(
+				AnalyzerModes.query, keyFromTextDelimiter, multiKeyDelimiter, 
+				defaultFieldTypeName, fieldMappings, ignoreMissingMappings, removeDuplicates
+			);
+		
+		MultiTextFieldSettings multiTermSettings = new MultiTextFieldSettings(
+				AnalyzerModes.multiTerm, keyFromTextDelimiter, multiKeyDelimiter, 
+				defaultFieldTypeName, fieldMappings, ignoreMissingMappings, removeDuplicates
+			);
 
 		MultiTextFieldAnalyzer indexAnalyzer = new MultiTextFieldAnalyzer(schema, indexSettings);
 		MultiTextFieldAnalyzer queryAnalyzer = new MultiTextFieldAnalyzer(schema, querySettings);

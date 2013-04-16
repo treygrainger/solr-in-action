@@ -45,9 +45,19 @@ class MultiTextFieldInput{
 
 		String textAfterDelimiter = afterDelimiter.toString();
 		String textBeforeDelimiter = beforeDelimiter.toString();
-		
+				
 		if (delimiterWasHit){
 			this.StrippedIncomingPrefixLength = (textBeforeDelimiter + this.multiKeyDelimiter).length();	
+		
+			//special case: if prefix is wrapped in [ ], this means the prefix does not exist
+			//in the stored version of this field.  As such, we should adjust the position offsets.
+			//i.e. [en,es|]hablo spanish.  In this case, the en,es| were added inside solr by language
+			//detection or were stripped out before the stored values were saved
+			if ( textBeforeDelimiter.startsWith("[") && textAfterDelimiter.startsWith("]") ){
+				this.StrippedIncomingPrefixLength = 0;
+				textBeforeDelimiter = textBeforeDelimiter.substring(1);
+				textAfterDelimiter = textAfterDelimiter.substring(1);
+			}
 			
 			String[] multiKeysArray = textBeforeDelimiter.split(String.valueOf(this.multiKeyDelimiter));
 			String currentKey;
