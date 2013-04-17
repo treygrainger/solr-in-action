@@ -6,7 +6,7 @@
     </field>
 </doc>
 <doc>
-    <field name="id ">2</field>
+    <field name="id">2</field>
     <field name="title">Les Misérables</field>
     <field name="content_french">Nul n'aurait pu le dire; tout ce qu'on savait, c'est que, lorsqu'il revint d'Italie, il était prêtre.
     </field>
@@ -24,8 +24,7 @@
     </field>
     <field name="content_english">Do not forsake wisdom, and she will protect you; love her, and she will watch over you. Wisdom is supreme; therefore get wisdom. Though it cost all you have, get understanding.
     </field>
-    <field name="content_french">N'abandonne pas la sagesse, et elle te gardera, aime-la, et elle te protégera. Voici le début de la sagesse:
-                acquiers la sagesse, procure-toi le discernement au prix de tout ce que tu possèdes.
+    <field name="content_french">N'abandonne pas la sagesse, et elle te gardera, aime-la, et elle te protégera. Voici le début de la sagesse: acquiers la sagesse, procure-toi le discernement au prix de tout ce que tu possèdes.
     </field>
 </doc>
 </add>

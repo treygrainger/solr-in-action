@@ -2,8 +2,8 @@
   <doc>
     <field name="id">1</field>
     <field name="title">The Adventures of Huckelberry Finn</field>
-    <field name=”content”> YOU don't know about me without you have read a book by the name of The Adventures of Tom Sawyer; but that ain't no matter.  That book was made by Mr. Mark Twain, and he told the truth, mainly.  There was things which he stretched, but mainly he told the truth.
-    <field>
+    <field name="content"> YOU don't know about me without you have read a book by the name of The Adventures of Tom Sawyer; but that ain't no matter.  That book was made by Mr. Mark Twain, and he told the truth, mainly.  There was things which he stretched, but mainly he told the truth.
+    </field>
   </doc>
   <doc>
     <field name="id">2</field>
@@ -20,7 +20,11 @@
   <doc>
     <field name="id">4</field>
     <field name="title">Proverbs</field>
-    <field name="content"> No la abandones y ella velará sobre ti, ámala y ella te protegerá. Lo principal es la sabiduría; adquiere sabiduría, y con todo lo que obtengas adquiere inteligencia ... Do not forsake wisdom, and she will protect you; love her, and she will watch over you. Wisdom is supreme; therefore get wisdom. Though it cost all you have, get understanding ... N'abandonne pas la sagesse, et elle te gardera, aime-la, et elle te protégera. Voici le début de la sagesse: acquiers la sagesse, procure-toi le discernement au prix de tout ce que tu possèdes.
-    <field>
+    <field name="content_lang1">No la abandones y ella velará sobre ti, ámala y ella te protegerá. Lo principal es la sabiduría; adquiere sabiduría, y con todo lo que obtengas adquiere inteligencia
+    </field>
+    <field name="content_lang2">Do not forsake wisdom, and she will protect you; love her, and she will watch over you. Wisdom is supreme; therefore get wisdom. Though it cost all you have, get understanding
+    </field>
+    <field name="content_lang3">N'abandonne pas la sagesse, et elle te gardera, aime-la, et elle te protégera. Voici le début de la sagesse: acquiers la sagesse, procure-toi le discernement au prix de tout ce que tu possèdes.
+    </field>
   </doc>
 </add>

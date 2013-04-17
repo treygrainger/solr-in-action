@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <schema name="example" version="1.5">
   <types>
-      <fieldType name="string" class="solr.StrField" sortMissingLast="true" />
-      <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
-
-      
       <fieldType name="text_english" class="solr.TextField" positionIncrementGap="100">
           <analyzer>
               <tokenizer class="solr.StandardTokenizerFactory"/>
@@ -39,26 +35,22 @@
               <filter class="solr.FrenchLightStemFilterFactory"/>
           </analyzer>
       </fieldType>
+      
+      <fieldType name="string" class="solr.StrField" sortMissingLast="true" />
+      <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
+
   </types>
 
   <fields>
     <field name="id" type="string" indexed="true" stored="true" />
     <field name="_version_" type="long" indexed="true" stored="true"/>
-    <field name="text" type="string" indexed="true" stored="false" multiValued="true"/>
       
     <field name="title" type="string" indexed="true" stored="true" />
-    <field name="content" type="string" indexed="false" stored="false" />
-    <field name="content_lang1" type="string" indexed="false" stored="false" />
-    <field name="content_lang2" type="string" indexed="false" stored="false" />
-    <field name="content_lang3" type="string" indexed="false" stored="false" />
-    <field name="language"  type="string"  indexed="true"  stored="true" />
-    <field name="languages" type="string"  indexed="true"  stored="true" multiValued="true"/>
-    <dynamicField name="*_english"  type="text_english" indexed="true"  stored="true" multiValued="true"/>
-    <dynamicField name="*_spanish"  type="text_spanish" indexed="true"  stored="true" multiValued="true"/>
-    <dynamicField name="*_french"  type="text_french" indexed="true"  stored="true" multiValued="true"/>
+    <field name="content_english" type="text_english" indexed="true" stored="true" />
+    <field name="content_spanish" type="text_spanish" indexed="true" stored="true" />
+    <field name="content_french" type="text_french" indexed="true" stored="true" />
   </fields>
 
   <uniqueKey>id</uniqueKey>
-  <defaultSearchField>text</defaultSearchField>
 
 </schema>

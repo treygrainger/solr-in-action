@@ -47,13 +47,16 @@
       </fieldType>
       
       <fieldType name="string" class="solr.StrField" sortMissingLast="true" />
+      <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
   </types>
 
   <fields>
     <field name="id" type="string" indexed="true" stored="true" />
     <field name="_version_" type="long" indexed="true" stored="true"/>
+    <field name="text" type="string" indexed="true" stored="false" multiValued="true"/>
   </fields>
 
   <uniqueKey>id</uniqueKey>
+  <defaultSearchField>text</defaultSearchField>
 
 </schema>

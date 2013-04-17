@@ -11,12 +11,11 @@
     <updateRequestProcessorChain name="langid">
         <processor class="org.apache.solr.update.processor.LangDetectLanguageIdentifierUpdateProcessorFactory" name="langid">
             <lst name="invariants">
-                <str name="langid.fl">title,content,content_lang1,content_lang2,content_lang3</str>
+                <str name="langid.fl">title,content</str>
                 <str name="langid.langField">language</str>
-                <str name="langid.langsField">languages</str>
-                <str name="langid.map.individual">true</str>
+                <str name="langid.langField">languages</str>
                 <str name="langid.map">true</str>
-                <str name="langid.map.fl">content,content_lang1,content_lang2,content_lang3</str>
+                <str name="langid.map.fl">content</str>
                 <str name="langid.whitelist">en,es,fr</str>
                 <str name="langid.map.lcmap">en:english, es:spanish, fr:french</str>
                 <str name="langid.fallback">en</str>
