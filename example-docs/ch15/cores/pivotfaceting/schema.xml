@@ -4,12 +4,21 @@
       <fieldType name="string" class="solr.StrField" sortMissingLast="true" />
       <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
       <fieldType name="integer" class="solr.TrieIntField" precisionStep="0" positionIncrementGap="0"/>
+      <fieldType name="text" class="solr.TextField" positionIncrementGap="100">
+          <analyzer>
+              <tokenizer class="solr.StandardTokenizerFactory"/>
+              <filter class="solr.LowerCaseFilterFactory"/>
+              <filter class="solr.EnglishPossessiveFilterFactory"/>
+              <filter class="solr.KStemFilterFactory"/>
+          </analyzer>
+      </fieldType>
 
   </types>
 
   <fields>
     <field name="id" type="string" indexed="true" stored="true" />
     <field name="_version_" type="long" indexed="true" stored="true"/>
+    <field name="text" type="string" indexed="true" stored="false" multiValued="true"/>
     <field name="name" type="string" indexed="true" stored="true" />
     <field name="city" type="string" indexed="true" stored="true" />
     <field name="state" type="string" indexed="true" stored="true" />
@@ -17,6 +26,6 @@
   </fields>
 
   <uniqueKey>id</uniqueKey>
-  <defaultSearchField>name</defaultSearchField>
+  <defaultSearchField>text</defaultSearchField>
 
 </schema>

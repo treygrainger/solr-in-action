@@ -16,9 +16,7 @@
       <fieldType name="tdouble" class="solr.TrieDoubleField" omitNorms="true"/>
       
       <fieldType name="location" class="solr.LatLonType" subFieldSuffix="_coordinate" />
-      <dynamicField name="*_coordinate" type="tdouble" indexed="true" stored="false" />
-      
-      <fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType" spatialContextFactory= "com.spatial4j.core.context.jts.JtsSpatialContextFactory" distErrPct="0.025" maxDistErr="0.000009" units="degrees" />
+      <fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType" distErrPct="0.025" maxDistErr="0.000009" units="degrees" />
 
   </types>
 
@@ -28,7 +26,8 @@
     <field name="text" type="string" indexed="true" stored="false" multiValued="true"/>
       
     <field name="city" type="string" indexed="true" stored="true" />
-    <field name="location" type="latlong" indexed="true" stored="true" multiValued="true" />      
+    <field name="location" type="location" indexed="true" stored="true" multiValued="true" />
+    <dynamicField name="*_coordinate" type="tdouble" indexed="true" stored="false" />
     <field name="geo" type="location_rpt" indexed="true" stored="true" multiValued="true" />
       
       

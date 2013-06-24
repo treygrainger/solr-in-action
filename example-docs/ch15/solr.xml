@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <solr persistent="false" sharedLib="cores/lib">
-  <cores adminPath="/admin/cores" defaultCoreName="aggregator">      
+  <cores adminPath="/admin/cores">      
     <core name="geospatial" instanceDir="shared" dataDir="../cores/geospatial/data" schema="../../cores/geospatial/schema.xml" />
     <core name="pivotfaceting" instanceDir="shared" dataDir="../cores/pivotfaceting/data" schema="../../cores/pivotfaceting/schema.xml" />
+    <core name="customfunction" instanceDir="shared" dataDir="../cores/customfunction/data" config="../../cores/customfunction/solrconfig.xml" />
   </cores>
 </solr>
