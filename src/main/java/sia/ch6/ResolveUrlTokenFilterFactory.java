@@ -11,12 +11,15 @@ public class ResolveUrlTokenFilterFactory extends TokenFilterFactory {
     
     protected Pattern patternToMatchShortenedUrls;
     
-    @Override
-    public void init(Map<String,String> args) {
-        super.init(args);
-        assureMatchVersion();        
-        patternToMatchShortenedUrls = Pattern.compile(args.get("shortenedUrlPattern"));
-    }    
+    public ResolveUrlTokenFilterFactory(Map<String,String> args) {
+        super(args);
+        assureMatchVersion();
+        String shortenedUrlPattern = get(args, "shortenedUrlPattern");
+        patternToMatchShortenedUrls = Pattern.compile(args.get("shortenedUrlPath"));
+        if (!args.isEmpty()) {
+            throw new IllegalArgumentException("Unknown parameters: " + args);
+        }
+    }
     
     @Override
     public TokenFilter create(TokenStream input) {
