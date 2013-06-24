@@ -12,7 +12,7 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.log4j.Logger;
-import org.apache.noggit.ObjectBuilder;
+import org.noggit.ObjectBuilder;
 import org.apache.solr.client.solrj.SolrServer;
 import org.apache.solr.client.solrj.impl.ConcurrentUpdateSolrServer;
 import org.apache.solr.common.SolrInputDocument;
