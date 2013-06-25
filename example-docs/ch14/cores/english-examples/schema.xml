@@ -53,8 +53,10 @@
   <fields>
     <field name="id" type="string" indexed="true" stored="true" />
     <field name="_version_" type="long" indexed="true" stored="true"/>
+    <field name="text" type="string" indexed="true" stored="false" multiValued="true"/>
   </fields>
 
   <uniqueKey>id</uniqueKey>
+  <defaultSearchField>text</defaultSearchField>
 
 </schema>
