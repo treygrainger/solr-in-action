@@ -13,12 +13,10 @@ public class ResolveUrlTokenFilterFactory extends TokenFilterFactory {
     
     public ResolveUrlTokenFilterFactory(Map<String,String> args) {
         super(args);
+        
         assureMatchVersion();
-        String shortenedUrlPattern = get(args, "shortenedUrlPattern");
-        patternToMatchShortenedUrls = Pattern.compile(args.get("shortenedUrlPath"));
-        if (!args.isEmpty()) {
-            throw new IllegalArgumentException("Unknown parameters: " + args);
-        }
+        String shortenedUrlPattern = require(args, "shortenedUrlPattern");        
+        patternToMatchShortenedUrls = Pattern.compile(shortenedUrlPattern);
     }
     
     @Override
