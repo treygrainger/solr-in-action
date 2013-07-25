@@ -14,6 +14,7 @@ import sia.ExampleDriver;
 
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -119,7 +120,14 @@ public class BackupDriver extends ExampleDriver.SolrJClientExample {
         }
         log.info("Found leaders for "+leaders.size()+" shards");
 
-        Date now = (restartDate != null) ? DATE_FMT.parse(restartDate) : new Date();
+        Date now = null;
+        if (restartDate != null) {
+            now = DATE_FMT.parse(restartDate);
+        } else {
+            Calendar rightNow = Calendar.getInstance();
+            rightNow.set(Calendar.MILLISECOND, 0); // zero out millis for local backups of small indexes
+            now = rightNow.getTime();
+        }
         log.info("NOW: "+DATE_FMT.format(now)+" <-- Useful if you need to restart with -restartDate param");
 
         Map<String,ShardBackupState> leaderClients = new HashMap<String,ShardBackupState>();
@@ -130,8 +138,8 @@ public class BackupDriver extends ExampleDriver.SolrJClientExample {
                 HttpClient httpClient = solr.getHttpClient();
                 log.info("Sending backup request to "+shard+" leader at: "+leaderUrl);
 
-                String getUrl = String.format("%sreplication?command=backup&location=%s",
-                        leaderUrl, URLEncoder.encode(backupLocation,"UTF-8"));
+                String getUrl = String.format("%sreplication?command=backup&location=%s/%s",
+                        leaderUrl, URLEncoder.encode(backupLocation,"UTF-8"), shard);
                 driver.sendRequest(httpClient, getUrl);
                 Thread.sleep(1000L); // slight delay between requests
             }
@@ -215,7 +223,11 @@ public class BackupDriver extends ExampleDriver.SolrJClientExample {
         Date completedAt = null;
         NamedList<Object> backup = (NamedList<Object>)details.get("backup");
         if (backup != null) {
-            completedAt = (backup.get("snapshotCompletedAt") != null) ? new Date((String)backup.get("snapshotCompletedAt")) : null;
+            String snapshotCompletedAt = (String)backup.get("snapshotCompletedAt");
+            if (snapshotCompletedAt != null) {
+                log.info("Replication details for "+getUrl+" returned snapshotCompletedAt: "+snapshotCompletedAt);
+                completedAt = new Date(snapshotCompletedAt);
+            }
         }
 
         return completedAt;
