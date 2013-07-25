@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.cybozu.labs:langdetect:1.1-20120112">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/cybozu/labs/langdetect/1.1-20120112/langdetect-1.1-20120112.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/cybozu/labs/langdetect/1.1-20120112/langdetect-1.1-20120112-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/cybozu/labs/langdetect/1.1-20120112/langdetect-1.1-20120112-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

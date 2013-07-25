@@ -1,14 +1,6 @@
 package sia;
 
-import java.io.ByteArrayOutputStream;
-import java.io.Closeable;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.Writer;
+import java.io.*;
 import java.net.URL;
 import java.security.MessageDigest;
 import java.util.ArrayList;
@@ -28,7 +20,13 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.log4j.Logger;
+import org.apache.solr.client.solrj.impl.XMLResponseParser;
+import org.apache.solr.common.util.NamedList;
 
 /**
  * Serves as a common framework for running Solr in Action examples.
@@ -150,27 +148,32 @@ public class ExampleDriver {
                     if (chapter != null) {
                         // extract the number value from the chapter filter
                         // and from the class package part
-                        String classNum =
-                            extractNumPart(shortClassName.substring(0,shortClassName.indexOf(".")));
-                        String argNum = extractNumPart(chapter);
-                        if (argNum != null && !argNum.equals(classNum)) {
+                        int dotAt = shortClassName.indexOf(".");
+                        if (dotAt != -1) {
+                            String classNum =
+                                    extractNumPart(shortClassName.substring(0,dotAt));
+                            String argNum = extractNumPart(chapter);
+                            if (argNum != null && !argNum.equals(classNum)) {
+                                continue;
+                            }
+                        } else {
                             continue;
                         }
                     }
 
                     System.out.println(String.format("\t%s:\n\t\t%s\n",
                         shortClassName, example.getDescription()));
-                    
+
                     ++numExamplesFound;
                 } catch (Exception e) {
                     // probably never happens
                     e.printStackTrace();
                 }
             }
-            
+
             if (numExamplesFound == 0 && chapter != null) {
                 System.out.println("\n\tWARNING: No examples found for chapter: "+extractNumPart(chapter)+"\n\n");
-            }            
+            }
         }
         System.exit(exitCode);
     }
@@ -241,12 +244,12 @@ public class ExampleDriver {
         return OptionBuilder.hasArg().isRequired((defaultValue == null)).withDescription(shortDescription)
             .create(argName);
     }
-    
+
     public static final String getMD5Hash(final String msg) {
         try {
             MessageDigest md5 = MessageDigest.getInstance("MD5");
             md5.reset();
-            byte[] aby = md5.digest(msg.getBytes("UTF-8"));            
+            byte[] aby = md5.digest(msg.getBytes("UTF-8"));
             StringBuffer sb = new StringBuffer(32);
             for (int i = 0; i < aby.length; ++i) {
                 sb.append(Integer.toHexString((aby[i] & 0xFF) | 0x100).substring(1,3));
@@ -255,7 +258,7 @@ public class ExampleDriver {
         } catch (Exception exc) {
             throw new RuntimeException(exc);
         }
-    }    
+    }
 
     protected CommandLine cli;
     protected Example example;
@@ -377,7 +380,7 @@ public class ExampleDriver {
         rememberCloseable(writer);
         return writer;
     }
-    
+
     /**
      * Opens a reader for a file specified on the command-line.
      * @param arg
@@ -390,7 +393,7 @@ public class ExampleDriver {
         if (!file.isFile())
             throw new IllegalArgumentException("Required file '"+
                file.getAbsolutePath()+"' supplied by arg '"+arg+"' not found!");
-        
+
         InputStreamReader reader = new InputStreamReader(new FileInputStream(file), "UTF-8");
         rememberCloseable(reader);
         return reader;
@@ -405,7 +408,7 @@ public class ExampleDriver {
     public void out(String msg, Object... args) {
         log.info(String.format(msg, args));
     }
-    
+
     /**
      * Utility method for scanning JARs on the classpath for example classes.
      */
@@ -452,5 +455,59 @@ public class ExampleDriver {
             }
         }
         return classes;
+    }
+
+    /**
+     * Send HTTP GET request to Solr.
+     */
+    public NamedList<Object> sendRequest(HttpClient httpClient, String getUrl) throws Exception {
+        NamedList<Object> solrResp = null;
+
+        // Prepare a request object
+        HttpGet httpget = new HttpGet(getUrl);
+
+        // Execute the request
+        HttpResponse response = httpClient.execute(httpget);
+
+        // Get hold of the response entity
+        HttpEntity entity = response.getEntity();
+        if (response.getStatusLine().getStatusCode() != 200) {
+            StringBuilder body = new StringBuilder();
+            if (entity != null) {
+                InputStream instream = entity.getContent();
+                String line;
+                try {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(instream));
+                    while ((line = reader.readLine()) != null) {
+                        body.append(line);
+                    }
+                } catch (Exception ignore) {
+                    // squelch it - just trying to compose an error message here
+                } finally {
+                    instream.close();
+                }
+            }
+            throw new Exception("GET request ["+getUrl+"] failed due to: "+response.getStatusLine()+": "+body);
+        }
+
+        // If the response does not enclose an entity, there is no need
+        // to worry about connection release
+        if (entity != null) {
+            InputStream instream = entity.getContent();
+            try {
+                solrResp = (new XMLResponseParser()).processResponse(instream, "UTF-8");
+            } catch (RuntimeException ex) {
+                // In case of an unexpected exception you may want to abort
+                // the HTTP request in order to shut down the underlying
+                // connection and release it back to the connection manager.
+                httpget.abort();
+                throw ex;
+            } finally {
+                // Closing the input stream will trigger connection release
+                instream.close();
+            }
+        }
+
+        return solrResp;
     }
 }

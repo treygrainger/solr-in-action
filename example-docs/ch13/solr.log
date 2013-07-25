@@ -1,0 +1,349 @@
+INFO  - 2013-07-16 10:09:09.331; org.eclipse.jetty.server.Server; jetty-8.1.8.v20121106
+INFO  - 2013-07-16 10:09:09.354; org.eclipse.jetty.deploy.providers.ScanningAppProvider; Deployment monitor /Users/thelabdude/dev/SolrInAction/solr-4.3.1/shard1/contexts at interval 0
+INFO  - 2013-07-16 10:09:09.362; org.eclipse.jetty.deploy.DeploymentManager; Deployable added: /Users/thelabdude/dev/SolrInAction/solr-4.3.1/shard1/contexts/solr-jetty-context.xml
+INFO  - 2013-07-16 10:09:10.033; org.eclipse.jetty.webapp.StandardDescriptorProcessor; NO JSP Support for /solr, did not find org.apache.jasper.servlet.JspServlet
+INFO  - 2013-07-16 10:09:10.067; org.eclipse.jetty.server.handler.ContextHandler; started o.e.j.w.WebAppContext{/solr,file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/shard1/solr-webapp/webapp/},/Users/thelabdude/dev/SolrInAction/solr-4.3.1/shard1/webapps/solr.war
+INFO  - 2013-07-16 10:09:10.067; org.eclipse.jetty.server.handler.ContextHandler; started o.e.j.w.WebAppContext{/solr,file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/shard1/solr-webapp/webapp/},/Users/thelabdude/dev/SolrInAction/solr-4.3.1/shard1/webapps/solr.war
+INFO  - 2013-07-16 10:09:10.080; org.apache.solr.servlet.SolrDispatchFilter; SolrDispatchFilter.init()
+INFO  - 2013-07-16 10:09:10.093; org.apache.solr.core.SolrResourceLoader; JNDI not configured for solr (NoInitialContextEx)
+INFO  - 2013-07-16 10:09:10.094; org.apache.solr.core.SolrResourceLoader; solr home defaulted to 'solr/' (could not find system property or JNDI)
+INFO  - 2013-07-16 10:09:10.102; org.apache.solr.core.CoreContainer$Initializer; looking for solr config file: /Users/thelabdude/dev/SolrInAction/solr-4.3.1/shard1/solr/solr.xml
+INFO  - 2013-07-16 10:09:10.104; org.apache.solr.core.CoreContainer; New CoreContainer 1567531625
+INFO  - 2013-07-16 10:09:10.105; org.apache.solr.core.CoreContainer; Loading CoreContainer using Solr Home: 'solr/'
+INFO  - 2013-07-16 10:09:10.105; org.apache.solr.core.SolrResourceLoader; new SolrResourceLoader for directory: 'solr/'
+INFO  - 2013-07-16 10:09:10.319; org.apache.solr.handler.component.HttpShardHandlerFactory; Setting socketTimeout to: 0
+INFO  - 2013-07-16 10:09:10.320; org.apache.solr.handler.component.HttpShardHandlerFactory; Setting urlScheme to: http://
+INFO  - 2013-07-16 10:09:10.320; org.apache.solr.handler.component.HttpShardHandlerFactory; Setting connTimeout to: 0
+INFO  - 2013-07-16 10:09:10.322; org.apache.solr.handler.component.HttpShardHandlerFactory; Setting maxConnectionsPerHost to: 20
+INFO  - 2013-07-16 10:09:10.322; org.apache.solr.handler.component.HttpShardHandlerFactory; Setting corePoolSize to: 0
+INFO  - 2013-07-16 10:09:10.322; org.apache.solr.handler.component.HttpShardHandlerFactory; Setting maximumPoolSize to: 2147483647
+INFO  - 2013-07-16 10:09:10.322; org.apache.solr.handler.component.HttpShardHandlerFactory; Setting maxThreadIdleTime to: 5
+INFO  - 2013-07-16 10:09:10.323; org.apache.solr.handler.component.HttpShardHandlerFactory; Setting sizeOfQueue to: -1
+INFO  - 2013-07-16 10:09:10.323; org.apache.solr.handler.component.HttpShardHandlerFactory; Setting fairnessPolicy to: false
+INFO  - 2013-07-16 10:09:10.328; org.apache.solr.client.solrj.impl.HttpClientUtil; Creating new http client, config:maxConnectionsPerHost=20&maxConnections=10000&socketTimeout=0&connTimeout=0&retry=false
+INFO  - 2013-07-16 10:09:10.475; org.apache.solr.core.CoreContainer; Registering Log Listener
+INFO  - 2013-07-16 10:09:10.483; org.apache.solr.cloud.SolrZkServer; STARTING EMBEDDED STANDALONE ZOOKEEPER SERVER at port 9983
+INFO  - 2013-07-16 10:09:10.984; org.apache.solr.core.CoreContainer; Zookeeper client=localhost:9983
+INFO  - 2013-07-16 10:09:10.990; org.apache.solr.client.solrj.impl.HttpClientUtil; Creating new http client, config:maxConnections=500&maxConnectionsPerHost=16&socketTimeout=0&connTimeout=0
+INFO  - 2013-07-16 10:09:11.023; org.apache.solr.common.cloud.ConnectionManager; Waiting for client to connect to ZooKeeper
+INFO  - 2013-07-16 10:09:11.053; org.apache.solr.common.cloud.ConnectionManager; Watcher org.apache.solr.common.cloud.ConnectionManager@7dbd9d76 name:ZooKeeperConnection Watcher:localhost:9983 got event WatchedEvent state:SyncConnected type:None path:null path:null type:None
+INFO  - 2013-07-16 10:09:11.054; org.apache.solr.common.cloud.ConnectionManager; Client is connected to ZooKeeper
+INFO  - 2013-07-16 10:09:11.066; org.apache.solr.common.cloud.SolrZkClient; makePath: /overseer/queue
+INFO  - 2013-07-16 10:09:11.074; org.apache.solr.common.cloud.SolrZkClient; makePath: /overseer/collection-queue-work
+INFO  - 2013-07-16 10:09:11.083; org.apache.solr.common.cloud.SolrZkClient; makePath: /live_nodes
+INFO  - 2013-07-16 10:09:11.086; org.apache.solr.cloud.ZkController; Register node as live in ZooKeeper:/live_nodes/10.0.1.7:8983_solr
+INFO  - 2013-07-16 10:09:11.088; org.apache.solr.common.cloud.SolrZkClient; makePath: /live_nodes/10.0.1.7:8983_solr
+INFO  - 2013-07-16 10:09:11.093; org.apache.solr.common.cloud.SolrZkClient; makePath: /collections
+INFO  - 2013-07-16 10:09:11.097; org.apache.solr.common.cloud.SolrZkClient; makePath: /overseer_elect/election
+INFO  - 2013-07-16 10:09:11.111; org.apache.solr.common.cloud.SolrZkClient; makePath: /overseer_elect/leader
+INFO  - 2013-07-16 10:09:11.115; org.apache.solr.cloud.Overseer; Overseer (id=90045870934589440-10.0.1.7:8983_solr-n_0000000000) starting
+INFO  - 2013-07-16 10:09:11.122; org.apache.solr.common.cloud.SolrZkClient; makePath: /overseer/queue-work
+INFO  - 2013-07-16 10:09:11.131; org.apache.solr.cloud.OverseerCollectionProcessor; Process current queue of collection creations
+INFO  - 2013-07-16 10:09:11.132; org.apache.solr.common.cloud.SolrZkClient; makePath: /clusterstate.json
+INFO  - 2013-07-16 10:09:11.137; org.apache.solr.common.cloud.SolrZkClient; makePath: /aliases.json
+INFO  - 2013-07-16 10:09:11.140; org.apache.solr.common.cloud.ZkStateReader; Updating cluster state from ZooKeeper... 
+INFO  - 2013-07-16 10:09:11.147; org.apache.solr.cloud.Overseer$ClusterStateUpdater; Starting to work on the main queue
+INFO  - 2013-07-16 10:09:11.151; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/admin-extra.html
+INFO  - 2013-07-16 10:09:11.158; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/admin-extra.menu-bottom.html
+INFO  - 2013-07-16 10:09:11.163; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/admin-extra.menu-top.html
+INFO  - 2013-07-16 10:09:11.168; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/currency.xml
+INFO  - 2013-07-16 10:09:11.173; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/elevate.xml
+INFO  - 2013-07-16 10:09:11.178; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/contractions_ca.txt
+INFO  - 2013-07-16 10:09:11.185; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/contractions_fr.txt
+INFO  - 2013-07-16 10:09:11.190; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/contractions_ga.txt
+INFO  - 2013-07-16 10:09:11.196; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/contractions_it.txt
+INFO  - 2013-07-16 10:09:11.202; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/hyphenations_ga.txt
+INFO  - 2013-07-16 10:09:11.208; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stemdict_nl.txt
+INFO  - 2013-07-16 10:09:11.213; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stoptags_ja.txt
+INFO  - 2013-07-16 10:09:11.219; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_ar.txt
+INFO  - 2013-07-16 10:09:11.224; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_bg.txt
+INFO  - 2013-07-16 10:09:11.231; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_ca.txt
+INFO  - 2013-07-16 10:09:11.236; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_cz.txt
+INFO  - 2013-07-16 10:09:11.241; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_da.txt
+INFO  - 2013-07-16 10:09:11.247; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_de.txt
+INFO  - 2013-07-16 10:09:11.252; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_el.txt
+INFO  - 2013-07-16 10:09:11.258; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_en.txt
+INFO  - 2013-07-16 10:09:11.263; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_es.txt
+INFO  - 2013-07-16 10:09:11.268; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_eu.txt
+INFO  - 2013-07-16 10:09:11.274; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_fa.txt
+INFO  - 2013-07-16 10:09:11.279; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_fi.txt
+INFO  - 2013-07-16 10:09:11.285; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_fr.txt
+INFO  - 2013-07-16 10:09:11.290; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_ga.txt
+INFO  - 2013-07-16 10:09:11.296; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_gl.txt
+INFO  - 2013-07-16 10:09:11.301; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_hi.txt
+INFO  - 2013-07-16 10:09:11.307; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_hu.txt
+INFO  - 2013-07-16 10:09:11.312; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_hy.txt
+INFO  - 2013-07-16 10:09:11.318; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_id.txt
+INFO  - 2013-07-16 10:09:11.323; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_it.txt
+INFO  - 2013-07-16 10:09:11.329; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_ja.txt
+INFO  - 2013-07-16 10:09:11.334; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_lv.txt
+INFO  - 2013-07-16 10:09:11.340; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_nl.txt
+INFO  - 2013-07-16 10:09:11.345; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_no.txt
+INFO  - 2013-07-16 10:09:11.350; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_pt.txt
+INFO  - 2013-07-16 10:09:11.356; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_ro.txt
+INFO  - 2013-07-16 10:09:11.361; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_ru.txt
+INFO  - 2013-07-16 10:09:11.366; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_sv.txt
+INFO  - 2013-07-16 10:09:11.371; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_th.txt
+INFO  - 2013-07-16 10:09:11.377; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/stopwords_tr.txt
+INFO  - 2013-07-16 10:09:11.382; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/lang/userdict_ja.txt
+INFO  - 2013-07-16 10:09:11.394; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/mapping-FoldToASCII.txt
+INFO  - 2013-07-16 10:09:11.400; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/mapping-ISOLatin1Accent.txt
+INFO  - 2013-07-16 10:09:11.405; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/protwords.txt
+INFO  - 2013-07-16 10:09:11.410; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/schema.xml
+INFO  - 2013-07-16 10:09:11.415; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/scripts.conf
+INFO  - 2013-07-16 10:09:11.420; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/solrconfig.xml
+INFO  - 2013-07-16 10:09:11.425; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/spellings.txt
+INFO  - 2013-07-16 10:09:11.429; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/stopwords.txt
+INFO  - 2013-07-16 10:09:11.433; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/synonyms.txt
+INFO  - 2013-07-16 10:09:11.438; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/update-script.js
+INFO  - 2013-07-16 10:09:11.442; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/browse.vm
+INFO  - 2013-07-16 10:09:11.448; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/cluster.vm
+INFO  - 2013-07-16 10:09:11.454; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/clusterResults.vm
+INFO  - 2013-07-16 10:09:11.458; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/debug.vm
+INFO  - 2013-07-16 10:09:11.464; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/did_you_mean.vm
+INFO  - 2013-07-16 10:09:11.469; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/facet_fields.vm
+INFO  - 2013-07-16 10:09:11.474; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/facet_pivot.vm
+INFO  - 2013-07-16 10:09:11.479; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/facet_queries.vm
+INFO  - 2013-07-16 10:09:11.484; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/facet_ranges.vm
+INFO  - 2013-07-16 10:09:11.488; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/facets.vm
+INFO  - 2013-07-16 10:09:11.494; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/footer.vm
+INFO  - 2013-07-16 10:09:11.499; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/head.vm
+INFO  - 2013-07-16 10:09:11.504; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/header.vm
+INFO  - 2013-07-16 10:09:11.509; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/hit.vm
+INFO  - 2013-07-16 10:09:11.514; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/hitGrouped.vm
+INFO  - 2013-07-16 10:09:11.519; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/join-doc.vm
+INFO  - 2013-07-16 10:09:11.524; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/jquery.autocomplete.css
+INFO  - 2013-07-16 10:09:11.529; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/jquery.autocomplete.js
+INFO  - 2013-07-16 10:09:11.534; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/layout.vm
+INFO  - 2013-07-16 10:09:11.539; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/main.css
+INFO  - 2013-07-16 10:09:11.545; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/product-doc.vm
+INFO  - 2013-07-16 10:09:11.551; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/query.vm
+INFO  - 2013-07-16 10:09:11.557; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/queryGroup.vm
+INFO  - 2013-07-16 10:09:11.562; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/querySpatial.vm
+INFO  - 2013-07-16 10:09:11.567; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/richtext-doc.vm
+INFO  - 2013-07-16 10:09:11.572; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/suggest.vm
+INFO  - 2013-07-16 10:09:11.577; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/tabs.vm
+INFO  - 2013-07-16 10:09:11.582; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/velocity/VM_global_library.vm
+INFO  - 2013-07-16 10:09:11.587; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/wdfftypes.txt
+INFO  - 2013-07-16 10:09:11.591; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/xslt/example.xsl
+INFO  - 2013-07-16 10:09:11.597; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/xslt/example_atom.xsl
+INFO  - 2013-07-16 10:09:11.602; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/xslt/example_rss.xsl
+INFO  - 2013-07-16 10:09:11.607; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/xslt/luke.xsl
+INFO  - 2013-07-16 10:09:11.612; org.apache.solr.common.cloud.SolrZkClient; makePath: /configs/logmill/xslt/updateXml.xsl
+INFO  - 2013-07-16 10:09:11.634; org.apache.solr.core.CoreContainer; Creating SolrCore 'logmill' using instanceDir: solr/logmill
+INFO  - 2013-07-16 10:09:11.634; org.apache.solr.cloud.ZkController; Check for collection zkNode:logmill
+INFO  - 2013-07-16 10:09:11.635; org.apache.solr.cloud.ZkController; Creating collection in ZooKeeper:logmill
+INFO  - 2013-07-16 10:09:11.636; org.apache.solr.cloud.ZkController; Setting config for collection:logmill to logmill
+INFO  - 2013-07-16 10:09:11.636; org.apache.solr.common.cloud.SolrZkClient; makePath: /collections/logmill
+INFO  - 2013-07-16 10:09:11.639; org.apache.solr.cloud.ZkController; Load collection config from:/collections/logmill
+INFO  - 2013-07-16 10:09:11.642; org.apache.solr.core.SolrResourceLoader; new SolrResourceLoader for directory: 'solr/logmill/'
+INFO  - 2013-07-16 10:09:11.689; org.apache.solr.core.SolrConfig; Adding specified lib dirs to ClassLoader
+INFO  - 2013-07-16 10:09:11.691; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/apache-mime4j-core-0.7.2.jar' to classloader
+INFO  - 2013-07-16 10:09:11.691; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/apache-mime4j-dom-0.7.2.jar' to classloader
+INFO  - 2013-07-16 10:09:11.691; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/bcmail-jdk15-1.45.jar' to classloader
+INFO  - 2013-07-16 10:09:11.692; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/bcprov-jdk15-1.45.jar' to classloader
+INFO  - 2013-07-16 10:09:11.692; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/boilerpipe-1.1.0.jar' to classloader
+INFO  - 2013-07-16 10:09:11.692; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/commons-compress-1.4.1.jar' to classloader
+INFO  - 2013-07-16 10:09:11.692; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/dom4j-1.6.1.jar' to classloader
+INFO  - 2013-07-16 10:09:11.692; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/fontbox-1.7.1.jar' to classloader
+INFO  - 2013-07-16 10:09:11.692; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/icu4j-49.1.jar' to classloader
+INFO  - 2013-07-16 10:09:11.693; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/isoparser-1.0-RC-1.jar' to classloader
+INFO  - 2013-07-16 10:09:11.693; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/jdom-1.0.jar' to classloader
+INFO  - 2013-07-16 10:09:11.693; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/jempbox-1.7.1.jar' to classloader
+INFO  - 2013-07-16 10:09:11.693; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/juniversalchardet-1.0.3.jar' to classloader
+INFO  - 2013-07-16 10:09:11.693; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/metadata-extractor-2.6.2.jar' to classloader
+INFO  - 2013-07-16 10:09:11.693; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/netcdf-4.2-min.jar' to classloader
+INFO  - 2013-07-16 10:09:11.694; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/pdfbox-1.7.1.jar' to classloader
+INFO  - 2013-07-16 10:09:11.694; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/poi-3.8.jar' to classloader
+INFO  - 2013-07-16 10:09:11.694; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/poi-ooxml-3.8.jar' to classloader
+INFO  - 2013-07-16 10:09:11.694; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/poi-ooxml-schemas-3.8.jar' to classloader
+INFO  - 2013-07-16 10:09:11.694; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/poi-scratchpad-3.8.jar' to classloader
+INFO  - 2013-07-16 10:09:11.694; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/rome-0.9.jar' to classloader
+INFO  - 2013-07-16 10:09:11.695; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/tagsoup-1.2.1.jar' to classloader
+INFO  - 2013-07-16 10:09:11.695; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/tika-core-1.3.jar' to classloader
+INFO  - 2013-07-16 10:09:11.695; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/tika-parsers-1.3.jar' to classloader
+INFO  - 2013-07-16 10:09:11.695; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/vorbis-java-core-0.1.jar' to classloader
+INFO  - 2013-07-16 10:09:11.695; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/vorbis-java-tika-0.1.jar' to classloader
+INFO  - 2013-07-16 10:09:11.695; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/xercesImpl-2.9.1.jar' to classloader
+INFO  - 2013-07-16 10:09:11.696; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/xmlbeans-2.3.0.jar' to classloader
+INFO  - 2013-07-16 10:09:11.696; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/extraction/lib/xz-1.0.jar' to classloader
+INFO  - 2013-07-16 10:09:11.696; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/dist/solr-cell-4.3.1.jar' to classloader
+INFO  - 2013-07-16 10:09:11.697; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/clustering/lib/attributes-binder-1.0.1.jar' to classloader
+INFO  - 2013-07-16 10:09:11.697; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/clustering/lib/carrot2-mini-3.6.2.jar' to classloader
+INFO  - 2013-07-16 10:09:11.697; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/clustering/lib/hppc-0.4.1.jar' to classloader
+INFO  - 2013-07-16 10:09:11.697; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/clustering/lib/jackson-core-asl-1.7.4.jar' to classloader
+INFO  - 2013-07-16 10:09:11.697; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/clustering/lib/jackson-mapper-asl-1.7.4.jar' to classloader
+INFO  - 2013-07-16 10:09:11.698; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/clustering/lib/mahout-collections-1.0.jar' to classloader
+INFO  - 2013-07-16 10:09:11.698; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/clustering/lib/mahout-math-0.6.jar' to classloader
+INFO  - 2013-07-16 10:09:11.698; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/clustering/lib/simple-xml-2.6.4.jar' to classloader
+INFO  - 2013-07-16 10:09:11.698; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/dist/solr-clustering-4.3.1.jar' to classloader
+INFO  - 2013-07-16 10:09:11.699; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/langid/lib/jsonic-1.2.7.jar' to classloader
+INFO  - 2013-07-16 10:09:11.699; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/langid/lib/langdetect-1.1-20120112.jar' to classloader
+INFO  - 2013-07-16 10:09:11.699; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/dist/solr-langid-4.3.1.jar' to classloader
+INFO  - 2013-07-16 10:09:11.700; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/velocity/lib/commons-beanutils-1.7.0.jar' to classloader
+INFO  - 2013-07-16 10:09:11.700; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/velocity/lib/commons-collections-3.2.1.jar' to classloader
+INFO  - 2013-07-16 10:09:11.700; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/velocity/lib/velocity-1.7.jar' to classloader
+INFO  - 2013-07-16 10:09:11.700; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/velocity/lib/velocity-tools-2.0.jar' to classloader
+INFO  - 2013-07-16 10:09:11.701; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/contrib/plugins/SolrInAction-1.0-SNAPSHOT.jar' to classloader
+INFO  - 2013-07-16 10:09:11.701; org.apache.solr.core.SolrResourceLoader; Adding 'file:/Users/thelabdude/dev/SolrInAction/solr-4.3.1/dist/solr-velocity-4.3.1.jar' to classloader
+WARN  - 2013-07-16 10:09:11.701; org.apache.solr.core.SolrResourceLoader; Can't find (or read) directory to add to classloader: /non/existent/dir/yields/warning (resolved as: /non/existent/dir/yields/warning).
+INFO  - 2013-07-16 10:09:11.804; org.apache.solr.core.SolrConfig; Using Lucene MatchVersion: LUCENE_43
+INFO  - 2013-07-16 10:09:11.886; org.apache.solr.core.SolrConfig; Loaded SolrConfig: solrconfig.xml
+INFO  - 2013-07-16 10:09:11.894; org.apache.solr.schema.IndexSchema; Reading Solr Schema from schema.xml
+INFO  - 2013-07-16 10:09:11.938; org.apache.solr.schema.IndexSchema; [logmill] Schema name=example
+INFO  - 2013-07-16 10:09:12.364; org.apache.solr.schema.IndexSchema; unique key field: id
+INFO  - 2013-07-16 10:09:12.448; org.apache.solr.schema.FileExchangeRateProvider; Reloading exchange rates from file currency.xml
+INFO  - 2013-07-16 10:09:12.456; org.apache.solr.schema.FileExchangeRateProvider; Reloading exchange rates from file currency.xml
+INFO  - 2013-07-16 10:09:12.611; org.apache.solr.core.SolrCore; solr.NRTCachingDirectoryFactory
+INFO  - 2013-07-16 10:09:12.616; org.apache.solr.core.SolrCore; [logmill] Opening new SolrCore at solr/logmill/, dataDir=/Users/thelabdude/dev/SolrInAction/solr-4.3.1/shard1/solr/logmill/data/
+INFO  - 2013-07-16 10:09:12.617; org.apache.solr.core.JmxMonitoredMap; JMX monitoring is enabled. Adding Solr mbeans to JMX Server: com.sun.jmx.mbeanserver.JmxMBeanServer@58ee21f5
+INFO  - 2013-07-16 10:09:12.634; org.apache.solr.core.SolrCore; [logmill] Added SolrEventListener for newSearcher: org.apache.solr.core.QuerySenderListener{queries=[]}
+INFO  - 2013-07-16 10:09:12.634; org.apache.solr.core.SolrCore; [logmill] Added SolrEventListener for firstSearcher: org.apache.solr.core.QuerySenderListener{queries=[{q=static firstSearcher warming in solrconfig.xml}]}
+INFO  - 2013-07-16 10:09:12.636; org.apache.solr.core.SolrCore; solr.NRTCachingDirectoryFactory
+INFO  - 2013-07-16 10:09:12.644; org.apache.solr.core.CachingDirectoryFactory; return new directory for /Users/thelabdude/dev/SolrInAction/solr-4.3.1/shard1/solr/logmill/data
+INFO  - 2013-07-16 10:09:12.644; org.apache.solr.core.SolrCore; New index directory detected: old=null new=/Users/thelabdude/dev/SolrInAction/solr-4.3.1/shard1/solr/logmill/data/index/
+WARN  - 2013-07-16 10:09:12.644; org.apache.solr.core.SolrCore; [logmill] Solr index directory '/Users/thelabdude/dev/SolrInAction/solr-4.3.1/shard1/solr/logmill/data/index' doesn't exist. Creating new index...
+INFO  - 2013-07-16 10:09:12.649; org.apache.solr.core.CachingDirectoryFactory; return new directory for /Users/thelabdude/dev/SolrInAction/solr-4.3.1/shard1/solr/logmill/data/index
+INFO  - 2013-07-16 10:09:12.688; org.apache.solr.core.SolrDeletionPolicy; SolrDeletionPolicy.onCommit: commits:num=1
+	commit{dir=NRTCachingDirectory(org.apache.lucene.store.NIOFSDirectory@/Users/thelabdude/dev/SolrInAction/solr-4.3.1/shard1/solr/logmill/data/index lockFactory=org.apache.lucene.store.NativeFSLockFactory@1f05562b; maxCacheMB=48.0 maxMergeSizeMB=4.0),segFN=segments_1,generation=1,filenames=[segments_1]
+INFO  - 2013-07-16 10:09:12.688; org.apache.solr.core.SolrDeletionPolicy; newest commit = 1[segments_1]
+INFO  - 2013-07-16 10:09:12.691; org.apache.solr.core.SolrCore; created json: solr.JSONResponseWriter
+INFO  - 2013-07-16 10:09:12.692; org.apache.solr.core.SolrCore; adding lazy queryResponseWriter: solr.VelocityResponseWriter
+INFO  - 2013-07-16 10:09:12.692; org.apache.solr.core.SolrCore; created velocity: solr.VelocityResponseWriter
+INFO  - 2013-07-16 10:09:12.695; org.apache.solr.core.SolrCore; created xslt: solr.XSLTResponseWriter
+INFO  - 2013-07-16 10:09:12.695; org.apache.solr.response.XSLTResponseWriter; xsltCacheLifetimeSeconds=5
+INFO  - 2013-07-16 10:09:12.766; org.apache.solr.core.RequestHandlers; created /select: solr.SearchHandler
+INFO  - 2013-07-16 10:09:12.767; org.apache.solr.core.RequestHandlers; created /query: solr.SearchHandler
+INFO  - 2013-07-16 10:09:12.768; org.apache.solr.core.RequestHandlers; created /get: solr.RealTimeGetHandler
+INFO  - 2013-07-16 10:09:12.769; org.apache.solr.core.RequestHandlers; created /browse: solr.SearchHandler
+INFO  - 2013-07-16 10:09:12.772; org.apache.solr.core.RequestHandlers; created /update: solr.UpdateRequestHandler
+INFO  - 2013-07-16 10:09:12.774; org.apache.solr.core.RequestHandlers; created /update/json: solr.JsonUpdateRequestHandler
+INFO  - 2013-07-16 10:09:12.775; org.apache.solr.core.RequestHandlers; created /update/csv: solr.CSVRequestHandler
+INFO  - 2013-07-16 10:09:12.776; org.apache.solr.core.RequestHandlers; adding lazy requestHandler: solr.extraction.ExtractingRequestHandler
+INFO  - 2013-07-16 10:09:12.776; org.apache.solr.core.RequestHandlers; created /update/extract: solr.extraction.ExtractingRequestHandler
+INFO  - 2013-07-16 10:09:12.776; org.apache.solr.core.RequestHandlers; adding lazy requestHandler: solr.FieldAnalysisRequestHandler
+INFO  - 2013-07-16 10:09:12.777; org.apache.solr.core.RequestHandlers; created /analysis/field: solr.FieldAnalysisRequestHandler
+INFO  - 2013-07-16 10:09:12.777; org.apache.solr.core.RequestHandlers; adding lazy requestHandler: solr.DocumentAnalysisRequestHandler
+INFO  - 2013-07-16 10:09:12.777; org.apache.solr.core.RequestHandlers; created /analysis/document: solr.DocumentAnalysisRequestHandler
+INFO  - 2013-07-16 10:09:12.778; org.apache.solr.core.RequestHandlers; created /admin/: solr.admin.AdminHandlers
+INFO  - 2013-07-16 10:09:12.780; org.apache.solr.core.RequestHandlers; created /admin/ping: solr.PingRequestHandler
+INFO  - 2013-07-16 10:09:12.782; org.apache.solr.core.RequestHandlers; created /debug/dump: solr.DumpRequestHandler
+INFO  - 2013-07-16 10:09:12.789; org.apache.solr.core.RequestHandlers; created /replication: solr.ReplicationHandler
+INFO  - 2013-07-16 10:09:12.789; org.apache.solr.core.RequestHandlers; adding lazy requestHandler: solr.SearchHandler
+INFO  - 2013-07-16 10:09:12.790; org.apache.solr.core.RequestHandlers; created /spell: solr.SearchHandler
+INFO  - 2013-07-16 10:09:12.790; org.apache.solr.core.RequestHandlers; adding lazy requestHandler: solr.SearchHandler
+INFO  - 2013-07-16 10:09:12.790; org.apache.solr.core.RequestHandlers; created /tvrh: solr.SearchHandler
+INFO  - 2013-07-16 10:09:12.790; org.apache.solr.core.RequestHandlers; adding lazy requestHandler: solr.SearchHandler
+INFO  - 2013-07-16 10:09:12.790; org.apache.solr.core.RequestHandlers; created /terms: solr.SearchHandler
+INFO  - 2013-07-16 10:09:12.790; org.apache.solr.core.RequestHandlers; adding lazy requestHandler: solr.SearchHandler
+INFO  - 2013-07-16 10:09:12.791; org.apache.solr.core.RequestHandlers; created /elevate: solr.SearchHandler
+INFO  - 2013-07-16 10:09:12.802; org.apache.solr.handler.loader.XMLLoader; xsltCacheLifetimeSeconds=60
+INFO  - 2013-07-16 10:09:12.804; org.apache.solr.handler.loader.XMLLoader; xsltCacheLifetimeSeconds=60
+INFO  - 2013-07-16 10:09:12.805; org.apache.solr.handler.loader.XMLLoader; xsltCacheLifetimeSeconds=60
+INFO  - 2013-07-16 10:09:12.816; org.apache.solr.search.SolrIndexSearcher; Opening Searcher@5a4e229e main
+INFO  - 2013-07-16 10:09:12.826; org.apache.solr.update.CommitTracker; Hard AutoCommit: if uncommited for 15000ms; 
+INFO  - 2013-07-16 10:09:12.826; org.apache.solr.update.CommitTracker; Soft AutoCommit: disabled
+INFO  - 2013-07-16 10:09:12.827; org.apache.solr.handler.component.SpellCheckComponent; Initializing spell checkers
+INFO  - 2013-07-16 10:09:12.832; org.apache.solr.spelling.DirectSolrSpellChecker; init: {name=default,field=text,classname=solr.DirectSolrSpellChecker,distanceMeasure=internal,accuracy=0.5,maxEdits=2,minPrefix=1,maxInspections=5,minQueryLength=4,maxQueryFrequency=0.01}
+INFO  - 2013-07-16 10:09:12.837; org.apache.solr.handler.component.SpellCheckComponent; No queryConverter defined, using default converter
+INFO  - 2013-07-16 10:09:12.838; org.apache.solr.cloud.ZkController; Load collection config from:/collections/logmill
+INFO  - 2013-07-16 10:09:12.862; org.apache.solr.handler.ReplicationHandler; Commits will be reserved for  10000
+INFO  - 2013-07-16 10:09:12.862; org.apache.solr.core.QuerySenderListener; QuerySenderListener sending requests to Searcher@5a4e229e main{StandardDirectoryReader(segments_1:1)}
+INFO  - 2013-07-16 10:09:12.890; org.apache.solr.core.SolrCore; [logmill] webapp=null path=null params={event=firstSearcher&q=static+firstSearcher+warming+in+solrconfig.xml&distrib=false} hits=0 status=0 QTime=27 
+INFO  - 2013-07-16 10:09:12.891; org.apache.solr.core.QuerySenderListener; QuerySenderListener done.
+INFO  - 2013-07-16 10:09:12.891; org.apache.solr.handler.component.SpellCheckComponent$SpellCheckerListener; Loading spell index for spellchecker: default
+INFO  - 2013-07-16 10:09:12.891; org.apache.solr.handler.component.SpellCheckComponent$SpellCheckerListener; Loading spell index for spellchecker: wordbreak
+INFO  - 2013-07-16 10:09:12.894; org.apache.solr.core.SolrCore; [logmill] Registered new searcher Searcher@5a4e229e main{StandardDirectoryReader(segments_1:1)}
+INFO  - 2013-07-16 10:09:12.897; org.apache.solr.cloud.ZkController; publishing core=logmill state=down
+INFO  - 2013-07-16 10:09:12.897; org.apache.solr.cloud.ZkController; numShards not found on descriptor - reading it from system property
+INFO  - 2013-07-16 10:09:14.157; org.apache.solr.common.cloud.ZkStateReader; Updating cloud state from ZooKeeper... 
+INFO  - 2013-07-16 10:09:14.159; org.apache.solr.cloud.Overseer$ClusterStateUpdater; Update state numShards=2 message={
+  "operation":"state",
+  "core_node_name":null,
+  "numShards":"2",
+  "shard":null,
+  "roles":null,
+  "state":"down",
+  "shard_state":"active",
+  "core":"logmill",
+  "collection":"logmill",
+  "shard_range":null,
+  "node_name":"10.0.1.7:8983_solr",
+  "base_url":"http://10.0.1.7:8983/solr"}
+INFO  - 2013-07-16 10:09:14.159; org.apache.solr.cloud.Overseer$ClusterStateUpdater; Create collection logmill with numShards 2
+INFO  - 2013-07-16 10:09:14.161; org.apache.solr.cloud.Overseer$ClusterStateUpdater; Assigning new node to shard=shard1
+INFO  - 2013-07-16 10:09:14.169; org.apache.solr.common.cloud.ZkStateReader$2; A cluster state change: WatchedEvent state:SyncConnected type:NodeDataChanged path:/clusterstate.json, has occurred - updating... (live nodes size: 1)
+INFO  - 2013-07-16 10:09:14.901; org.apache.solr.core.CoreContainer; registering core: logmill
+INFO  - 2013-07-16 10:09:14.901; org.apache.solr.cloud.ZkController; Register replica - core:logmill address:http://10.0.1.7:8983/solr collection:logmill shard:shard1
+INFO  - 2013-07-16 10:09:14.904; org.apache.solr.client.solrj.impl.HttpClientUtil; Creating new http client, config:maxConnections=10000&maxConnectionsPerHost=20&connTimeout=30000&socketTimeout=30000&retry=false
+INFO  - 2013-07-16 10:09:14.913; org.apache.solr.common.cloud.SolrZkClient; makePath: /collections/logmill/leader_elect/shard1/election
+INFO  - 2013-07-16 10:09:14.930; org.apache.solr.cloud.ShardLeaderElectionContext; Running the leader process.
+INFO  - 2013-07-16 10:09:14.934; org.apache.solr.cloud.ShardLeaderElectionContext; Enough replicas found to continue.
+INFO  - 2013-07-16 10:09:14.934; org.apache.solr.cloud.ShardLeaderElectionContext; I may be the new leader - try and sync
+INFO  - 2013-07-16 10:09:14.934; org.apache.solr.cloud.SyncStrategy; Sync replicas to http://10.0.1.7:8983/solr/logmill/
+INFO  - 2013-07-16 10:09:14.935; org.apache.solr.cloud.SyncStrategy; Sync Success - now sync replicas to me
+INFO  - 2013-07-16 10:09:14.935; org.apache.solr.cloud.SyncStrategy; http://10.0.1.7:8983/solr/logmill/ has no replicas
+INFO  - 2013-07-16 10:09:14.935; org.apache.solr.cloud.ShardLeaderElectionContext; I am the new leader: http://10.0.1.7:8983/solr/logmill/
+INFO  - 2013-07-16 10:09:14.935; org.apache.solr.common.cloud.SolrZkClient; makePath: /collections/logmill/leaders/shard1
+INFO  - 2013-07-16 10:09:15.677; org.apache.solr.common.cloud.ZkStateReader; Updating cloud state from ZooKeeper... 
+INFO  - 2013-07-16 10:09:15.697; org.apache.solr.common.cloud.ZkStateReader$2; A cluster state change: WatchedEvent state:SyncConnected type:NodeDataChanged path:/clusterstate.json, has occurred - updating... (live nodes size: 1)
+INFO  - 2013-07-16 10:09:15.709; org.apache.solr.cloud.ZkController; We are http://10.0.1.7:8983/solr/logmill/ and leader is http://10.0.1.7:8983/solr/logmill/
+INFO  - 2013-07-16 10:09:15.709; org.apache.solr.cloud.ZkController; No LogReplay needed for core=logmill baseURL=http://10.0.1.7:8983/solr
+INFO  - 2013-07-16 10:09:15.710; org.apache.solr.cloud.ZkController; I am the leader, no recovery necessary
+INFO  - 2013-07-16 10:09:15.710; org.apache.solr.cloud.ZkController; publishing core=logmill state=active
+INFO  - 2013-07-16 10:09:15.710; org.apache.solr.cloud.ZkController; numShards not found on descriptor - reading it from system property
+INFO  - 2013-07-16 10:09:15.712; org.apache.solr.common.cloud.ZkStateReader; Updating cloud state from ZooKeeper... 
+INFO  - 2013-07-16 10:09:15.714; org.apache.solr.servlet.SolrDispatchFilter; user.dir=/Users/thelabdude/dev/SolrInAction/solr-4.3.1/shard1
+INFO  - 2013-07-16 10:09:15.714; org.apache.solr.servlet.SolrDispatchFilter; SolrDispatchFilter.init() done
+INFO  - 2013-07-16 10:09:15.732; org.eclipse.jetty.server.AbstractConnector; Started SocketConnector@0.0.0.0:8983
+INFO  - 2013-07-16 10:09:17.208; org.apache.solr.common.cloud.ZkStateReader; Updating cloud state from ZooKeeper... 
+INFO  - 2013-07-16 10:09:17.210; org.apache.solr.cloud.Overseer$ClusterStateUpdater; Update state numShards=2 message={
+  "operation":"state",
+  "core_node_name":"10.0.1.7:8983_solr_logmill",
+  "numShards":"2",
+  "shard":"shard1",
+  "roles":null,
+  "state":"active",
+  "shard_state":"active",
+  "core":"logmill",
+  "collection":"logmill",
+  "shard_range":null,
+  "node_name":"10.0.1.7:8983_solr",
+  "base_url":"http://10.0.1.7:8983/solr"}
+INFO  - 2013-07-16 10:09:17.223; org.apache.solr.common.cloud.ZkStateReader$2; A cluster state change: WatchedEvent state:SyncConnected type:NodeDataChanged path:/clusterstate.json, has occurred - updating... (live nodes size: 1)
+INFO  - 2013-07-16 10:09:25.447; org.apache.solr.common.cloud.ZkStateReader$2; A cluster state change: WatchedEvent state:SyncConnected type:NodeChildrenChanged path:/live_nodes, has occurred - updating... (live nodes size: 1)
+INFO  - 2013-07-16 10:09:25.451; org.apache.solr.common.cloud.ZkStateReader$3; Updating live nodes... (2)
+INFO  - 2013-07-16 10:09:27.754; org.apache.solr.common.cloud.ZkStateReader; Updating cloud state from ZooKeeper... 
+INFO  - 2013-07-16 10:09:27.756; org.apache.solr.cloud.Overseer$ClusterStateUpdater; Update state numShards=null message={
+  "operation":"state",
+  "core_node_name":null,
+  "numShards":null,
+  "shard":null,
+  "roles":null,
+  "state":"down",
+  "shard_state":"active",
+  "core":"logmill",
+  "collection":"logmill",
+  "shard_range":null,
+  "node_name":"10.0.1.7:8984_solr",
+  "base_url":"http://10.0.1.7:8984/solr"}
+INFO  - 2013-07-16 10:09:27.756; org.apache.solr.cloud.Overseer$ClusterStateUpdater; Collection already exists with numShards=2
+INFO  - 2013-07-16 10:09:27.756; org.apache.solr.cloud.Overseer$ClusterStateUpdater; Assigning new node to shard=shard2
+INFO  - 2013-07-16 10:09:27.762; org.apache.solr.common.cloud.ZkStateReader$2; A cluster state change: WatchedEvent state:SyncConnected type:NodeDataChanged path:/clusterstate.json, has occurred - updating... (live nodes size: 2)
+INFO  - 2013-07-16 10:09:29.270; org.apache.solr.common.cloud.ZkStateReader; Updating cloud state from ZooKeeper... 
+INFO  - 2013-07-16 10:09:29.291; org.apache.solr.common.cloud.ZkStateReader$2; A cluster state change: WatchedEvent state:SyncConnected type:NodeDataChanged path:/clusterstate.json, has occurred - updating... (live nodes size: 2)
+INFO  - 2013-07-16 10:09:30.816; org.apache.solr.common.cloud.ZkStateReader; Updating cloud state from ZooKeeper... 
+INFO  - 2013-07-16 10:09:30.818; org.apache.solr.cloud.Overseer$ClusterStateUpdater; Update state numShards=null message={
+  "operation":"state",
+  "core_node_name":"10.0.1.7:8984_solr_logmill",
+  "numShards":null,
+  "shard":"shard2",
+  "roles":null,
+  "state":"active",
+  "shard_state":"active",
+  "core":"logmill",
+  "collection":"logmill",
+  "shard_range":null,
+  "node_name":"10.0.1.7:8984_solr",
+  "base_url":"http://10.0.1.7:8984/solr"}
+INFO  - 2013-07-16 10:09:30.832; org.apache.solr.common.cloud.ZkStateReader$2; A cluster state change: WatchedEvent state:SyncConnected type:NodeDataChanged path:/clusterstate.json, has occurred - updating... (live nodes size: 2)
