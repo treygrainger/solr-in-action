@@ -5,6 +5,8 @@
 
     <fieldType name="int" class="solr.TrieIntField" precisionStep="0" positionIncrementGap="0"/>    
 
+    <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
+      
     <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
       <analyzer type="index">
         <tokenizer class="solr.StandardTokenizerFactory"/>
@@ -23,6 +25,7 @@
   <fields>
     <field name="id" type="string" indexed="true" stored="true" />
     <field name="_version_" type="long" indexed="true" stored="true"/>
+    <field name="text" type="string" indexed="true" stored="false" multiValued="true"/>
 
     <!-- chapter 11 -->
     <field name="type" type="string" indexed="true" stored="true" omitNorms="false" />
@@ -34,6 +37,7 @@
     <copyField source="type" dest="content"/>
     <copyField source="format" dest="content"/>
     <copyField source="product" dest="content"/>
+    <defaultSearchField>content</defaultSearchField>
   </fields>
 
   <uniqueKey>id</uniqueKey>
