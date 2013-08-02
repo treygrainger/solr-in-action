@@ -35,7 +35,7 @@ public class Http implements ExampleDriver.Example {
           "/collection1/browse?q=iPod&wt=xml&debugQuery=true");
         listings.put("4.12",
           "/collection1/select?q=iPod&fq=manu%3ABelkin&sort=price+asc&fl=name%2Cprice%2Cfeatures%2Cscore&df=text&wt=xml&start=0&rows=10");
-        listings.put("4.15", 
+        listings.put("4.15",
           "/collection1/select?q=iPod&fq=manu%3ABelkin&fl=name%2Cprice%2Cfeatures%2Cscore%2C[explain]&wt=xml&indent=true");
         listings.put("4.16",
           "/admin/cores?action=STATUS&name=collection1");
@@ -43,7 +43,7 @@ public class Http implements ExampleDriver.Example {
           "/admin/cores?action=CREATE&name=SolrInAction&instanceDir=sia&config=solrconfig.xml&schema=schema.xml&dataDir=data");
         listings.put("4.18",
           "/admin/cores?action=RELOAD&core=SolrInAction");
-        
+
         // chapter 9: Hit Highlighting
         listings.put("9.1",
             "/ufo/select?q=blue+fireball+in+the+rain&df=sighting_en&rows=10&wt=xml&hl=true");
@@ -54,11 +54,16 @@ public class Http implements ExampleDriver.Example {
             "facet=true&facet.limit=4&facet.field=shape_s&facet.field=location_s&facet.field=month_s");
         listings.put("9.5",
             "/ufo/select?q=blue+fireball+in+the+rain&df=sighting_en&wt=xml&hl=true&hl.snippets=2&hl.fl=sighting_en&" +
-            "hl.q=blue+fireball+in+the+rain+light&fq=shape_s%3Alight");        
+            "hl.q=blue+fireball+in+the+rain+light&fq=shape_s%3Alight");
         listings.put("9.6",
             "/ufo/select?q=fire+cluster+clouds+thunder&df=nearby_objects_en&wt=xml&hl=true&hl.snippets=2");
         listings.put("9.7",
-            "/ufo/select?q=blue+fireball+in+the+rain&df=sighting_en&wt=xml&hl=true&hl.snippets=2&hl.useFastVectorHighlighter=true");    
+            "/ufo/select?q=blue+fireball+in+the+rain&df=sighting_en&wt=xml&hl=true&hl.snippets=2&hl.useFastVectorHighlighter=true");
+
+        listings.put("10.2", "/solrpedia/select?q=atmosphear");
+        listings.put("10.3", "/solrpedia/select?q=title:anaconda");
+        listings.put("10.4", "/solrpedia/select?q=Julius&df=suggest&fl=title");
+        listings.put("10.9", "/solrpedia/suggest?q=atm");
     }
 
     @Override
@@ -78,7 +83,7 @@ public class Http implements ExampleDriver.Example {
 
     @Override
     public void runExample(ExampleDriver driver) throws Exception {
-        String wt = driver.getCommandLine().getOptionValue("wt", "xml");        
+        String wt = driver.getCommandLine().getOptionValue("wt", "xml");
         String listingKey = driver.getCommandLine().getOptionValue("listing");
         String listing = listings.get(listingKey);
         if (listing == null) {
@@ -86,10 +91,10 @@ public class Http implements ExampleDriver.Example {
                 + " not found! Please double-check your -listing parameter.");
             System.exit(1);
         }
-        
+
         if (!"xml".equals(wt)) {
             if (listing.indexOf("wt=") != -1) {
-                listing = listing.replaceAll("wt=xml", "wt="+wt);                
+                listing = listing.replaceAll("wt=xml", "wt="+wt);
             } else {
                 listing += "&wt="+wt;
             }
