@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema name="example" version="1.5">
+ <fields>
+
+        <!-- Posts -->
+        <field name="Id" type="int" indexed="true" stored="true"/>
+        <field name="PostTypeId" type="int" indexed="true" stored="true"/>
+        <field name="AcceptedAnswerId" type="int" indexed="true" stored="true"/>
+        <field name="CreationDate" type="date" indexed="true" stored="true"/>
+        <field name="Score" type="int" indexed="true" stored="true"/>
+        <field name="ViewCount" type="int" indexed="true" stored="true"/>
+        <field name="Body" type="text_general" indexed="true" stored="true"/>
+        <field name="OwnerUserId" type="int" indexed="true" stored="true"/>
+        <field name="LastEditorUserId" type="int" indexed="true" stored="true"/>
+        <field name="LastEditorDisplayName" type="string" indexed="true" stored="true"/>
+        <field name="LastActivityDate" type="date" indexed="true" stored="true"/>
+        <field name="Title" type="text_general" indexed="true" stored="true"/>
+        <field name="Tags" type="stackExchangeTags" indexed="true" stored="true"/>
+        <field name="AnswerCount" type="int" indexed="true" stored="true"/>
+        <field name="CommentCount" type="int" indexed="true" stored="true"/>
+        <field name="FavoriteCount" type="int" indexed="true" stored="true"/>
+        <field name="CommunityOwnedDate" type="date" indexed="true" stored="true"/>
+        <!-- InterestedUsers is a field we will pull from the Comments file to use for collaborative filtering -->
+        <field name="InterestedUsers" type="int" indexed="true" stored="true" multiValued="true" />
+
+        <field name="text" type="text_general" indexed="false" stored="true" multiValued="true"/>
+        <field name="_version_" type="long" indexed="true" stored="true"/>
+
+ </fields>
+ 
+ <types>
+    <fieldType name="string" class="solr.StrField" sortMissingLast="true" />
+    <fieldType name="int" class="solr.TrieIntField" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="date" class="solr.TrieDateField" precisionStep="0" positionIncrementGap="0"/>
+
+    <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
+      <analyzer type="index">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" enablePositionIncrements="true" />
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+      <analyzer type="query">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.StopFilterFactory" ignoreCase="true" words="stopwords.txt" enablePositionIncrements="true" />
+        <filter class="solr.LowerCaseFilterFactory"/>
+      </analyzer>
+    </fieldType>
+
+ </types>
+
+ <uniqueKey>Id</uniqueKey>
+
+</schema>
