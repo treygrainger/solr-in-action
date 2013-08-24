@@ -35,14 +35,6 @@ public class Http implements ExampleDriver.Example {
           "/collection1/browse?q=iPod&wt=xml&debugQuery=true");
         listings.put("4.12",
           "/collection1/select?q=iPod&fq=manu%3ABelkin&sort=price+asc&fl=name%2Cprice%2Cfeatures%2Cscore&df=text&wt=xml&start=0&rows=10");
-        listings.put("4.15",
-          "/collection1/select?q=iPod&fq=manu%3ABelkin&fl=name%2Cprice%2Cfeatures%2Cscore%2C[explain]&wt=xml&indent=true");
-        listings.put("4.16",
-          "/admin/cores?action=STATUS&name=collection1");
-        listings.put("4.17",
-          "/admin/cores?action=CREATE&name=SolrInAction&instanceDir=sia&config=solrconfig.xml&schema=schema.xml&dataDir=data");
-        listings.put("4.18",
-          "/admin/cores?action=RELOAD&core=SolrInAction");
 
         // chapter 9: Hit Highlighting
         listings.put("9.1",
