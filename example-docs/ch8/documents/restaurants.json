@@ -1,0 +1,23 @@
+
+[
+  {"id":"1", "name":"Red Lobster", "city":"San Francisco, CA", "type":"Sit-down Chain", "state":"California", "tags":["sea food", "sit down"], "price":33.00},
+  {"id":"2", "name":"Red Lobster", "city":"Atlanta, GA", "type":"Sit-down Chain", "state":"Georgia", "tags":["sea food", "sit-down"], "price":22.00},
+  {"id":"3", "name":"Red Lobster", "city":"New York, NY", "type":"Sit-down Chain", "state":"New York", "tags":["sea food", "sit-down"], "price":29.00},
+  {"id":"4", "name":"McDonalds", "city":"San Francisco, CA", "type":"Fast Food", "state":"California", "tags":["fast food", "hamburgers", "coffee", "wi-fi", "breakfast"], "price":9.00},
+  {"id":"5", "name":"McDonalds", "city":"Atlanta, GA", "type":"Fast Food", "state":"Georgia", "tags":["fast food", "hamburgers", "coffee", "wi-fi", "breakfast"], "price":4.00},
+  {"id":"6", "name":"McDonalds", "city":"New York, NY", "type":"Fast Food", "state":"New York", "tags":["fast food", "hamburgers", "coffee", "wi-fi", "breakfast"], "price":4.00},
+  {"id":"7", "name":"McDonalds", "city":"Chicago, IL", "type":"Fast Food", "state":"Illinois", "tags":["fast food", "hamburgers", "coffee", "wi-fi", "breakfast"], "price":4.00},
+  {"id":"8", "name":"McDonalds", "city":"Austin, TX", "type":"Fast Food", "state":"Texas", "tags":["fast food", "hamburgers", "coffee", "wi-fi", "breakfast"], "price":4.00},
+  {"id":"9", "name":"Pizza Hut", "city":"Atlanta, GA", "type":"Sit-down Chain", "state":"Georgia", "tags":["pizza", "sit-down", "delivery"], "price":15.00},
+  {"id":"10", "name":"Pizza Hut", "city":"New York, NY", "type":"Sit-down Chain", "state":"New York", "tags":["pizza", "sit-down", "delivery"], "price":24.00},
+  {"id":"11", "name":"Pizza Hut", "city":"Austin, TX", "type":"Sit-down Chain", "state":"Texas", "tags":["pizza", "sit-down", "delivery"], "price":18.00},
+  {"id":"12", "name":"Freddy's Pizza Shop", "city":"Los Angeles, CA", "type":"Local Sit-down", "state":"California", "tags":["pizza", "pasta", "sit-down"], "price":25.00},
+  {"id":"13", "name":"The Iberian Pig", "city":"Atlanta, GA", "type":"Upscale", "state":"Georgia", "tags":["spanish", "tapas", "sit-down", "upscale"], "price":45.00},
+  {"id":"14", "name":"Sprig", "city":"Atlanta, GA", "type":"Local Sit-down", "state":"Georgia", "tags":["sit-down", "gluten-free", "southern cuisine"], "price":15.00},
+  {"id":"15", "name":"Starbucks", "city":"San Francisco, CA", "type":"Coffee Shop", "state":"California", "tags":["coffee", "breakfast"], "price":7.50},
+  {"id":"16", "name":"Starbucks", "city":"Atlanta, GA", "type":"Coffee Shop", "state":"Georgia", "tags":["coffee", "breakfast"], "price":4.00},
+  {"id":"17", "name":"Starbucks", "city":"New York, NY", "type":"Coffee Shop", "state":"New York", "tags":["coffee", "breakfast"], "price":6.50},
+  {"id":"18", "name":"Starbucks", "city":"Chicago, IL", "type":"Coffee Shop", "state":"Illinois", "tags":["coffee", "breakfast"], "price":6.00},
+  {"id":"19", "name":"Starbucks", "city":"Austin, TX", "type":"Coffee Shop", "state":"Texas", "tags":["coffee", "breakfast"], "price":5.00},
+  {"id":"20", "name":"Starbucks", "city":"Greenville, SC", "type":"Coffee Shop", "state":"South Carolina", "tags":["coffee", "breakfast"], "price":3.00}
+]
