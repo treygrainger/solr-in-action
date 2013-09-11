@@ -1,0 +1,28 @@
+<add>
+<doc><field name="id">1</field><field name="type">Movies</field><field name="format">dvd</field><field name="product">The Hunger Games</field><field name="popularity">1</field></doc>
+<doc><field name="id">2</field><field name="type">Video Games</field><field name="format">xbox 360</field><field name="product">Dance Dance Revolution</field><field name="popularity">2</field></doc>
+<doc><field name="id">3</field><field name="type">Books</field><field name="format">paperback</field><field name="product">The Hunger Games</field><field name="popularity">3</field></doc>
+<doc><field name="id">4</field><field name="type">Movies</field><field name="format">dvd</field><field name="product">The Amazing Spider Man - 2012</field><field name="popularity">4</field></doc>
+<doc><field name="id">5</field><field name="type">Movies</field><field name="format">blu-ray</field><field name="product">The Amazing Spider Man - 2012</field><field name="popularity">5</field></doc>
+<doc><field name="id">6</field><field name="type">Movies</field><field name="format">dvd</field><field name="product">Spider Man - 2002</field><field name="popularity">6</field></doc>
+<doc><field name="id">7</field><field name="type">Movies</field><field name="format">blu-ray</field><field name="product">Spider Man - 2002</field><field name="popularity">7</field></doc>
+<doc><field name="id">8</field><field name="type">Movies</field><field name="format">dvd</field><field name="product">Spider Man 2 - 2004</field><field name="popularity">8</field></doc>
+<doc><field name="id">9</field><field name="type">Movies</field><field name="format">blu-ray</field><field name="product">Spider Man 2 - 2004</field><field name="popularity">9</field></doc>
+<doc><field name="id">10</field><field name="type">Books</field><field name="format">paperback</field><field name="product">The Art of War</field><field name="popularity">10</field></doc>
+<doc><field name="id">11</field><field name="type">Video Games</field><field name="format">xbox 360</field><field name="product">The Amazing Spider-Man</field><field name="popularity">11</field></doc>
+<doc><field name="id">12</field><field name="type">Video Games</field><field name="format">ps3</field><field name="product">The Amazing Spider-Man</field><field name="popularity">12</field></doc>
+<doc><field name="id">13</field><field name="type">Video Games</field><field name="format">xbox 360</field><field name="product">Spider-Man: Edge of Time</field><field name="popularity">13</field></doc>
+<doc><field name="id">14</field><field name="type">Video Games</field><field name="format">ps3</field><field name="product">Spider-Man: Edge of Time</field><field name="popularity">14</field></doc>
+<doc><field name="id">15</field><field name="type">Clothing</field><field name="format">costume</field><field name="product">Spider-Man Halloween Costume</field><field name="popularity">15</field></doc>
+<doc><field name="id">16</field><field name="type">Books</field><field name="format">paperback</field><field name="product">To Kill a Mockingbird</field><field name="popularity">16</field></doc>
+<doc><field name="id">17</field><field name="type">Movies</field><field name="format">dvd</field><field name="product">Top Gun</field><field name="popularity">17</field></doc>
+<doc><field name="id">18</field><field name="type">Movies</field><field name="format">dvd</field><field name="product">A Beautiful Mind</field><field name="popularity">18</field></doc>
+<doc><field name="id">19</field><field name="type">Movies</field><field name="format">vhs</field><field name="product">Spider Man - 2002</field><field name="popularity">19</field></doc>
+<doc><field name="id">20</field><field name="type">Movies</field><field name="format">vhs</field><field name="product">Spider Man 2 - 2004</field><field name="popularity">20</field></doc>
+<doc><field name="id">21</field><field name="type">Clothing</field><field name="format">shirt</field><field name="product">Boys Spider-Man T-shirt</field><field name="popularity">21</field></doc>
+<doc><field name="id">22</field><field name="type">Comic Books</field><field name="format">paperback</field><field name="product">Amazing Spider-Man Comic #1</field><field name="popularity">22</field></doc>
+<doc><field name="id">23</field><field name="type">Comic Books</field><field name="format">paperback</field><field name="product">Amazing Spider-Man Comic #2</field><field name="popularity">23</field></doc>
+<doc><field name="id">24</field><field name="type">Comic Books</field><field name="format">paperback</field><field name="product">Amazing Spider-Man Comic #3</field><field name="popularity">24</field></doc>
+<doc><field name="id">25</field><field name="type">Action Figures</field><field name="format">n/a</field><field name="product">Marvel Legends Icon: Spider Man 12" Action Figure</field><field name="popularity">25</field></doc>
+<doc><field name="id">26</field><field name="type">Clothing</field><field name="format">sweater</field><field name="product">Old Navy Black Fleece</field><field name="popularity">26</field></doc>
+</add>

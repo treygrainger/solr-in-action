@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+    
+  <!-- Begin everything else -->
+    <luceneMatchVersion>LUCENE_44</luceneMatchVersion>
+
+    <dataDir>${solr.data.dir:}</dataDir>
+    <directoryFactory name="DirectoryFactory"
+                    class="${solr.directoryFactory:solr.NRTCachingDirectoryFactory}"/> 
+
+    <updateHandler class="solr.DirectUpdateHandler2">
+      <updateLog>
+        <str name="dir">${solr.ulog.dir:}</str>
+      </updateLog>
+     <autoCommit>
+       <maxTime>15000</maxTime> 
+       <openSearcher>false</openSearcher> 
+     </autoCommit>
+    </updateHandler>
+
+    <query>
+        <maxBooleanClauses>1024</maxBooleanClauses>
+        <useColdSearcher>false</useColdSearcher>
+        <maxWarmingSearchers>1</maxWarmingSearchers>
+    </query>
+    <requestDispatcher handleSelect="false" >
+        <httpCaching never304="true" />
+    </requestDispatcher>
+
+    <requestHandler name="/update" class="solr.UpdateRequestHandler" />
+    
+    <requestHandler name="/select" class="solr.SearchHandler">
+        <lst name="defaults">
+            <str name="echoParams">none</str>
+            <str name="df">content</str>
+            <str name="wt">json</str>
+            <str name="indent">true</str>
+        </lst>
+    </requestHandler>
+
+    <queryResponseWriter name="json" class="solr.JSONResponseWriter">
+        <str name="content-type">text/plain; charset=UTF-8</str>
+    </queryResponseWriter>
+
+    <admin>
+        <defaultQuery>*:*</defaultQuery>
+    </admin>
+<!-- End everything else -->
+</config>
