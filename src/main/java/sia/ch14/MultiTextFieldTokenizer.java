@@ -68,7 +68,7 @@ public class MultiTextFieldTokenizer extends Tokenizer {
 			this.multiTextInput = new MultiTextFieldInput(this.input, 
 					this.settings.keyFromTextDelimiter, this.settings.multiKeyDelimiter);
 		}
-		if (this.lastInput != this.input){
+		else{
 			this.multiTextInput.setReader(this.input);	
 		}
 		this.namedAnalyzers = getNamedAnalyzers(this.multiTextInput);
@@ -230,11 +230,18 @@ public class MultiTextFieldTokenizer extends Tokenizer {
 
 		for(boolean hasMoreTokens = tokenStream.incrementToken(); hasMoreTokens; hasMoreTokens = tokenStream.incrementToken()){
 			
-			if(charTermAtt == null || offsetAtt == null || typeAtt == null){
+			String multiTermSafeType = null;
+			
+			if(charTermAtt == null || offsetAtt == null || (typeAtt == null && this.settings.analyzerMode != AnalyzerModes.multiTerm)){
 				return;
 			}
 			
-			Token clone = new Token(charTermAtt.toString().trim(), offsetAtt.startOffset(), offsetAtt.endOffset(), typeAtt.type());
+			if (typeAtt != null){
+				multiTermSafeType = typeAtt.type();
+			}
+
+			
+			Token clone = new Token(charTermAtt.toString().trim(), offsetAtt.startOffset(), offsetAtt.endOffset(), multiTermSafeType);
 			position += ((posIncrAtt != null) ? posIncrAtt.getPositionIncrement() : 1);
 			
 			if(!tokenHash.containsKey(position)){
