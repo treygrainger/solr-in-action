@@ -28,7 +28,6 @@ import sia.ch14.MultiTextFieldSettings.AnalyzerModes;
 public class MultiTextFieldTokenizer extends Tokenizer {
 	protected String fieldName;
 	protected IndexSchema indexSchema;
-	protected Reader lastInput;
 	protected MultiTextFieldSettings settings;
 	
 	private CharTermAttribute charTermAttribute;
@@ -48,7 +47,6 @@ public class MultiTextFieldTokenizer extends Tokenizer {
 		this.indexSchema = indexSchema;
 		this.fieldName = fieldName;
 		this.settings = settings;
-		this.lastInput = input;
 		init();		
 	}
 	
