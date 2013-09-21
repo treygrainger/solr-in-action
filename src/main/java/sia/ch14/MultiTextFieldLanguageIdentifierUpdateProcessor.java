@@ -3,7 +3,6 @@ package sia.ch14;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.lucene.document.Field;
@@ -17,29 +16,32 @@ import org.apache.solr.schema.IndexSchema;
 import org.apache.solr.schema.PreAnalyzedField;
 import org.apache.solr.schema.SchemaField;
 import org.apache.solr.update.processor.DetectedLanguage;
-import org.apache.solr.update.processor.LanguageIdentifierUpdateProcessor;
 import org.apache.solr.update.processor.UpdateRequestProcessor;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class MultiTextFieldLanguageIdentifierUpdateProcessor
     extends org.apache.solr.update.processor.LangDetectLanguageIdentifierUpdateProcessor {
 	
-	  //protected final static Logger log = LoggerFactory
-	    //      .getLogger(MultiTextFieldLanguageIdentifierUpdateProcessor.class);
+	protected final static Logger log = LoggerFactory
+	      .getLogger(MultiTextFieldLanguageIdentifierUpdateProcessor.class);
 	
 	private static String MULTI_TEXT_FIELD_LANGID = "mtf-langid";
-	private static String MULTI_VALUED_FIELD_LANGS = MULTI_TEXT_FIELD_LANGID + ".multiValuedFieldLangs";
+	private static String PREPEND_GRANULARITY = MULTI_TEXT_FIELD_LANGID + ".prependGranularity";
+	private enum PrependGranularities{
+		document,
+		field,
+		fieldValue
+	}
 	private static String PREPEND_FIELDS = MULTI_TEXT_FIELD_LANGID + ".prependFields";
 	
 	protected IndexSchema indexSchema;
-	protected Boolean separateLanguagePerValueInMultiValuedFields = true;
-	protected Collection<String> fieldsForPrependingLanguages = new LinkedHashSet<String>();
+	protected Collection<String> prependFields = new LinkedHashSet<String>();
+	private PrependGranularities prependGranularity = PrependGranularities.document;
 	
 	public MultiTextFieldLanguageIdentifierUpdateProcessor(SolrQueryRequest req, SolrQueryResponse rsp, UpdateRequestProcessor next) {
 		super(req, rsp, next) ;
-		indexSchema = req.getSchema();
-		
+		indexSchema = req.getSchema();		
 		initParams(req.getParams());
 	}
 	
@@ -49,13 +51,29 @@ public class MultiTextFieldLanguageIdentifierUpdateProcessor
 	      for (String field : prependFields.split(",")){
 	    	  String trimmed = field.trim();
 	    	  if (this.indexSchema.getFieldOrNull(trimmed) != null){
-	    		  this.fieldsForPrependingLanguages.add(trimmed);
+	    		  this.prependFields.add(trimmed);
 	    	  }
 	    	  else{
 	    		  log.error("Unsupported format for" + PREPEND_FIELDS + ":" + trimmed + ". Skipping prepending langs to this field.");
 	    	  }
 	      }
-          this.separateLanguagePerValueInMultiValuedFields = params.getBool(MULTI_VALUED_FIELD_LANGS);
+	      
+	      String prependGranularity = params.get(PREPEND_GRANULARITY);
+	      if (prependGranularity != null && prependGranularity.trim().length() > 0) {
+		      if (prependGranularity.trim().equals("document")){
+		    	  this.prependGranularity = PrependGranularities.document;
+		      }
+		      else if (prependGranularity.trim().equals("field")){
+		    	  this.prependGranularity = PrependGranularities.field;
+		      }
+		      else if (prependGranularity.trim().equals("fieldValue")){
+		    	  this.prependGranularity = PrependGranularities.fieldValue;
+		      }
+	    	  else {
+	    		  log.error("Unsupported format for" + PREPEND_GRANULARITY + ":" + prependGranularity + ". Using " + this.prependGranularity.toString() + ".");
+	    	  }
+	      }
+
 	}
 	
 	
@@ -68,44 +86,79 @@ public class MultiTextFieldLanguageIdentifierUpdateProcessor
 			fieldNames.add(nextFieldName);			
 		}
 
-		for (String nextFieldName : fieldNames){
+		List<DetectedLanguage> documentLangs = this.detectLanguage(this.concatFields(doc, this.inputFields));
+
+		
+		for (String nextFieldName : this.prependFields){
 			if (indexSchema.getFieldOrNull(nextFieldName) != null){
 				if (indexSchema.getField(nextFieldName).getType() instanceof MultiTextField){
-					outputDocument = detectAndPrependLanguages(outputDocument, nextFieldName);
+					outputDocument = detectAndPrependLanguages(outputDocument, nextFieldName, documentLangs);
+				}
+				else{
+			        log.error("Invalid field " + PREPEND_FIELDS + ":" + nextFieldName + ". Field is not a " + MultiTextField.class + ".");    
 				}
 			}
-
-				
+			else{
+  	   		  log.error("Invalid field " + PREPEND_FIELDS + ":" + nextFieldName + ". Field does not exist in indexSchema.");
+	    
+			}
+			
 		}
+		
+
+
 		return outputDocument;
 	}
 		
-	protected SolrInputDocument detectAndPrependLanguages(SolrInputDocument doc, String multiTextFieldName){
+	protected SolrInputDocument detectAndPrependLanguages(SolrInputDocument doc, String multiTextFieldName, List<DetectedLanguage> documentLangs){
 		MultiTextField mtf = (MultiTextField) indexSchema.getFieldType(multiTextFieldName);
 		MultiTextFieldAnalyzer mtfAnalyzer = (MultiTextFieldAnalyzer)mtf.getAnalyzer();
-		List<DetectedLanguage> detectedLanguages = this.detectLanguage(this.concatFields(doc, new String[]{multiTextFieldName}));
 		
-		StringBuilder fieldValuePrefix = new StringBuilder();
-		for (DetectedLanguage lang : detectedLanguages){
-			if ( mtfAnalyzer.Settings.ignoreMissingMappings 
-			  || mtfAnalyzer.Settings.fieldMappings.containsKey(lang.getLangCode()) 
-			  || indexSchema.getFieldOrNull(lang.getLangCode()) != null ){
-				if (fieldValuePrefix.length() > 0){
-					fieldValuePrefix.append(mtfAnalyzer.Settings.multiKeyDelimiter);
-				}
-				fieldValuePrefix.append(lang.getLangCode());
-				
-			}
+		List<DetectedLanguage> fieldLangs = null;
+		if (this.prependGranularity == PrependGranularities.field || this.prependGranularity == PrependGranularities.fieldValue){
+			fieldLangs = this.detectLanguage(this.concatFields(doc, new String[]{multiTextFieldName}));
 		}
-		if (fieldValuePrefix.length() > 0 ){
-			fieldValuePrefix.append(mtfAnalyzer.Settings.keyFromTextDelimiter);
+		if (fieldLangs == null || fieldLangs.size() == 0){
+			fieldLangs = documentLangs;
 		}
+
 		
 		SolrInputField inputField = doc.getField(multiTextFieldName);
 	    SolrInputField outputField = new SolrInputField(inputField.getName());
 	    for (final Object inputValue : inputField.getValues()) {
 	      Object outputValue = inputValue;
-	      outputValue = "[" + fieldValuePrefix + "]" + (String)outputValue;
+	      
+	      List<DetectedLanguage> fieldValueLangs = null;
+	      if (this.prependGranularity == PrependGranularities.fieldValue){
+	    	  if (inputValue instanceof String){
+	    		  fieldValueLangs = this.detectLanguage(inputValue.toString());
+	    	  }
+	      }
+		  if (fieldValueLangs == null || fieldValueLangs.size() == 0){
+			 fieldValueLangs = fieldLangs;
+		  }
+		  LinkedHashSet<String> langsToPrepend = new LinkedHashSet<String>();
+		  for (DetectedLanguage lang : fieldValueLangs){
+			  langsToPrepend.add(lang.getLangCode());
+		  }
+		  
+		  StringBuilder fieldLangsPrefix = new StringBuilder();
+			for (String lang : langsToPrepend){
+				if ( mtfAnalyzer.Settings.ignoreMissingMappings 
+				  || mtfAnalyzer.Settings.fieldMappings.containsKey(lang) 
+				  || indexSchema.getFieldOrNull(lang) != null ){
+					if (fieldLangsPrefix.length() > 0){
+						fieldLangsPrefix.append(mtfAnalyzer.Settings.multiKeyDelimiter);
+					}
+					fieldLangsPrefix.append(lang);
+					
+				}
+			}
+			if (fieldLangsPrefix.length() > 0 ){
+				fieldLangsPrefix.append(mtfAnalyzer.Settings.keyFromTextDelimiter);
+			}
+		        
+	      outputValue = "[" + fieldLangsPrefix + "]" + (String)outputValue;
 	      
 	      IndexableField separatedField = fromString(indexSchema.getField(multiTextFieldName), outputValue.toString(), inputValue.toString(), 1.0f);
 	        outputField.addValue(separatedField, 1.0F);
@@ -117,6 +170,23 @@ public class MultiTextFieldLanguageIdentifierUpdateProcessor
 	return doc;
 		
 	}
+	
+	  /*
+	   * Concatenates content from multiple fields
+	   */
+	  protected String getCurrentFieldValue(SolrInputDocument doc, String fieldName) {
+	    StringBuffer sb = new StringBuffer();
+	      if (doc.containsKey(fieldName)) {
+	        Object content = doc.getFieldValue(fieldName);
+	        if(content instanceof String) {
+	          sb.append((String) doc.getFieldValue(fieldName));
+	          sb.append(" ");
+	        } else {
+	          log.warn("Field "+fieldName+" not a String value, not including in detection");
+	        }
+	    }
+	    return sb.toString();
+	  }
 	
 	public IndexableField fromString(SchemaField field, String indexableValue, String storableValue, float boost) {
 		org.apache.lucene.document.FieldType type = PreAnalyzedField.createFieldType(field);
