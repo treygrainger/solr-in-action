@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<solr persistent="false" sharedLib="cores/lib/MultiTextField.jar">
+<solr persistent="false" sharedLib="cores/lib/">
   <cores adminPath="/admin/cores" defaultCoreName="aggregator">
     <core name="english-examples" instanceDir="shared" dataDir="../cores/english-examples/data" schema="../../cores/english-examples/schema.xml" />
 
@@ -11,7 +11,9 @@
     <core name="french" instanceDir="shared" dataDir="../cores/core-per-language/data/french" schema="../../cores/core-per-language/french_schema.xml" />
       
     <core name="multi-language-field" instanceDir="shared" dataDir="../cores/multi-language-field/data" schema="../../cores/multi-language-field/schema.xml" />
+      <core name="multi-langid" instanceDir="shared" dataDir="../cores/multi-langid/data" schema="../../cores/multi-langid/schema.xml" config="../../cores/multi-langid/solrconfig.xml" />
       
     <core name="langid" instanceDir="shared" dataDir="../cores/langid/data" schema="../../cores/langid/schema.xml" config="../../cores/langid/solrconfig.xml" />
+
   </cores>
 </solr>
