@@ -20,10 +20,9 @@
                 <str name="langid.fl">title,content</str>
                 <str name="langid.langField">language</str>
                 <str name="langid.whitelist">en,es,fr</str>
-                <str name="langid.map.lcmap">en:english, es:spanish, fr:french</str>
                 <str name="langid.fallback">en</str>
                 <str name="mtf-langid.prependFields">content</str>
-                <str name="mtf-langid.prependGranularity">field</str>
+                <str name="mtf-langid.prependGranularity">fieldValue</str>
             </lst>
         </processor>
         <processor class="solr.LogUpdateProcessorFactory" />

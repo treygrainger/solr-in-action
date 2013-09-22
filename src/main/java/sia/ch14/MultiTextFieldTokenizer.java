@@ -62,16 +62,19 @@ public class MultiTextFieldTokenizer extends Tokenizer {
 	public void reset() throws IOException{
 		super.reset();
 		this.tokens = null;
-		if (this.multiTextInput == null){
-			this.multiTextInput = new MultiTextFieldInput(this.input, 
-					this.settings.keyFromTextDelimiter, this.settings.multiKeyDelimiter);
-		}
-		else{
-			this.multiTextInput.setReader(this.input);	
-		}
+		//if (this.input != null){
+			if (this.multiTextInput == null){
+					this.multiTextInput = new MultiTextFieldInput(this.input, 
+							this.settings.keyFromTextDelimiter, this.settings.multiKeyDelimiter);
+				}
+				else{
+					this.multiTextInput.setReader(this.input);	
+				}
+		//}			
 		this.namedAnalyzers = getNamedAnalyzers(this.multiTextInput);
 		this.startingOffset = this.multiTextInput.StrippedIncomingPrefixLength 
-			>= 0 ? this.multiTextInput.StrippedIncomingPrefixLength : 0;
+		    >= 0 ? this.multiTextInput.StrippedIncomingPrefixLength : 0;
+
 	}
 	
 	private LinkedHashMap<String, Analyzer> getNamedAnalyzers(MultiTextFieldInput multiTextInput){

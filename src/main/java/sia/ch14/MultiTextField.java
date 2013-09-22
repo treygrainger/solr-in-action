@@ -1,10 +1,22 @@
 package sia.ch14;
 
+import java.io.Reader;
+import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
+import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.Analyzer.TokenStreamComponents;
+import org.apache.lucene.analysis.TokenStream;
+import org.apache.lucene.document.Field;
+import org.apache.lucene.document.FieldType;
+import org.apache.lucene.index.IndexableField;
+import org.apache.solr.analysis.SolrAnalyzer;
 import org.apache.solr.common.SolrException;
 import org.apache.solr.schema.IndexSchema;
+import org.apache.solr.schema.PreAnalyzedField;
+import org.apache.solr.schema.SchemaField;
 import org.apache.solr.schema.TextField;
 
 import sia.ch14.MultiTextFieldSettings.AnalyzerModes;
@@ -35,8 +47,7 @@ public class MultiTextField extends TextField  {
 		String defaultFieldTypeName = "";
 		HashMap<String, String> fieldMappings = null;
 		boolean ignoreMissingMappings = false;
-		boolean removeDuplicates = true;
-		
+		boolean removeDuplicates = true;		
 		
 		if (args.containsKey(KEY_FROM_TEXT_DELIMITER)){
 			String delimiter = args.get(KEY_FROM_TEXT_DELIMITER);
@@ -158,5 +169,66 @@ public class MultiTextField extends TextField  {
 		this.setMultiTermAnalyzer(multiTermAnalyzer);
 	}
 	
+
+	  @Override
+	  public IndexableField createField(SchemaField field, Object value,
+	          float boost) {
+	    IndexableField f = null;
+	    try {
+	      f = fromString(field, String.valueOf(value), boost);
+	    } catch (Exception e) {
+	      return null;
+	    }
+	    return f;
+	  }
+	  
+	  public IndexableField fromString(SchemaField field, String val, float boost) throws Exception {
+		    if (val == null || val.trim().length() == 0) {
+		      return null;
+		    }
+		    org.apache.lucene.document.FieldType type = PreAnalyzedField.createFieldType(field);
+		    if (type == null) {
+		      return null;
+		    }
+		    Field f = null;
+		    if (val != null) {
+		      if (field.stored()) {
+		        f = new Field(field.getName(), indexableToStorable(val), type);
+		      } else {
+		        type.setStored(false);
+		      }
+		    } 
+		    
+		      if (field.indexed()) {
+		        type.setIndexed(true);
+		        type.setTokenized(true);
+				TokenStream indexableTokenStream = ((MultiTextFieldAnalyzer)this.getAnalyzer()).createComponents(field.getName(), new StringReader(val)).getTokenStream();
+						//tokenStream(field.getName(), new StringReader(val));
+		        if (f != null) {
+
+		          f.setTokenStream(indexableTokenStream);
+		        } else {
+		          f = new Field(field.getName(), indexableTokenStream, type);
+		        }
+		      } else {
+		        if (f != null) {
+		          f.fieldType().setIndexed(false);
+		          f.fieldType().setTokenized(false);
+		        }
+		      }
+		    
+		    if (f != null) {
+		      f.setBoost(boost);
+		    }
+		    return f;
+		  }
+	
+	  private String indexableToStorable(String indexable){
+		  String storable = indexable;
+		    if (indexable.startsWith("[") && indexable.contains("|]")){
+		    	storable = indexable.substring(indexable.indexOf("|]") + "|]".length(), indexable.length() -1);
+		    }			  
+			  return storable;
+	  }
 	
 }

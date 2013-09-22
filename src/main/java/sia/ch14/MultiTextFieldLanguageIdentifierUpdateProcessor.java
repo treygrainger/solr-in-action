@@ -4,24 +4,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
-
-import org.apache.lucene.document.Field;
-import org.apache.lucene.index.IndexableField;
 import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.common.SolrInputField;
 import org.apache.solr.common.params.SolrParams;
 import org.apache.solr.request.SolrQueryRequest;
 import org.apache.solr.response.SolrQueryResponse;
 import org.apache.solr.schema.IndexSchema;
-import org.apache.solr.schema.PreAnalyzedField;
-import org.apache.solr.schema.SchemaField;
 import org.apache.solr.update.processor.DetectedLanguage;
 import org.apache.solr.update.processor.UpdateRequestProcessor;
+import org.apache.solr.update.processor.LangDetectLanguageIdentifierUpdateProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MultiTextFieldLanguageIdentifierUpdateProcessor
-    extends org.apache.solr.update.processor.LangDetectLanguageIdentifierUpdateProcessor {
+    extends LangDetectLanguageIdentifierUpdateProcessor {
 	
 	protected final static Logger log = LoggerFactory
 	      .getLogger(MultiTextFieldLanguageIdentifierUpdateProcessor.class);
@@ -158,10 +154,8 @@ public class MultiTextFieldLanguageIdentifierUpdateProcessor
 				fieldLangsPrefix.append(mtfAnalyzer.Settings.keyFromTextDelimiter);
 			}
 		        
-	      outputValue = "[" + fieldLangsPrefix + "]" + (String)outputValue;
-	      
-	      IndexableField separatedField = fromString(indexSchema.getField(multiTextFieldName), outputValue.toString(), inputValue.toString(), 1.0f);
-	        outputField.addValue(separatedField, 1.0F);
+	      outputValue = "[" + fieldLangsPrefix + "]" + (String)outputValue; 
+          outputField.addValue(outputValue, 1.0F);
 	    }
 	    outputField.setBoost(inputField.getBoost());
 	    
@@ -187,46 +181,46 @@ public class MultiTextFieldLanguageIdentifierUpdateProcessor
 	    }
 	    return sb.toString();
 	  }
-	
-	public IndexableField fromString(SchemaField field, String indexableValue, String storableValue, float boost) {
-		org.apache.lucene.document.FieldType type = PreAnalyzedField.createFieldType(field);
-	    if (type == null) {
-	      return null;
-	    }
-	    Field f = null;
-	    if (storableValue != null) {
-	      if (field.stored()) {
-	        f = new Field(field.getName(), storableValue, type);
-	      } else {
-	        type.setStored(false);
-	      } 
-	    } else {
-	      type.setStored(false);
-	    }
-	    
-	    if (indexableValue != null) {
-	      if (field.indexed()) {
-	        type.setIndexed(true);
-	        type.setTokenized(true);
-	        if (f != null) {
-	        	f.setStringValue(indexableValue);
-	          //f.setTokenStream(f.tokenStreamValue());
-	        } else {
-	          f = new Field(field.getName(), indexableValue, type);
-	        }
-	      } else {
-	        if (f != null) {
-	          f.fieldType().setIndexed(false);
-	          f.fieldType().setTokenized(false);
-	        }
-	      }
-	    }
-	    if (f != null) {
-	      f.setBoost(boost);
-	    }
-	    return f;
-	}
-	
+//	
+//	public IndexableField fromString(SchemaField field, String indexableValue, String storableValue, float boost) {
+//		org.apache.lucene.document.FieldType type = PreAnalyzedField.createFieldType(field);
+//	    if (type == null) {
+//	      return null;
+//	    }
+//	    Field f = null;
+//	    if (storableValue != null) {
+//	      if (field.stored()) {
+//	        f = new Field(field.getName(), storableValue, type);
+//	      } else {
+//	        type.setStored(false);
+//	      } 
+//	    } else {
+//	      type.setStored(false);
+//	    }
+//	    
+//	    if (indexableValue != null) {
+//	      if (field.indexed()) {
+//	        type.setIndexed(true);
+//	        type.setTokenized(true);
+//	        if (f != null) {
+//	        	f.setStringValue(indexableValue);
+//	          //f.setTokenStream(f.tokenStreamValue());
+//	        } else {
+//	          f = new Field(field.getName(), indexableValue, type);
+//	        }
+//	      } else {
+//	        if (f != null) {
+//	          f.fieldType().setIndexed(false);
+//	          f.fieldType().setTokenized(false);
+//	        }
+//	      }
+//	    }
+//	    if (f != null) {
+//	      f.setBoost(boost);
+//	    }
+//	    return f;
+//	}
+//	
 		
 }
 	

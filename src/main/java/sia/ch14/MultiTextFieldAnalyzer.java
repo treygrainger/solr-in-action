@@ -21,7 +21,7 @@ public final MultiTextFieldSettings Settings;
 	}
 	
 	@Override
-	protected TokenStreamComponents createComponents(String fieldName,
+	public TokenStreamComponents createComponents(String fieldName,
 			Reader reader) {
 		
 		MultiTextFieldTokenizer multiTokenizer = new MultiTextFieldTokenizer(
@@ -37,5 +37,4 @@ public final MultiTextFieldSettings Settings;
 
 	}
 	
-  
 }
