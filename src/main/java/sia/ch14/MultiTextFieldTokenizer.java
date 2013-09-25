@@ -29,16 +29,16 @@ public class MultiTextFieldTokenizer extends Tokenizer {
 	protected String fieldName;
 	protected IndexSchema indexSchema;
 	protected MultiTextFieldSettings settings;
+	protected LinkedHashMap<String, Analyzer> namedAnalyzers;
+	protected MultiTextFieldInput multiTextInput;
 	
 	private CharTermAttribute charTermAttribute;
     private OffsetAttribute offsetAttribute;
     private TypeAttribute typeAttribute;
     private PositionIncrementAttribute positionAttribute;
-
 	private LinkedList<Token> tokens;
 	private Integer startingOffset;
-	protected LinkedHashMap<String, Analyzer> namedAnalyzers;
-	protected MultiTextFieldInput multiTextInput;
+
 
 
 	
@@ -62,22 +62,20 @@ public class MultiTextFieldTokenizer extends Tokenizer {
 	public void reset() throws IOException{
 		super.reset();
 		this.tokens = null;
-		//if (this.input != null){
 			if (this.multiTextInput == null){
 					this.multiTextInput = new MultiTextFieldInput(this.input, 
 							this.settings.keyFromTextDelimiter, this.settings.multiKeyDelimiter);
 				}
 				else{
 					this.multiTextInput.setReader(this.input);	
-				}
-		//}			
-		this.namedAnalyzers = getNamedAnalyzers(this.multiTextInput);
+				}		
+		this.namedAnalyzers = getNamedAnalyzers();
 		this.startingOffset = this.multiTextInput.StrippedIncomingPrefixLength 
 		    >= 0 ? this.multiTextInput.StrippedIncomingPrefixLength : 0;
 
 	}
 	
-	private LinkedHashMap<String, Analyzer> getNamedAnalyzers(MultiTextFieldInput multiTextInput){
+	private LinkedHashMap<String, Analyzer> getNamedAnalyzers(){
 		
 		//TODO: Add caching of namedAnalyzers using ClosableThreadLocal per cache key
 		//to prevent them from having to be regenerated on every request
