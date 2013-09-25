@@ -1,18 +1,11 @@
 package sia.ch14;
 
-import java.io.Reader;
 import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.regex.Pattern;
-
-import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.Analyzer.TokenStreamComponents;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.document.Field;
-import org.apache.lucene.document.FieldType;
 import org.apache.lucene.index.IndexableField;
-import org.apache.solr.analysis.SolrAnalyzer;
 import org.apache.solr.common.SolrException;
 import org.apache.solr.schema.IndexSchema;
 import org.apache.solr.schema.PreAnalyzedField;
@@ -36,6 +29,7 @@ public class MultiTextField extends TextField  {
 	private final static String KEY_FROM_TEXT_DELIMITER = "keyFromTextDelimiter";
 	private final static String MULTI_KEY_DELIMITER = "multiKeyDelimiter";
 	private final static String REMOVE_DUPLICATES = "removeDuplicates";
+
 	
 	@Override
 	protected void init(IndexSchema schema, Map<String,String> args) {
@@ -47,7 +41,8 @@ public class MultiTextField extends TextField  {
 		String defaultFieldTypeName = "";
 		HashMap<String, String> fieldMappings = null;
 		boolean ignoreMissingMappings = false;
-		boolean removeDuplicates = true;		
+		boolean removeDuplicates = true;
+		boolean hidePrependedLangs = false;
 		
 		if (args.containsKey(KEY_FROM_TEXT_DELIMITER)){
 			String delimiter = args.get(KEY_FROM_TEXT_DELIMITER);
@@ -146,17 +141,20 @@ public class MultiTextField extends TextField  {
 		
 		MultiTextFieldSettings indexSettings = new MultiTextFieldSettings(
 			AnalyzerModes.index, keyFromTextDelimiter, multiKeyDelimiter, 
-			defaultFieldTypeName, fieldMappings, ignoreMissingMappings, removeDuplicates
+			defaultFieldTypeName, fieldMappings, ignoreMissingMappings, 
+			removeDuplicates, hidePrependedLangs			
 		);
 		
 		MultiTextFieldSettings querySettings = new MultiTextFieldSettings(
 				AnalyzerModes.query, keyFromTextDelimiter, multiKeyDelimiter, 
-				defaultFieldTypeName, fieldMappings, ignoreMissingMappings, removeDuplicates
+				defaultFieldTypeName, fieldMappings, ignoreMissingMappings, 
+				removeDuplicates, hidePrependedLangs
 			);
 		
 		MultiTextFieldSettings multiTermSettings = new MultiTextFieldSettings(
 				AnalyzerModes.multiTerm, keyFromTextDelimiter, multiKeyDelimiter, 
-				defaultFieldTypeName, fieldMappings, ignoreMissingMappings, removeDuplicates
+				defaultFieldTypeName, fieldMappings, ignoreMissingMappings, 
+				removeDuplicates, hidePrependedLangs
 			);
 
 		MultiTextFieldAnalyzer indexAnalyzer = new MultiTextFieldAnalyzer(schema, indexSettings);
@@ -172,18 +170,27 @@ public class MultiTextField extends TextField  {
 
 	  @Override
 	  public IndexableField createField(SchemaField field, Object value,
-	          float boost) {
-	    IndexableField f = null;
+	          float boost) {		
+		  
+		  String indexableValue = String.valueOf(value);
+		  String storableValue = indexableToStorable(indexableValue);
+		  if (indexableValue.equals(storableValue)){
+			  //save lots of extra object creation...
+			  return super.createField(field, value, boost);
+		  }
+		  
+		  IndexableField f = null;
 	    try {
-	      f = fromString(field, String.valueOf(value), boost);
+	      f = separateIndexableFromStorableValue(field, indexableValue, storableValue, boost);
 	    } catch (Exception e) {
 	      return null;
 	    }
 	    return f;
 	  }
 	  
-	  public IndexableField fromString(SchemaField field, String val, float boost) throws Exception {
-		    if (val == null || val.trim().length() == 0) {
+	  public IndexableField separateIndexableFromStorableValue(SchemaField field, String indexableValue, String storableValue, float boost) throws Exception {
+		    if (indexableValue == null || indexableValue.trim().length() == 0 
+		    		|| storableValue == null || storableValue.trim().length() == 0) {
 		      return null;
 		    }
 		    org.apache.lucene.document.FieldType type = PreAnalyzedField.createFieldType(field);
@@ -191,21 +198,17 @@ public class MultiTextField extends TextField  {
 		      return null;
 		    }
 		    Field f = null;
-		    if (val != null) {
 		      if (field.stored()) {
-		        f = new Field(field.getName(), indexableToStorable(val), type);
+		        f = new Field(field.getName(), storableValue, type);
 		      } else {
 		        type.setStored(false);
 		      }
-		    } 
 		    
 		      if (field.indexed()) {
 		        type.setIndexed(true);
 		        type.setTokenized(true);
-				TokenStream indexableTokenStream = ((MultiTextFieldAnalyzer)this.getAnalyzer()).createComponents(field.getName(), new StringReader(val)).getTokenStream();
-						//tokenStream(field.getName(), new StringReader(val));
+				TokenStream indexableTokenStream = ((MultiTextFieldAnalyzer)this.getAnalyzer()).createComponents(field.getName(), new StringReader(indexableValue)).getTokenStream();
 		        if (f != null) {
-
 		          f.setTokenStream(indexableTokenStream);
 		        } else {
 		          f = new Field(field.getName(), indexableTokenStream, type);
@@ -223,12 +226,12 @@ public class MultiTextField extends TextField  {
 		    return f;
 		  }
 	
-	  private String indexableToStorable(String indexable){
-		  String storable = indexable;
-		    if (indexable.startsWith("[") && indexable.contains("|]")){
-		    	storable = indexable.substring(indexable.indexOf("|]") + "|]".length(), indexable.length() -1);
+	  private String indexableToStorable(String indexableValue){
+		  String storableValue = indexableValue;
+		    if (indexableValue.startsWith("[") && indexableValue.contains("|]")){
+		    	storableValue = indexableValue.substring(indexableValue.indexOf("|]") + "|]".length(), indexableValue.length() -1);
 		    }			  
-			  return storable;
+			  return storableValue;
 	  }
 	
 }

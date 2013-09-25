@@ -21,8 +21,11 @@
                 <str name="langid.langField">language</str>
                 <str name="langid.whitelist">en,es,fr</str>
                 <str name="langid.fallback">en</str>
+            </lst>
+            <lst name="defaults">
                 <str name="mtf-langid.prependFields">content</str>
                 <str name="mtf-langid.prependGranularity">fieldValue</str>
+                <str name="mtf-langid.hidePrependedLangs">false</str>
             </lst>
         </processor>
         <processor class="solr.LogUpdateProcessorFactory" />

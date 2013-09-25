@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.List;
+
 import org.apache.solr.common.SolrInputDocument;
 import org.apache.solr.common.SolrInputField;
 import org.apache.solr.common.params.SolrParams;
@@ -24,6 +25,8 @@ public class MultiTextFieldLanguageIdentifierUpdateProcessor
 	
 	private static String MULTI_TEXT_FIELD_LANGID = "mtf-langid";
 	private static String PREPEND_GRANULARITY = MULTI_TEXT_FIELD_LANGID + ".prependGranularity";
+	private final static String HIDE_PREPENDED_LANGS = MULTI_TEXT_FIELD_LANGID + ".hidePrependedLangs";
+	
 	private enum PrependGranularities{
 		document,
 		field,
@@ -34,6 +37,7 @@ public class MultiTextFieldLanguageIdentifierUpdateProcessor
 	protected IndexSchema indexSchema;
 	protected Collection<String> prependFields = new LinkedHashSet<String>();
 	private PrependGranularities prependGranularity = PrependGranularities.document;
+	private Boolean hidePrependedLangs = true;
 	
 	public MultiTextFieldLanguageIdentifierUpdateProcessor(SolrQueryRequest req, SolrQueryResponse rsp, UpdateRequestProcessor next) {
 		super(req, rsp, next) ;
@@ -69,6 +73,8 @@ public class MultiTextFieldLanguageIdentifierUpdateProcessor
 	    		  log.error("Unsupported format for" + PREPEND_GRANULARITY + ":" + prependGranularity + ". Using " + this.prependGranularity.toString() + ".");
 	    	  }
 	      }
+	      
+	      this.hidePrependedLangs = params.getBool(HIDE_PREPENDED_LANGS, false);
 
 	}
 	
@@ -153,8 +159,13 @@ public class MultiTextFieldLanguageIdentifierUpdateProcessor
 			if (fieldLangsPrefix.length() > 0 ){
 				fieldLangsPrefix.append(mtfAnalyzer.Settings.keyFromTextDelimiter);
 			}
-		        
-	      outputValue = "[" + fieldLangsPrefix + "]" + (String)outputValue; 
+			
+		  if (this.hidePrependedLangs){
+			  fieldLangsPrefix.insert(0, '[');
+			  fieldLangsPrefix.append(']');
+		  }
+		 
+	      outputValue = fieldLangsPrefix + (String)outputValue; 
           outputField.addValue(outputValue, 1.0F);
 	    }
 	    outputField.setBoost(inputField.getBoost());
@@ -181,45 +192,7 @@ public class MultiTextFieldLanguageIdentifierUpdateProcessor
 	    }
 	    return sb.toString();
 	  }
-//	
-//	public IndexableField fromString(SchemaField field, String indexableValue, String storableValue, float boost) {
-//		org.apache.lucene.document.FieldType type = PreAnalyzedField.createFieldType(field);
-//	    if (type == null) {
-//	      return null;
-//	    }
-//	    Field f = null;
-//	    if (storableValue != null) {
-//	      if (field.stored()) {
-//	        f = new Field(field.getName(), storableValue, type);
-//	      } else {
-//	        type.setStored(false);
-//	      } 
-//	    } else {
-//	      type.setStored(false);
-//	    }
-//	    
-//	    if (indexableValue != null) {
-//	      if (field.indexed()) {
-//	        type.setIndexed(true);
-//	        type.setTokenized(true);
-//	        if (f != null) {
-//	        	f.setStringValue(indexableValue);
-//	          //f.setTokenStream(f.tokenStreamValue());
-//	        } else {
-//	          f = new Field(field.getName(), indexableValue, type);
-//	        }
-//	      } else {
-//	        if (f != null) {
-//	          f.fieldType().setIndexed(false);
-//	          f.fieldType().setTokenized(false);
-//	        }
-//	      }
-//	    }
-//	    if (f != null) {
-//	      f.setBoost(boost);
-//	    }
-//	    return f;
-//	}
+
 //	
 		
 }

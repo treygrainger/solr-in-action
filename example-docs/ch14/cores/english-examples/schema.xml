@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <schema name="example" version="1.5">
   <types>
-      <fieldType name="text_en_snowballporter" class="solr.TextField" positionIncrementGap="100">
+      <fieldType name="text_en_porter" class="solr.TextField" positionIncrementGap="100">
           <analyzer>
               <tokenizer class="solr.StandardTokenizerFactory"/>
               <filter class="solr.StopFilterFactory"
