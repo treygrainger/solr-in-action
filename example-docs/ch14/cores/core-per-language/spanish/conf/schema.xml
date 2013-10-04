@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema name="example" version="1.5">
+  <types>
+      <fieldType name="text_spanish" class="solr.TextField" positionIncrementGap="100">
+          <analyzer>
+              <tokenizer class="solr.StandardTokenizerFactory"/>
+              <filter class="solr.LowerCaseFilterFactory"/>
+              <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_es.txt" format="snowball" enablePositionIncrements="true"/>
+              <filter class="solr.SpanishLightStemFilterFactory"/>
+          </analyzer>
+      </fieldType>
+      
+      <fieldType name="string" class="solr.StrField" sortMissingLast="true" />
+      <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
+  </types>
+
+  <fields>
+    <field name="id" type="string" indexed="true" stored="true" />
+    <field name="_version_" type="long" indexed="true" stored="true"/>
+    <field name="text" type="string" indexed="true" stored="false" multiValued="true"/>
+      
+    <field name="title" type="string" indexed="true" stored="true" />
+    <field name="content" type="text_spanish" indexed="true" stored="true" />
+
+  </fields>
+
+  <uniqueKey>id</uniqueKey>
+  <defaultSearchField>text</defaultSearchField>
+
+</schema>
