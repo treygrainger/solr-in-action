@@ -46,24 +46,24 @@ launch the executable JAR you built in step 2 above.
 
 For example, to run the ExampleSolrJClient application from Chapter 5, do:
 
-java -jar target/sia-examples.jar ch5.ExampleSolrJClient
+java -jar sia-examples.jar ch5.ExampleSolrJClient
 
 In most cases, you can just pass the example class name without the package
 information and the driver will figure it out, i.e.
  
-java -jar target/sia-examples.jar examplesolrjclient
+java -jar sia-examples.jar examplesolrjclient
 
 The driver will figure out that you're trying to run example class:
 sia.ch5.ExampleSolrJClient
 
 To see a list of all available examples, simply do:
 
-java -jar target/sia-examples.jar
+java -jar sia-examples.jar
 
 To see a list of all examples for a specific chapter, pass the chapter number,
 e.g. the following command will show all examples for chapter 5:
 
-java -jar target/sia-examples.jar 5
+java -jar sia-examples.jar 5
 
 
 Enjoy!
