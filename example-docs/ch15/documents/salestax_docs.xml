@@ -1,0 +1,79 @@
+<add>
+     <doc>
+          <field name="id">1</field>
+          <field name="name">Maggiano's</field>
+          <field name="city">Atlanta</field>
+          <field name="state">GA</field>
+          <field name="rating">4</field>
+     </doc>
+     <doc>
+          <field name="id">2</field>
+          <field name="name">Burger King</field>
+          <field name="city">Atlanta</field>
+          <field name="state">GA</field>
+          <field name="rating">2</field>
+     </doc>
+     <doc>
+          <field name="id">3</field>
+          <field name="name">Red Lobster</field>
+          <field name="city">Atlanta</field>
+          <field name="state">GA</field>
+          <field name="rating">4</field>
+     </doc>
+     <doc>
+          <field name="id">4</field>
+          <field name="name">The Melting Pot</field>
+          <field name="city">Atlanta</field>
+          <field name="state">GA</field>
+          <field name="rating">5</field>
+     </doc>
+      <doc>
+          <field name="id">5</field>
+          <field name="name">The Iberian Pig</field>
+          <field name="city">Atlanta</field>
+          <field name="state">GA</field>
+          <field name="rating">5</field>
+     </doc>
+     <doc>
+          <field name="id">6</field>
+          <field name="name">Giordano's</field>
+          <field name="city">Chicago</field>
+          <field name="state">IL</field>
+          <field name="rating">5</field>
+     </doc>
+     <doc>
+          <field name="id">7</field>
+          <field name="name">Frankie's</field>
+          <field name="city">Chicago</field>
+          <field name="state">IL</field>
+          <field name="rating">4</field>
+     </doc>
+     <doc>
+          <field name="id">8</field>
+          <field name="name">Spiaggia</field>
+          <field name="city">Chicago</field>
+          <field name="state">IL</field>
+          <field name="rating">4</field>
+     </doc>
+          <doc>
+          <field name="id">9</field>
+          <field name="name">Blanca</field>
+          <field name="city">New York City</field>
+          <field name="state">NY</field>
+          <field name="rating">5</field>
+     </doc>
+     <doc>
+          <field name="id">10</field>
+          <field name="name">Bar Masa</field>
+          <field name="city">New York City</field>
+          <field name="state">NY</field>
+          <field name="rating">4</field>
+     </doc>
+     <doc>
+          <field name="id">11</field>
+          <field name="name">Bouley</field>
+          <field name="city">New York City</field>
+          <field name="state">NY</field>
+          <field name="rating">5</field>
+     </doc>
+</add>

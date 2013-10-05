@@ -7,6 +7,7 @@ import org.apache.lucene.index.AtomicReaderContext;
 import org.apache.lucene.queries.function.FunctionValues;
 import org.apache.lucene.queries.function.ValueSource;
 import org.apache.lucene.queries.function.docvalues.StrDocValues;
+import org.apache.solr.common.SolrException;
 
 public class ConcatenateFunction extends ValueSource {
 	protected final ValueSource valueSource1;  
@@ -15,6 +16,10 @@ public class ConcatenateFunction extends ValueSource {
 
 
 	  public ConcatenateFunction(ValueSource valueSource1, ValueSource valueSource2, String delimiter) {
+	   if (valueSource1 == null || valueSource2 == null){
+		   throw new SolrException(SolrException.ErrorCode.BAD_REQUEST, "One or more inputs missing for concatenate function");
+	   }
+		  
 	   this.valueSource1 = valueSource1;
 	   this.valueSource2 = valueSource2;
 	   if (delimiter != null){
@@ -39,9 +44,10 @@ public class ConcatenateFunction extends ValueSource {
 	      public String toString(int doc) {
 	        StringBuilder sb = new StringBuilder();
 	        sb.append("concatenate(");
-	        sb.append("" + firstValues.toString(doc) + "").append(',')
-	        	.append("" + secondValues.toString(doc) + "").append(',')
-	        	.append(',').append("" + delimiter + "");
+	        sb.append("\"" + firstValues.toString(doc) + "\"")
+	            .append(',')  
+	        	.append("\"" + secondValues.toString(doc) + "\"")
+	        	.append(',').append("\"" + delimiter + "\"");
 	        sb.append(')');
 	        return sb.toString();
 	      }

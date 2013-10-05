@@ -7,7 +7,7 @@ running the example code provided in the book.
 
 1. Directory layout
 
-  $SIA_HOME - this is the location where you extracted the zip file.
+  $SOLR_IN_ACTION - this is the location where you extracted the zip file.
   |
   |__src
   |   |__main
@@ -33,7 +33,7 @@ example source code zip file and do:
 mvn clean package
 
 This will compile the source code and build an executable JAR file in the
-target directory named: sia-examples.jar
+main directory ($SOLR_IN_ACTION) named: sia-examples.jar
 
 
 3. To make it easy for you to run the examples, we built a simple driver
