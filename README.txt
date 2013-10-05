@@ -18,6 +18,8 @@ running the example code provided in the book.
   |__pom.xml - maven build file
   |
   |__README.txt - you're looking at it ;-)
+  |
+  |__sia-examples.jar - compiled source code (follow step 2 to build this file)
 
 
 2. Building the source code
