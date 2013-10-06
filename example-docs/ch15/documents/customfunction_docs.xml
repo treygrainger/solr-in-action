@@ -1,0 +1,7 @@
+<add>
+     <doc>
+          <field name="id">1</field>
+          <field name="field1">hello</field>
+          <field name="field2">world</field>
+     </doc>
+</add>

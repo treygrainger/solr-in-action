@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <config>
-  <luceneMatchVersion>LUCENE_43</luceneMatchVersion>
+  <luceneMatchVersion>4.5</luceneMatchVersion>
   <lib dir="../../../contrib/extraction/lib" regex=".*\.jar" />
   <lib dir="../../../dist/" regex="solr-cell-\d.*\.jar" />
 
@@ -85,9 +85,7 @@
          will be overridden by parameters in the request
       -->
      <lst name="defaults">
-         lst name="defaults">
          <str name="echoParams">none</str>
-         <str name="df">content</str>
          <str name="wt">json</str>
          <str name="indent">true</str>
          <str name="df">text</str>

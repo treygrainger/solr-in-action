@@ -9,6 +9,7 @@
               <filter class="solr.KStemFilterFactory" />
           </analyzer>
       </fieldType>
+      
             
       <fieldType name="string" class="solr.StrField" sortMissingLast="true" />
       <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0" />
@@ -19,8 +20,8 @@
   <fields>
     <field name="id" type="string" indexed="true" stored="true" />
     <field name="_version_" type="long" indexed="true" stored="true" />
-    <field name="text" type="text" indexed="true" stored="false" multiValued="true" />      
-    <field name="basePrice" type="double" indexed="true" stored="true" />      
+    <field name="text" type="text" indexed="true" stored="false" multiValued="true" />
+    <field name="date" type="date" indexed="true" stored="true" />
   </fields>
     
   <uniqueKey>id</uniqueKey>
