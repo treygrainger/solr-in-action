@@ -139,24 +139,6 @@
     -->
   <searchComponent name="tvComponent" class="solr.TermVectorComponent"/>
 
-    <searchComponent name="clustering"
-                   enable="${solr.clustering.enabled:true}"
-                   class="solr.clustering.ClusteringComponent" >
-    <lst name="engine">
-      <str name="name">default</str>
-
-      <str name="carrot.algorithm">org.carrot2.clustering.lingo.LingoClusteringAlgorithm</str>
-
-          <str name="LingoClusteringAlgorithm.desiredClusterCountBase">20</str>
-          <str name="carrot.lexicalResourcesDir">clustering/carrot2</str>
-          <str name="MultilingualClustering.defaultLanguage">ENGLISH</str>
-    </lst>
-    <lst name="engine">
-      <str name="name">stc</str>
-      <str name="carrot.algorithm">org.carrot2.clustering.stc.STCClusteringAlgorithm</str>
-    </lst>
-  </searchComponent>
-
   <searchComponent name="terms" class="solr.TermsComponent"/>
 
   <!-- A request handler for demonstrating the terms component -->

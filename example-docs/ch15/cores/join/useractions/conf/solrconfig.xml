@@ -13,7 +13,7 @@
   <lib dir="../../../contrib/velocity/lib" regex=".*\.jar" />
   <lib dir="../../../dist/" regex="solr-velocity-\d.*\.jar" />
     
-    <valueSourceParser name="concat"
+    <valueSourceParser name="concatenate"
     class="sia.ch15.ConcatenateFunctionParser" />
 
     <dataDir>${solr.data.dir:}</dataDir>
@@ -138,6 +138,8 @@
        http://wiki.apache.org/solr/TermVectorComponent
     -->
   <searchComponent name="tvComponent" class="solr.TermVectorComponent"/>
+
+
 
   <searchComponent name="terms" class="solr.TermsComponent"/>
 
