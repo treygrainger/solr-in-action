@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema name="example" version="1.5">
+    <fields>
+        <field name="text" type="text_general" indexed="false" stored="true" multiValued="true"/>
+        <field name="_version_" type="long" indexed="true" stored="true"/>
+        
+        
+        <!-- Posts -->
+        <field name="id" type="int" indexed="true" stored="true"/>
+        <field name="postTypeId" type="int" indexed="true" stored="true"/>
+        <field name="acceptedAnswerId" type="int" indexed="true" stored="true"/>
+        <field name="creationDate" type="date" indexed="true" stored="true"/>
+        <field name="postScore" type="int" indexed="true" stored="true"/>
+        <field name="viewCount" type="int" indexed="true" stored="true"/>
+        <field name="body" type="text_general" indexed="true" stored="true"/>
+        <field name="ownerUserId" type="int" indexed="true" stored="true"/>
+        <field name="lastEditorUserId" type="int" indexed="true" stored="true"/>
+        <field name="lastEditorDisplayName" type="string" indexed="true" stored="true"/>
+        <field name="lastActivityDate" type="date" indexed="true" stored="true"/>
+        <field name="title" type="text_general" indexed="true" stored="true"/>
+        <field name="tags" type="string" indexed="true" stored="true" multiValued="true"/>
+        <field name="answerCount" type="int" indexed="true" stored="true"/>
+        <field name="commentCount" type="int" indexed="true" stored="true"/>
+        <field name="favoriteCount" type="int" indexed="true" stored="true"/>
+        <field name="communityOwnedDate" type="date" indexed="true" stored="true"/>        
+
+    </fields>
+    
+    <types>
+        <fieldType name="string" class="solr.StrField" sortMissingLast="true" />
+        <fieldType name="int" class="solr.TrieIntField" precisionStep="0" positionIncrementGap="0"/>
+        <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
+        <fieldType name="date" class="solr.TrieDateField" precisionStep="0" positionIncrementGap="0"/>
+        
+        <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
+            <analyzer type="index">
+                <tokenizer class="solr.StandardTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+            <analyzer type="query">
+                <tokenizer class="solr.StandardTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+        
+    </types>
+    
+    <uniqueKey>id</uniqueKey>
+    
+</schema>
