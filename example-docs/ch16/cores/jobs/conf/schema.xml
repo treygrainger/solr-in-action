@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema name="example" version="1.5">
+    <fields>
+        
+        <!-- Posts -->
+        <field name="id" type="string" indexed="true" stored="true"/>
+        <field name="jobtitle" type="text_general" indexed="true" stored="true"/>
+        <field name="jobdescription" type="text_general" indexed="true" stored="false" termVectors="true"/>
+        <field name="classification" type="splitOnPeriod" indexed="true" stored="true"/>
+        <field name="city" type="text_general" indexed="true" stored="true"/>
+        <field name="state" type="text_general" indexed="true" stored="true"/>
+        <field name="salary" type="int" indexed="true" stored="true"/>
+        <field name="_version_" type="long" indexed="true" stored="true"/>
+        <field name="text" type="text_general" indexed="false" stored="true" multiValued="true"/>        
+    </fields>
+    
+    <types>
+        <fieldType name="string" class="solr.StrField" sortMissingLast="true" />
+        <fieldType name="int" class="solr.TrieIntField" precisionStep="0" positionIncrementGap="0"/>
+        <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
+        <fieldType name="date" class="solr.TrieDateField" precisionStep="0" positionIncrementGap="0"/>
+        
+        <fieldType name="text_general" class="solr.TextField" positionIncrementGap="100">
+            <analyzer>
+                <tokenizer class="solr.StandardTokenizerFactory"/>
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>
+        
+        <fieldType name="splitOnPeriod" class="solr.TextField" positionIncrementGap="100">
+             <analyzer>
+                <tokenizer class="solr.PatternTokenizerFactory" pattern="\." />
+                <filter class="solr.LowerCaseFilterFactory"/>
+            </analyzer>
+        </fieldType>        
+    </types>
+    
+    <uniqueKey>id</uniqueKey>
+    
+</schema>
