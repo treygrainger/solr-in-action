@@ -1337,6 +1337,7 @@
       <str name="combineWords">true</str>
       <str name="breakWords">true</str>
       <int name="maxChanges">10</int>
+      <int name="minBreakLength">3</int>
     </lst>
 
     <!-- a spellchecker that uses a different distance measure -->
