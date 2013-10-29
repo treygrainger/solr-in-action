@@ -1,0 +1,12 @@
+<add>
+  <doc>
+    <field name="id">1</field>
+    <field name="restaurant_name" boost="10.0">Red Lobster</field>
+    <field name="description">We deliver the freshest caught seafood every day.</field>
+  </doc>
+  <doc>
+    <field name="id">2</field>
+    <field name="restaurant_name" boost="10.0">Joe’s Crab Shack</field>
+    <field name="description">We serve delicious crabs, large red lobsters, and other delicious seafood.  Our lobsters are our specialty.</field>
+  </doc>
+</add>

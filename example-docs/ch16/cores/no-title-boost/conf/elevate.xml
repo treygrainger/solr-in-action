@@ -1,0 +1,11 @@
+<elevate>
+    <query text="red lobster">
+        <doc id="1" />
+        <doc id="2" exclude="true" />
+    </query>
+    <query text="some other query">
+        <doc id="2" />
+        <doc id="3" />
+        <doc id="1" />
+    </query>
+</elevate>

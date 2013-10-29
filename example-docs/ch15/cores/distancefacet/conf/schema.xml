@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<schema name="example" version="1.5">
+  <types>
+      <fieldType name="text" class="solr.TextField" positionIncrementGap="100">
+          <analyzer>
+              <tokenizer class="solr.StandardTokenizerFactory"/>
+             <filter class="solr.LowerCaseFilterFactory"/>
+              <filter class="solr.EnglishPossessiveFilterFactory"/>
+              <filter class="solr.KStemFilterFactory"/>
+          </analyzer>
+      </fieldType>
+      
+            
+      <fieldType name="string" class="solr.StrField" sortMissingLast="true" />
+      <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
+      <fieldType name="tdouble" class="solr.TrieDoubleField" omitNorms="true"/>
+      
+      <fieldType name="location" class="solr.LatLonType" subFieldSuffix="_coordinate" />
+      <fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType"
+          spatialContextFactory="com.spatial4j.core.context.jts.JtsSpatialContextFactory"
+              distErrPct="0.025"
+              maxDistErr="0.000009"
+              units="degrees" />
+
+  </types>
+
+  <fields>
+    <field name="id" type="string" indexed="true" stored="true" />
+    <field name="_version_" type="long" indexed="true" stored="true"/>
+    <field name="text" type="text" indexed="true" stored="false" multiValued="true"/>
+      
+    <field name="city" type="string" indexed="true" stored="true" />
+    <field name="location" type="location" indexed="true" stored="true" multiValued="true" />
+    <dynamicField name="*_coordinate" type="tdouble" indexed="true" stored="false" />
+    <field name="location_rpt" type="location_rpt" indexed="true" stored="true" multiValued="true" />
+      
+      
+  </fields>
+
+   <copyField source="location" dest="location_rpt"/>
+    
+  <uniqueKey>id</uniqueKey>
+  <defaultSearchField>text</defaultSearchField>
+
+</schema>

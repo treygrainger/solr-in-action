@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <config>
-  <luceneMatchVersion>LUCENE_43</luceneMatchVersion>
+  <luceneMatchVersion>4.5</luceneMatchVersion>
   <lib dir="../../../contrib/extraction/lib" regex=".*\.jar" />
   <lib dir="../../../dist/" regex="solr-cell-\d.*\.jar" />
 
@@ -13,7 +13,7 @@
   <lib dir="../../../contrib/velocity/lib" regex=".*\.jar" />
   <lib dir="../../../dist/" regex="solr-velocity-\d.*\.jar" />
     
-    <valueSourceParser name="concatenate"
+    <valueSourceParser name="concat"
     class="sia.ch15.ConcatenateFunctionParser" />
 
     <dataDir>${solr.data.dir:}</dataDir>
@@ -85,9 +85,7 @@
          will be overridden by parameters in the request
       -->
      <lst name="defaults">
-         lst name="defaults">
          <str name="echoParams">none</str>
-         <str name="df">content</str>
          <str name="wt">json</str>
          <str name="indent">true</str>
          <str name="df">text</str>
@@ -140,24 +138,6 @@
        http://wiki.apache.org/solr/TermVectorComponent
     -->
   <searchComponent name="tvComponent" class="solr.TermVectorComponent"/>
-
-    <searchComponent name="clustering"
-                   enable="${solr.clustering.enabled:true}"
-                   class="solr.clustering.ClusteringComponent" >
-    <lst name="engine">
-      <str name="name">default</str>
-
-      <str name="carrot.algorithm">org.carrot2.clustering.lingo.LingoClusteringAlgorithm</str>
-
-          <str name="LingoClusteringAlgorithm.desiredClusterCountBase">20</str>
-          <str name="carrot.lexicalResourcesDir">clustering/carrot2</str>
-          <str name="MultilingualClustering.defaultLanguage">ENGLISH</str>
-    </lst>
-    <lst name="engine">
-      <str name="name">stc</str>
-      <str name="carrot.algorithm">org.carrot2.clustering.stc.STCClusteringAlgorithm</str>
-    </lst>
-  </searchComponent>
 
   <searchComponent name="terms" class="solr.TermsComponent"/>
 

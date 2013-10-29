@@ -1,0 +1,31 @@
+<dataConfig>
+    <dataSource type="FileDataSource" encoding="UTF-8" />
+    <document>
+        <entity name="post"
+            processor="XPathEntityProcessor"
+            stream="true"
+            forEach="/posts/row/"
+            url="solrexchange.xml"
+            transformer="RegexTransformer,DateFormatTransformer,HTMLStripTransformer"
+            >
+            <field column="id"        xpath="/posts/row/@Id" />
+            <field column="postTypeId"     xpath="/posts/row/@PostTypeId" />
+            <field column="acceptedAnswerId"     xpath="/posts/row/@AcceptedAnswerId" />
+            <field column="creationDate" xpath="/posts/row/@CreationDate" dateTimeFormat="yyyy-MM-dd'T'hh:mm:ss.SSS" />
+            <field column="postScore"  xpath="/posts/row/@Score" />
+            <field column="viewCount"  xpath="/posts/row/@ViewCount" />
+            <field column="body"  xpath="/posts/row/@Body" stripHTML="true" />
+            <field column="ownerUserId"  xpath="/posts/row/@OwnerUserId" />
+            <field column="lastEditorUserId"  xpath="/posts/row/@LastEditorUserId" />
+            <field column="lastEditorDisplayName"  xpath="/posts/row/@LastEditorDisplayName" />
+            <field column="lastActivityDate"  xpath="/posts/row/@LastActivityDate" dateTimeFormat="yyyy-MM-dd'T'hh:mm:ss.SSS" />
+            <field column="title"  xpath="/posts/row/@Title" />
+            <field column="trimmedTags" xpath="/posts/row/@Tags" regex="&lt;(.*)&gt;" />
+            <field column="tags" sourceColName="trimmedTags" splitBy="&gt;&lt;" />
+            <field column="answerCount"  xpath="/posts/row/@AnswerCount" />
+            <field column="commentCount"  xpath="/posts/row/@CommentCount" />
+            <field column="favoriteCount"  xpath="/posts/row/@FavoriteCount" />
+            <field column="communityOwnedDate"  xpath="/posts/row/@CommunityOwnedDate" dateTimeFormat="yyyy-MM-dd'T'hh:mm:ss.SSS" />
+        </entity>
+    </document>
+</dataConfig>
