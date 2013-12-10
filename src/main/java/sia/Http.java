@@ -52,14 +52,24 @@ public class Http implements ExampleDriver.Example {
         listings.put("9.7",
             "/ufo/select?q=blue+fireball+in+the+rain&df=sighting_en&wt=xml&hl=true&hl.snippets=2&hl.useFastVectorHighlighter=true");
 
-        listings.put("10.2", "/solrpedia/select?q=atmosphear");
-        listings.put("10.3", "/solrpedia/select?q=title:anaconda");
-        listings.put("10.4", "/solrpedia/select?q=Julius&df=suggest&fl=title");
-        listings.put("10.8", "/solrpedia/select?q=suggest%3Anorthatlantic+suggest%3Acurent");
-        listings.put("10.9", "/solrpedia/select?q=northatlantic+curent&df=suggest&q.op=AND&spellcheck.dictionary=wordbreak&spellcheck.dictionary=default");
-        listings.put("10.11", "/solrpedia/suggest?q=atm");
-        listings.put("10.16", "/solrpedia_instant/select?q=query_ngram:willia&sort=popularity+desc&rows=1&fl=query&wt=json");
-        listings.put("10.17", "/solrpedia_instant/select?q=%7B!boost+b%3D%24recency+v%3D%24qq%7D&sort=score+desc&rows=1&wt=json&qq=query_ngram:willia&recency=product(recip(ms(NOW/HOUR,last_executed_on),1.27E-10,0.08,0.05),popularity)");
+        listings.put("10.1", "/solrpedia/select?q=atmosphear");
+        listings.put("10.2", "/solrpedia/select?q=title:anaconda");
+        listings.put("10.3", "/solrpedia/select?q=Julius&df=suggest&fl=title");
+        listings.put("10.7", "/solrpedia/select?q=northatlantic+curent&df=suggest&wt=xml");
+        listings.put("10.8", "/solrpedia/select?q=northatlantic+curent&df=suggest&q.op=AND&spellcheck.dictionary=wordbreak&spellcheck.dictionary=default");
+        listings.put("10.10", "/solrpedia/suggest?q=atm");
+        listings.put("10.15", "/solrpedia_instant/select?q=query_ngram:willia&sort=popularity+desc&rows=1&fl=query&wt=json");
+        listings.put("10.16", "/solrpedia_instant/select?q=%7B!boost+b%3D%24recency+v%3D%24qq%7D&sort=score+desc&rows=1&wt=json&qq=query_ngram:willia&recency=product(recip(ms(NOW/HOUR,last_executed_on),1.27E-10,0.08,0.05),popularity)");
+
+        listings.put("15.1", "/salestax/select?q=*:*&userSalesTax=0.07&fl=id,basePrice,totalPrice:product(basePrice, sum(1, $userSalesTax))");
+        listings.put("15.5", "/geospatial/select?q=*:*&fl=id,city,distance:geodist(location,37.77493, -122.41942)");
+        listings.put("15.6", "/geospatial/select?q=*:*&fl=id,city,distance:geodist(location,37.77493, -122.41942)&sort=geodist(location,37.77493, -122.41942) asc, score desc");
+        listings.put("15.8", "/distancefacet/select/?q=*:*&rows=0&fq={!geofilt sfield=location pt=37.777,-122.420 d=80}&facet=true&facet.field=city&facet.limit=10");
+        listings.put("15.9", "/pivotfaceting/select?q=*:*&fq=rating:[4 TO 5]&facet=true&facet.limit=3&facet.pivot.mincount=1&facet.pivot=state,city,rating");
+
+        listings.put("16.1", "/no-title-boost/select?defType=edismax&q=red lobster&qf=restaurant_name description&debug=true");
+        listings.put("16.2", "/no-title-boost/select?defType=edismax&q=red lobster&qf=restaurant_name description&fl=id,restaurant_name,description,[explain]");
+        listings.put("16.3", "/no-title-boost/select?defType=edismax&q=red lobster&qf=restaurant_name description&fl=id,restaurant_name,description");
     }
 
     @Override
