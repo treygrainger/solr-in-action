@@ -1,0 +1,6 @@
+<add>
+     <doc>
+          <field name="id">1</field>
+          <field name="basePrice">10</field>
+     </doc>
+</add>

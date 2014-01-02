@@ -1,0 +1,30 @@
+<add>
+<doc>
+	<field name="id">1</field>
+	<field name="title">The Adventures of Huckelberry Finn</field>
+    <field name="content_english">YOU don't know about me without you have read a book by the name of The Adventures of Tom Sawyer; but that ain't no matter.  That book was made by Mr. Mark Twain, and he told the truth, mainly.  There was things which he stretched, but mainly he told the truth.
+    </field>
+</doc>
+<doc>
+    <field name="id">2</field>
+    <field name="title">Les Misérables</field>
+    <field name="content_french">Nul n'aurait pu le dire; tout ce qu'on savait, c'est que, lorsqu'il revint d'Italie, il était prêtre.
+    </field>
+</doc>
+<doc>
+    <field name="id">3</field>
+    <field name="title">Don Quoxite</field>
+    <field name="content_spanish">Demasiada cordura puede ser la peor de las locuras, ver la vida como es y no como debería de ser.
+    </field>
+</doc>
+<doc>
+    <field name="id">4</field>
+    <field name="title">Proverbs</field>
+    <field name="content_spanish"> No la abandones y ella velará sobre ti, ámala y ella te protegerá. Lo principal es la sabiduría; adquiere sabiduría, y con todo lo que obtengas adquiere inteligencia.
+    </field>
+    <field name="content_english">Do not forsake wisdom, and she will protect you; love her, and she will watch over you. Wisdom is supreme; therefore get wisdom. Though it cost all you have, get understanding.
+    </field>
+    <field name="content_french">N'abandonne pas la sagesse, et elle te gardera, aime-la, et elle te protégera. Voici le début de la sagesse: acquiers la sagesse, procure-toi le discernement au prix de tout ce que tu possèdes.
+    </field>
+</doc>
+</add>

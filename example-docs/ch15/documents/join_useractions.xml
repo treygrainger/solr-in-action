@@ -1,0 +1,44 @@
+<add>
+    <doc>
+        <field name="id">1</field>
+        <field name="userid">user123</field>
+        <field name="restaurantid">3</field>
+        <field name="actiontype">searched</field>
+        <field name="actiondate">2013-12-01T014:59:00.0Z</field>
+    </doc>
+    <doc>
+        <field name="id">2</field>
+        <field name="userid">user456</field>
+        <field name="restaurantid">3</field>
+        <field name="actiontype">clicked</field>
+        <field name="actiondate">2013-12-01T014:59:30.0Z</field>
+    </doc>
+    <doc>
+        <field name="id">3</field>
+        <field name="userid">user123</field>
+        <field name="restaurantid">3</field>
+        <field name="actiontype">clicked</field>
+        <field name="actiondate">2013-12-01T015:00:00.0Z</field>
+    </doc>
+    <doc>
+        <field name="id">4</field>
+        <field name="userid">user123</field>
+        <field name="restaurantid">2</field>
+        <field name="actiontype">searched</field>
+        <field name="actiondate">2013-12-01T015:04:45.0Z</field>
+    </doc>
+    <doc>
+        <field name="id">5</field>
+        <field name="userid">user123</field>
+        <field name="restaurantid">2</field>
+        <field name="actiontype">clicked</field>
+        <field name="actiondate">2013-12-01T015:05:00.0Z</field>
+    </doc>
+    <doc>
+        <field name="id">6</field>
+        <field name="userid">user123</field>
+        <field name="restaurantid">1</field>
+        <field name="actiontype">searched</field>
+        <field name="actiondate">2013-12-01T015:07:00.0Z</field>
+    </doc>
+</add>

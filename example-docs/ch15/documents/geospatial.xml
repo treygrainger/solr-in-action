@@ -1,0 +1,22 @@
+<add>
+     <doc>
+          <field name="id">1</field>
+          <field name="location">33.748,-84.391</field>
+          <field name="city">Atlanta, GA</field>
+     </doc>
+     <doc>
+          <field name="id">2</field>
+          <field name="location">40.715,-74.007</field>
+          <field name="city">New York, NY</field>
+     </doc>
+     <doc>
+          <field name="id">3</field>
+          <field name="location">37.775,-122.419</field>
+          <field name="city">San Francisco, CA</field>
+     </doc>
+     <doc>
+          <field name="id">4</field>
+          <field name="location">37.445,-122.161</field>
+          <field name="city">Palo Alto, CA</field>
+     </doc>
+</add>

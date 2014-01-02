@@ -1,0 +1,22 @@
+<add>
+    <doc>
+        <field name="id">1</field>
+        <field name="restaurantname">Cafe Bombay</field>
+        <field name="text">At Cafe Bombay, we introduce a new world of the finest Indian cuisine. We emphasize quality and freshly cooked food prepared with the use of a clay oven (Tandoor) and the Indian Wok (karhai), all to create a harmony of subtle flavors, tastes, and colors. </field>
+    </doc>
+     <doc>
+          <field name="id">2</field>
+          <field name="restaurantname">The Iberian Pig</field>
+         <field name="text">a modern Spanish restaurant inspired by the ingredients and traditions of the Catalonia region.</field>
+     </doc>
+    <doc>
+        <field name="id">3</field>
+        <field name="restaurantname">Moon Indian Cuisine</field>
+        <field name="text">Restaurant is run by the former owner of Culcutta restaurant and offers variety of Indian Cuisines for both lunch and dinner. All dishes are prepared from fresh ingredients and delicately cooked to preserve the taste and authenticity of Indian food.</field>
+    </doc>
+    <doc>
+        <field name="id">4</field>
+        <field name="restaurantname">Saba</field>
+        <field name="text">Enjoy handmade  pastas, creative and delicious salads, delectable sandwiches made with fresh-baked cibatta bread.</field>
+    </doc>
+</add>

@@ -1,0 +1,12 @@
+<add>
+    <doc>
+        <field name="id">1</field>
+        <field name="text">The president of the United States, George W. Bush, met today with the President of France, Jacques Chirac in Brussels during the NATO summit.</field>
+        <field name="date">2005-02-21T08:00:00.0Z</field>
+    </doc>
+     <doc>
+          <field name="id">2</field>
+          <field name="text">President François Hollande met today with President Barack Obama to discuss the roles of France and the United states in the ongoing Syrian crisis.</field>
+          <field name="date">2013-09-24T10:00:00.0Z</field>
+     </doc>
+</add>
