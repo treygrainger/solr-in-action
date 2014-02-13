@@ -38,10 +38,9 @@ This will compile the source code and build an executable JAR file in the
 main directory ($SOLR_IN_ACTION) named: sia-examples.jar
 
 
-3. To make it easy for you to run the examples, we built a simple driver
-application that processes command-line args and launches the example you
-want to run. Basically, the driver allows you to just pass the name of
-the example you want to run and it will figure it out. 
+3. Several chapters include executable code examples. To make these easy to run, 
+we built a simple driver application that allows you to just pass 
+in the name of the example you want to run and it will figure it out. 
 
 To run a specific example from the book, use the java -jar command to
 launch the executable JAR you built in step 2 above.
@@ -67,6 +66,13 @@ e.g. the following command will show all examples for chapter 5:
 
 java -jar sia-examples.jar 5
 
+4. The book is filled with code listings, many of which demonstrate the HTTP request
+syntax for executing specific types of Solr queries. You can type these URLs into
+you favorite web browser, or you can alternatively just pass the listing number 
+into the included http utility to execute the request.
+e.g. the following command will execute the request demonstrated in listing 2.1:
+
+java -jar sia-examples.jar http -listing 2.1
 
 Enjoy!
 ================================================================================
