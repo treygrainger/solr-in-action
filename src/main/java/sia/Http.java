@@ -91,6 +91,7 @@ public class Http implements ExampleDriver.Example {
         listings.put("9.7",
             "/ufo/select?q=blue+fireball+in+the+rain&df=sighting_en&wt=xml&hl=true&hl.snippets=2&hl.useFastVectorHighlighter=true");
 
+        // chapter 10: Query Suggestions
         listings.put("10.1", "/solrpedia/select?q=atmosphear");
         listings.put("10.2", "/solrpedia/select?q=title:anaconda");
         listings.put("10.3", "/solrpedia/select?q=Julius&df=suggest&fl=title");
@@ -99,6 +100,27 @@ public class Http implements ExampleDriver.Example {
         listings.put("10.10", "/solrpedia/suggest?q=atm");
         listings.put("10.15", "/solrpedia_instant/select?q=query_ngram:willia&sort=popularity+desc&rows=1&fl=query&wt=json");
         listings.put("10.16", "/solrpedia_instant/select?q=%7B!boost+b%3D%24recency+v%3D%24qq%7D&sort=score+desc&rows=1&wt=json&qq=query_ngram:willia&recency=product(recip(ms(NOW/HOUR,last_executed_on),1.27E-10,0.08,0.05),popularity)");
+
+        // chapter 11: Result grouping/field collapsing
+        listings.put("11.2",
+            "/ecommerce/select?fl=id%2Cproduct%2Cformat&sort=popularity%20asc&q=spider-man");
+        listings.put("11.3",
+            "/ecommerce/select?fl=id%2Cproduct%2Cformat&sort=popularity%20asc&q=spider-man&group=true&group.field=product&group.limit=1");
+        listings.put("11.4",
+            "/ecommerce/select?fl=id%2Cproduct%2Cformat&sort=popularity%20asc&q=spider-man&group=true&group.field=product&group.main=true");
+        listings.put("11.5",
+            "/ecommerce/select?fl=id%2Cproduct%2Cformat&sort=popularity%20asc&q=spider-man&group=true&group.field=product&group.format=simple");
+        listings.put("11.6",
+            "/ecommerce/select?q=spider-man&fl=id%2Cproduct%2Cformat&sort=popularity%20asc&group=true&group.field=type&group.limit=3&rows=5&start=0&group.offset=0");
+        listings.put("11.7",
+            "/ecommerce/select?fl=id%2Cproduct%2Cformat&sort=popularity%20asc&q=spider-man&group=true&group.limit=3&rows=5&group.func=map%28map%28map%28popularity%2C1%2C5%2C1%29%2C6%2C10%2C2%29%2C11%2C100%2C3%29");
+        listings.put("11.8",
+            "/ecommerce/select?sort=popularity%20asc&fl=id%2Ctype%2Cformat%2Cproduct&group.limit=2&q=*%3A*&group=true&group.query=type%3AMovies&group.query=games&group.query=%22The%20Hunger%20Games%22");
+        listings.put("11.9",
+            "/ecommerce/select?fl=product&group=true&sort=popularity%20asc&q=*%3A*&facet=true&facet.mincount=1&group.format=simple&fq=type%3AMovies&facet.field=type&group.field=product");
+        listings.put("11.10",
+            "/ecommerce/select?fl=product&group=true&sort=popularity%20asc&q=*%3A*&facet=true&facet.mincount=1&group.format=simple&fq=type%3AMovies&facet.field=type&group.field=product&group.facet=true");
+
 
         listings.put("15.1", "/salestax/select?q=*:*&userSalesTax=0.07&fl=id,basePrice,totalPrice:product(basePrice, sum(1, $userSalesTax))");
         listings.put("15.5", "/geospatial/select?q=*:*&fl=id,city,distance:geodist(location,37.77493, -122.41942)");

@@ -25,7 +25,7 @@
     <field name="format" type="string" indexed="true" stored="true" omitNorms="false" />
     <field name="product" type="string" indexed="true" stored="true" omitNorms="false" />
     <field name="popularity" type="int" indexed="true" stored="true" />
-    <field name="content" type="text_general" indexed="true" stored="false" multiValued="false"/>
+    <field name="content" type="text_general" indexed="true" stored="false" multiValued="true"/>
 
     <copyField source="type" dest="content"/>
     <copyField source="format" dest="content"/>
