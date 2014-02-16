@@ -2,7 +2,7 @@
 <config>
     
   <!-- Begin everything else -->
-    <luceneMatchVersion>4.5</luceneMatchVersion>
+    <luceneMatchVersion>4.6</luceneMatchVersion>
 
     <dataDir>${solr.data.dir:}</dataDir>
     <directoryFactory name="DirectoryFactory"

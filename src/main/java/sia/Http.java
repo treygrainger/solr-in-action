@@ -77,7 +77,7 @@ public class Http implements ExampleDriver.Example {
 
         // chapter 9: Hit Highlighting
         listings.put("9.1",
-            "/ufo/select?q=blue+fireball+in+the+rain&df=sighting_en&rows=10&wt=xml&hl=true");
+            "/ufo/select?q=blue+fireball+in+the+rain&df=sighting_en&wt=xml&rows=10&hl=true");
         listings.put("9.2",
             "/ufo/select?q=blue+fireball+in+the+rain&df=sighting_en&wt=xml&hl=true&hl.snippets=2");
         listings.put("9.4",

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <config>
-  <luceneMatchVersion>4.5</luceneMatchVersion>
+  <luceneMatchVersion>4.6</luceneMatchVersion>
     
    <lib dir="../../../contrib/dataimporthandler/lib" regex=".*\.jar" />
    <lib dir="../../../dist/" regex="solr-dataimporthandler-.*\.jar" />
