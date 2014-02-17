@@ -121,13 +121,20 @@ public class Http implements ExampleDriver.Example {
         listings.put("11.10",
             "/ecommerce/select?fl=product&group=true&sort=popularity%20asc&q=*%3A*&facet=true&facet.mincount=1&group.format=simple&fq=type%3AMovies&facet.field=type&group.field=product&group.facet=true");
 
+        // chapter 13: SolrCloud
+        listings.put("13.6",
+            "http://localhost:8983/solr/admin/collections?action=CREATE&name=support&numShards=1&replicationFactor=2&maxShardsPerNode=1&collection.configName=support");
+        listings.put("13.7",
+            "http://localhost:8983/solr/admin/collections?action=CREATEALIAS&name=logmill-write&collections=logmill");
 
+        // chapter 15: Performing Queries and Handling Results
         listings.put("15.1", "/salestax/select?q=*:*&userSalesTax=0.07&fl=id,basePrice,totalPrice:product(basePrice, sum(1, $userSalesTax))");
         listings.put("15.5", "/geospatial/select?q=*:*&fl=id,city,distance:geodist(location,37.77493, -122.41942)");
         listings.put("15.6", "/geospatial/select?q=*:*&fl=id,city,distance:geodist(location,37.77493, -122.41942)&sort=geodist(location,37.77493, -122.41942) asc, score desc");
         listings.put("15.8", "/distancefacet/select/?q=*:*&rows=0&fq={!geofilt sfield=location pt=37.777,-122.420 d=80}&facet=true&facet.field=city&facet.limit=10");
         listings.put("15.9", "/pivotfaceting/select?q=*:*&fq=rating:[4 TO 5]&facet=true&facet.limit=3&facet.pivot.mincount=1&facet.pivot=state,city,rating");
 
+        // chapter 16: Mastering Relevancy
         listings.put("16.1", "/no-title-boost/select?defType=edismax&q=red lobster&qf=restaurant_name description&debug=true");
         listings.put("16.2", "/no-title-boost/select?defType=edismax&q=red lobster&qf=restaurant_name description&fl=id,restaurant_name,description,[explain]");
         listings.put("16.3", "/no-title-boost/select?defType=edismax&q=red lobster&qf=restaurant_name description&fl=id,restaurant_name,description");
