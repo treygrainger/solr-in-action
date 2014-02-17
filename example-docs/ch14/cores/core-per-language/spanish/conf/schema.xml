@@ -5,7 +5,7 @@
           <analyzer>
               <tokenizer class="solr.StandardTokenizerFactory"/>
               <filter class="solr.LowerCaseFilterFactory"/>
-              <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_es.txt" format="snowball" enablePositionIncrements="true"/>
+              <filter class="solr.StopFilterFactory" ignoreCase="true" words="lang/stopwords_es.txt" format="snowball" />
               <filter class="solr.SpanishLightStemFilterFactory"/>
           </analyzer>
       </fieldType>

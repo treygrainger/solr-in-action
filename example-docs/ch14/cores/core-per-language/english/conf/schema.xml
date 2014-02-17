@@ -7,7 +7,6 @@
               <filter class="solr.StopFilterFactory"
               ignoreCase="true"
               words="lang/stopwords_en.txt"
-              enablePositionIncrements="true"
               />
               <filter class="solr.LowerCaseFilterFactory"/>
               <filter class="solr.EnglishPossessiveFilterFactory"/>

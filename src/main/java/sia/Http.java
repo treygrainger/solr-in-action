@@ -127,6 +127,14 @@ public class Http implements ExampleDriver.Example {
         listings.put("13.7",
             "http://localhost:8983/solr/admin/collections?action=CREATEALIAS&name=logmill-write&collections=logmill");
 
+        // chapter 14: Multilingual Search
+        listings.put("14.4",
+            "/field-per-language/select?fl=title&defType=edismax&qf=content_english%20content_french%20content_spanish&q=%22he%20told%20the%20truth%22%20OR%20%22il%20%C3%A9tait%20pr%C3%AAtre%22%20OR%20%22ver%20la%20vida%20como%20es%22");
+        listings.put("14.5", new String[]{
+            "/field-per-language/select?fl=title&defType=edismax&qf=content_english%20content_french%20content_spanish&q=%22wisdom%22",
+            "/field-per-language/select?fl=title&defType=edismax&qf=content_english%20content_french%20content_spanish&q=%22sabidur%C3%ADa%22",
+            "/field-per-language/select?fl=title&defType=edismax&qf=content_english%20content_french%20content_spanish&q=%22sagesse%22"});
+
         // chapter 15: Performing Queries and Handling Results
         listings.put("15.1", "/salestax/select?q=*:*&userSalesTax=0.07&fl=id,basePrice,totalPrice:product(basePrice, sum(1, $userSalesTax))");
         listings.put("15.5", "/geospatial/select?q=*:*&fl=id,city,distance:geodist(location,37.77493, -122.41942)");
