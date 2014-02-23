@@ -56,7 +56,6 @@ public class BackupDriver extends ExampleDriver.SolrJClientExample {
         }
     }
 
-    @Override
     public String getDescription() {
         return "Create a backup of every shard in a collection using the replication handler.";
     }
@@ -79,7 +78,6 @@ public class BackupDriver extends ExampleDriver.SolrJClientExample {
         };
     }
 
-    @Override
     public void runExample(ExampleDriver driver) throws Exception {
 
         long enterMs = System.currentTimeMillis();

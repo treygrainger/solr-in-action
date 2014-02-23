@@ -18,7 +18,7 @@
         <field name="userid">user123</field>
         <field name="restaurantid">3</field>
         <field name="actiontype">clicked</field>
-        <field name="actiondate">2013-12-01T015:00:00.0Z</field>
+        <field name="actiondate">NOW-10DAYS</field><!--so the chapter example always works-->
     </doc>
     <doc>
         <field name="id">4</field>

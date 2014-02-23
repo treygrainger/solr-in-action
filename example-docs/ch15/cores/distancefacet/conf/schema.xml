@@ -17,7 +17,6 @@
       
       <fieldType name="location" class="solr.LatLonType" subFieldSuffix="_coordinate" />
       <fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType"
-          spatialContextFactory="com.spatial4j.core.context.jts.JtsSpatialContextFactory"
               distErrPct="0.025"
               maxDistErr="0.000009"
               units="degrees" />

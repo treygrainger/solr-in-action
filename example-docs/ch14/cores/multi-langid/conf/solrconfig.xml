@@ -6,7 +6,6 @@
     
     <lib dir="../../../contrib/langid/lib/" regex=".*\.jar" />
     <lib dir="../../../dist/" regex="solr-langid-\d.*\.jar" />
-    <lib dir="../../lib/" regex="sia-examples\.jar" />
     
     <!-- Begin Language Identification specific configuration -->
     <requestHandler name="/update" class="solr.UpdateRequestHandler">

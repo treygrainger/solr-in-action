@@ -136,11 +136,13 @@ public class Http implements ExampleDriver.Example {
             "/field-per-language/select?fl=title&defType=edismax&qf=content_english%20content_french%20content_spanish&q=%22sagesse%22"});
 
         // chapter 15: Performing Queries and Handling Results
-        listings.put("15.1", "/salestax/select?q=*:*&userSalesTax=0.07&fl=id,basePrice,totalPrice:product(basePrice, sum(1, $userSalesTax))");
-        listings.put("15.5", "/geospatial/select?q=*:*&fl=id,city,distance:geodist(location,37.77493, -122.41942)");
-        listings.put("15.6", "/geospatial/select?q=*:*&fl=id,city,distance:geodist(location,37.77493, -122.41942)&sort=geodist(location,37.77493, -122.41942) asc, score desc");
-        listings.put("15.8", "/distancefacet/select/?q=*:*&rows=0&fq={!geofilt sfield=location pt=37.777,-122.420 d=80}&facet=true&facet.field=city&facet.limit=10");
-        listings.put("15.9", "/pivotfaceting/select?q=*:*&fq=rating:[4 TO 5]&facet=true&facet.limit=3&facet.pivot.mincount=1&facet.pivot=state,city,rating");
+        listings.put("15.1", "/salestax/select?q=*:*&userSalesTax=0.07&fl=id,basePrice,totalPrice:product(basePrice,%20sum(1,%20$userSalesTax))");
+        listings.put("15.5", "/geospatial/select?q=*:*&fl=id,city,distance:geodist(location,37.77493,%20-122.41942)");
+        listings.put("15.6", "/geospatial/select?q=*:*&fl=id,city,distance:geodist(location,37.77493,%20-122.41942)&sort=geodist(location,37.77493,%20-122.41942)%20asc,%20score%20desc");
+        listings.put("15.8", new String[]{ 
+            "/distancefacet/select?q=*:*&rows=0&fq=%7B!geofilt%20sfield=location%20pt=37.777,-122.420%20d=80%7D&facet=true&facet.field=city&facet.limit=10",
+            "/distancefacet/select?q=*:*&rows=0&facet=true&fq=(_query_:%22%7B!geofilt%20sfield=location%20pt=37.777,-122.420%20d=20%7D%22%20OR%20_query_:%22%7B!geofilt%20sfield=location%20pt=37.338,-121.886%20d=20%7D%22%20OR%20_query_:%22%7B!geofilt%20sfield=location%20pt=37.805,-122.273%20d=20%7D%22%20OR%20_query_:%22%7B!geofilt%20sfield=location%20pt=37.445,-122.161%20d=20%7D%22%20OR%20_query_:%22%7B!geofilt%20sfield=location%20pt=37.356,-121.954%20d=20%7D%22%20OR%20_query_:%22%7B!geofilt%20sfield=location%20pt=37.386,-122.083%20d=20%7D%22%20OR%20_query_:%22%7B!geofilt%20sfield=location%20pt=37.372,-122.038%20d=20%7D%22%20OR%20_query_:%22%7B!geofilt%20sfield=location%20pt=37.551,-121.982%20d=20%7D%22%20OR%20_query_:%22%7B!geofilt%20sfield=location%20pt=37.484,-122.227%20d=20%7D%22%20OR%20_query_:%22%7B!geofilt%20sfield=location%20pt=37.870,-122.271%20d=20%7D%22)&facet.query=%7B!geofilt%20key=%22san%20francisco,%20ca%22%20sfield=location%20pt=37.7770,-122.4200%20d=20%7D&facet.query=%7B!geofilt%20key=%22san%20jose,%20ca%22%20sfield=location%20pt=37.338,-121.886%20d=20%7D&facet.query=%7B!geofilt%20key=%22oakland,%20ca%22%20sfield=location%20pt=37.805,-122.273%20d=20%7D&facet.query=%7B!geofilt%20key=%22palo%20alto,%20ca%22%20sfield=location%20pt=37.445,-122.161%20d=20%7D&facet.query=%7B!geofilt%20key=%22santa%20clara,%20ca%22%20sfield=location%20pt=37.356,-121.954%20d=20%7D&facet.query=%7B!geofilt%20key=%22mountain%20view%22%20sfield=location%20pt=37.386,-122.083%20d=20%7D&facet.query=%7B!geofilt%20key=%22sunnyvale,%20ca%22%20sfield=location%20pt=37.372,-122.038%20d=20%7D&facet.query=%7B!geofilt%20key=%22fremont,%20ca%22%20sfield=location%20pt=37.551,-121.982%20d=20%7D&facet.query=%7B!geofilt%20key=%22redwood%20city,%20ca%22%20sfield=location%20pt=37.484,-122.227%20d=20%7D&facet.query=%7B!geofilt%20key=%22berkeley,%20ca%22%20sfield=location%20pt=37.870,-122.271%20d=20%7D"});
+        listings.put("15.9", "/pivotfaceting/select?q=*:*&fq=rating:[4%20TO%205]&facet=true&facet.limit=3&facet.pivot.mincount=1&facet.pivot=state,city,rating");
 
         // chapter 16: Mastering Relevancy
         listings.put("16.1", "/no-title-boost/select?defType=edismax&q=red lobster&qf=restaurant_name description&debug=true");
@@ -148,7 +150,6 @@ public class Http implements ExampleDriver.Example {
         listings.put("16.3", "/no-title-boost/select?defType=edismax&q=red lobster&qf=restaurant_name description&fl=id,restaurant_name,description");
     }
 
-    @Override
     @SuppressWarnings("static-access")
     public Option[] getOptions() {
         return new Option[] {
@@ -163,7 +164,6 @@ public class Http implements ExampleDriver.Example {
         };
     }
 
-    @Override
     public void runExample(ExampleDriver driver) throws Exception {
         String wt = driver.getCommandLine().getOptionValue("wt", "xml");
         String listingKey = driver.getCommandLine().getOptionValue("listing");
@@ -239,7 +239,6 @@ public class Http implements ExampleDriver.Example {
         }
     }
 
-    @Override
     public String getDescription() {
         return "Utility to execute an HTTP request from a listing in the book.";
     }

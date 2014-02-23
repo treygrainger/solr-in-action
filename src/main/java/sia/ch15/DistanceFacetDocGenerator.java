@@ -110,7 +110,6 @@ private static Random random = new Random();
 		}
 	}
 	@SuppressWarnings("static-access")
-	@Override
 	public Option[] getOptions() { 
             return new Option[] {
                     OptionBuilder.withArgName("file").hasArg().isRequired(false)
@@ -118,7 +117,6 @@ private static Random random = new Random();
             };
 	}
 
-	@Override
 	public void runExample(ExampleDriver driver) throws Exception {
 		CommandLine cli = driver.getCommandLine();
 		
@@ -126,11 +124,10 @@ private static Random random = new Random();
 		File jarFile = new File(codeSource.getLocation().toURI().getPath());
 		String jarDir = jarFile.getParentFile().getPath();
 		
-        String file = cli.getOptionValue("file", jarDir + "/example-docs/ch15/documents/distancefacet_docs.xml");
+        String file = cli.getOptionValue("file", jarDir + "/example-docs/ch15/documents/distancefacet.xml");
 		main(new String[]{file});			
 	}
 
-	@Override
 	public String getDescription() {
 		return "Generated over 100,000 example documents (mostly) near San Francisco for geo-distance-based analytics";
 	}

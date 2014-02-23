@@ -4,8 +4,6 @@
   <!-- Begin everything else -->
     <luceneMatchVersion>4.6</luceneMatchVersion>
 
-    <lib dir="../../lib/" regex="sia-examples\.jar" />
-
     <dataDir>${solr.data.dir:}</dataDir>
     <directoryFactory name="DirectoryFactory"
                     class="${solr.directoryFactory:solr.NRTCachingDirectoryFactory}"/> 

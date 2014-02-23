@@ -60,7 +60,15 @@
     <field name="text" type="string" indexed="true" stored="false" multiValued="true"/>
       
     <field name="title" type="string" indexed="true" stored="true" />
-    <field name="content" type="text_general" indexed="true" stored="true"/>
+    <field name="content" type="string" indexed="false" stored="false" />
+    <field name="content_lang1" type="string" indexed="false" stored="false" />
+    <field name="content_lang2" type="string" indexed="false" stored="false" />
+    <field name="content_lang3" type="string" indexed="false" stored="false" />
+    <field name="language"  type="string"  indexed="true"  stored="true" />
+    <field name="languages" type="string"  indexed="true"  stored="true" multiValued="true"/>
+    <dynamicField name="*_english"  type="text_english" indexed="true"  stored="true" multiValued="true"/>
+    <dynamicField name="*_spanish"  type="text_spanish" indexed="true"  stored="true" multiValued="true"/>
+    <dynamicField name="*_french"  type="text_french" indexed="true"  stored="true" multiValued="true"/>
   </fields>
 
   <uniqueKey>id</uniqueKey>
