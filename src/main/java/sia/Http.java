@@ -145,9 +145,16 @@ public class Http implements ExampleDriver.Example {
         listings.put("15.9", "/pivotfaceting/select?q=*:*&fq=rating:[4%20TO%205]&facet=true&facet.limit=3&facet.pivot.mincount=1&facet.pivot=state,city,rating");
 
         // chapter 16: Mastering Relevancy
-        listings.put("16.1", "/no-title-boost/select?defType=edismax&q=red lobster&qf=restaurant_name description&debug=true");
-        listings.put("16.2", "/no-title-boost/select?defType=edismax&q=red lobster&qf=restaurant_name description&fl=id,restaurant_name,description,[explain]");
-        listings.put("16.3", "/no-title-boost/select?defType=edismax&q=red lobster&qf=restaurant_name description&fl=id,restaurant_name,description");
+        listings.put("16.1", "/no-title-boost/select?defType=edismax&q=red%20lobster&qf=restaurant_name%20description&debug=true");
+        listings.put("16.2", "/no-title-boost/select?defType=edismax&q=red%20lobster&qf=restaurant_name%20description&fl=id,restaurant_name,description,[explain]");
+        listings.put("16.3", "/title-boost/select?defType=edismax&q=red%20lobster&qf=restaurant_name%20description&fl=id,restaurant_name,description");
+        listings.put("16.5", "/jobs/select/?fl=jobtitle,city,state,salary&q=(jobtitle:%22nurse%20educator%22%5E25%20OR%20jobtitle:(nurse%20educator)%5E10)%20AND%20((city:%22Boston%22%20AND%20state:%22MA%22)%5E15%20OR%20state:%22MA%22)%20AND%20_val_:%22map(salary,%2040000,60000,10,0)%22");
+        listings.put("16.6", "/jobs/select/?df=classification&q=((%22healthcare.nursing.oncology%22%5E40%20OR%20%22healthcare.nursing%22%5E20%20OR%20%22healthcare%22%5E10)%20OR%20(%22healthcare.nursing.transplant%22%5E20%20OR%20%22healthcare.nursing%22%5E10%20OR%20%22healthcare%22%5E5)%20OR%20(%22education.postsecondary.nursing%22%5E10%20OR%20%22education.postsecondary%22%5E5%20OR%20%22education%22))");
+        listings.put("16.7", "/jobs/mlt?df=jobdescription&fl=id,jobtitle&rows=5&q=J2EE&mlt.fl=jobtitle,jobdescription&mlt.interestingTerms=details");
+        listings.put("16.8", "/jobs/mlt?df=jobdescription&q=id:fc57931d42a7ccce3552c04f3db40af8dabc99dc&mlt.fl=jobtitle,jobdescription&mlt.interestingTerms=details&mlt.boost=true");
+        listings.put("16.9", "/jobs/mlt?df=jobdescription&mlt.fl=jobtitle,jobdescription&mlt.interestingTerms=details&mlt.boost=true&stream.body=Solr%20is%20an%20open%20source%20enterprise%20search%20platform%20from%20the%20Apache%20Lucene%20project.%20Its%20major%20features%20include%20full-text%20search,%20hit%20highlighting,%20faceted%20search,%20dynamic%20clustering,%20database%20integration,%20and%20rich%20document%20(e.g.,%20Word,%20PDF)%20handling.%20Providing%20distributed%20search%20and%20index%20replication,%20Solr%20is%20highly%20scalable.%20Solr%20is%20the%20most%20popular%20enterprise%20search%20engine.%20Solr%204%20adds%20NoSQL%20features.");
+        listings.put("16.11", "/jobs/clustering?q=content:(solr%20OR%20lucene)&fl=id,jobtitle&rows=100&carrot.title=jobtitle&carrot.snippet=jobtitle&LingoClusteringAlgorithm.desiredClusterCountBase=25");
+        listings.put("16.12", "/jobs/select?df=jobdescription&fl=id,jobtitle&q=(solr%20OR%20lucene)%20OR%20%22Java%20Engineer%22%20OR%20%22Software%20Developer%22");
     }
 
     @SuppressWarnings("static-access")

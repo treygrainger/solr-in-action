@@ -11,7 +11,11 @@
         <field name="state" type="text_general" indexed="true" stored="true"/>
         <field name="salary" type="int" indexed="true" stored="true"/>
         <field name="_version_" type="long" indexed="true" stored="true"/>
-        <field name="text" type="text_general" indexed="false" stored="true" multiValued="true"/>        
+        <field name="content" type="text_general" indexed="true" stored="false" multiValued="true"/> 
+        <field name="text" type="text_general" indexed="false" stored="true" multiValued="true"/>   
+
+        <copyField source="jobtitle" dest="content" />   
+        <copyField source="jobdescription" dest="content" />  
     </fields>
     
     <types>
