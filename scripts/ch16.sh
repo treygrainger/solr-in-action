@@ -19,17 +19,17 @@ java -jar start.jar &
 sleep 10 #give Solr time to start
 cd $SOLR_IN_ACTION/example-docs/
 java -Durl=http://localhost:8983/solr/no-title-boost/update -jar post.jar ch16/documents/no-title-boost.xml
-java -jar $SOLR_IN_ACTION/sia-examples.jar http -listing 16.1
+java -jar $SOLR_IN_ACTION/solr-in-action.jar listing -n 16.1
 echo -e "\n\n"
 echo -e "pg 554"
 echo -e "\n"
-java -jar $SOLR_IN_ACTION/sia-examples.jar http -listing 16.2
+java -jar $SOLR_IN_ACTION/solr-in-action.jar listing -n 16.2
 echo -e "\n\n"
 echo -e "pg 557"
 echo -e "\n"
 cp $SOLR_IN_ACTION/example-docs/
 java -Durl=http://localhost:8983/solr/title-boost/update -jar post.jar ch16/documents/title-boost.xml
-java -jar $SOLR_IN_ACTION/sia-examples.jar http -listing 16.3
+java -jar $SOLR_IN_ACTION/solr-in-action.jar listing -n 16.3
 echo -e "\n\n"
 echo -e "pg 558"
 echo -e "\n"
@@ -64,24 +64,24 @@ java -Durl=http://localhost:8983/solr/jobs/update/csv -Dtype=text/csv -jar post.
 echo -e "\n\n"
 echo -e "pg 572"
 echo -e "\n"
-java -jar $SOLR_IN_ACTION/sia-examples.jar http -listing 16.5
+java -jar $SOLR_IN_ACTION/solr-in-action.jar listing -n 16.5
 echo -e "\n\n"
 echo -e "pg 573"
 echo -e "\n"
-java -jar $SOLR_IN_ACTION/sia-examples.jar http -listing 16.6
+java -jar $SOLR_IN_ACTION/solr-in-action.jar listing -n 16.6
 echo -e "\n\n"
 echo -e "pg 575"
 echo -e "\n"
 curl "http://localhost:8983/solr/jobs/mlt?df=jobdescription&q=J2EE&mlt.fl=jobtitle,jobdescription"
-java -jar $SOLR_IN_ACTION/sia-examples.jar http -listing 16.7
+java -jar $SOLR_IN_ACTION/solr-in-action.jar listing -n 16.7
 echo -e "\n\n"
 echo -e "pg 576"
 echo -e "\n"
-java -jar $SOLR_IN_ACTION/sia-examples.jar http -listing 16.8
+java -jar $SOLR_IN_ACTION/solr-in-action.jar listing -n 16.8
 echo -e "\n\n"
 echo -e "pg 578"
 echo -e "\n"
-java -jar $SOLR_IN_ACTION/sia-examples.jar http -listing 16.9
+java -jar $SOLR_IN_ACTION/solr-in-action.jar listing -n 16.9
 echo -e "\n\n"
 echo -e "pg 582"
 echo -e "\n"
@@ -89,8 +89,8 @@ curl "http://localhost:8983/solr/jobs/clustering?q=solr%20OR%20lucene&rows=100&c
 echo -e "\n\n"
 echo -e "pg 583"
 echo -e "\n"
-java -jar $SOLR_IN_ACTION/sia-examples.jar http -listing 16.11
+java -jar $SOLR_IN_ACTION/solr-in-action.jar listing -n 16.11
 echo -e "\n\n"
 echo -e "pg 584"
 echo -e "\n"
-java -jar $SOLR_IN_ACTION/sia-examples.jar http -listing 16.12
+java -jar $SOLR_IN_ACTION/solr-in-action.jar listing -n 16.12

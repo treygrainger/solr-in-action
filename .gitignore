@@ -1,5 +1,5 @@
 .DS_Store
 .idea
 /target
-sia-examples.jar
 /bin
+solr-in-action.jar

@@ -20,7 +20,7 @@ import org.apache.solr.client.solrj.impl.HttpSolrServer;
  * Simple utility for executing HTTP requests from a
  * Solr In Action listing against your local Solr server.
  */
-public class Http implements ExampleDriver.Example {
+public class Listing implements ExampleDriver.Example {
 
     static final Map<String, Object> listings = new HashMap<String, Object>();
     static {
@@ -160,20 +160,23 @@ public class Http implements ExampleDriver.Example {
     @SuppressWarnings("static-access")
     public Option[] getOptions() {
         return new Option[] {
-            OptionBuilder.withArgName("#").hasArg().isRequired(true).withDescription("Listing #, such as 4.4")
-                .create("listing"),
+            OptionBuilder.withArgName("#").hasArg().isRequired(true).withDescription("Required: Listing #, such as 4.4")
+                .withLongOpt("num")
+                .create("n"),
             OptionBuilder.withArgName("URL").hasArg().isRequired(false)
                 .withDescription("Base URL for the Solr server; default: http://localhost:8983/solr")
-                .create("solr"),
+                .withLongOpt("solr") 
+                .create("s"),
             OptionBuilder.withArgName("json|xml|csv").hasArg().isRequired(false)
                 .withDescription("Override response writer type parameter \"wt\"")
-                .create("wt")
+                .withLongOpt("format") 
+                .create("f")
         };
     }
 
     public void runExample(ExampleDriver driver) throws Exception {
-        String wt = driver.getCommandLine().getOptionValue("wt", "xml");
-        String listingKey = driver.getCommandLine().getOptionValue("listing");
+        String wt = driver.getCommandLine().getOptionValue("f", "xml");
+        String listingKey = driver.getCommandLine().getOptionValue("n");
         Object listingObject = listings.get(listingKey);
         
         String[] listingValues;

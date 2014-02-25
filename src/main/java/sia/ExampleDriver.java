@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -135,16 +137,16 @@ public class ExampleDriver {
         List<Class<Example>> exampleClasses = getClassesInPackage("sia");
         if (exampleClasses == null || exampleClasses.isEmpty()) {
             System.err.println("No example classes found! Check that you're launching " +
-            		"this driver using: java -jar sia-examples.jar");
+            		"this driver using: java -jar solr-in-action.jar");
             exitCode = 1;
         } else {
             int numExamplesFound = 0;
             System.out.println("Solr in Action Examples:\n");
+          SortedMap<String, String> displayExamples = new TreeMap<String,String>();
             for (Class<Example> exampleClass : exampleClasses) {
                 try {
                     Example example = exampleClass.newInstance();
                     String shortClassName = exampleClass.getName().substring(4);
-
                     if (chapter != null) {
                         // extract the number value from the chapter filter
                         // and from the class package part
@@ -160,9 +162,12 @@ public class ExampleDriver {
                             continue;
                         }
                     }
-
-                    System.out.println(String.format("\t%s:\n\t\t%s\n",
-                        shortClassName, example.getDescription()));
+                    String originalChapterNum = extractNumPart(shortClassName);
+                    if (originalChapterNum == null) { originalChapterNum = "0"; }
+                    String newChapterNum = originalChapterNum;
+                    if (originalChapterNum.length() == 1){ newChapterNum = "0" + originalChapterNum; }
+                    displayExamples.put(shortClassName.replace(originalChapterNum, newChapterNum), String.format("\t%s:\n\t\t%s\n",
+                    shortClassName, example.getDescription()));
 
                     ++numExamplesFound;
                 } catch (Exception e) {
@@ -173,6 +178,11 @@ public class ExampleDriver {
 
             if (numExamplesFound == 0 && chapter != null) {
                 System.out.println("\n\tWARNING: No examples found for chapter: "+extractNumPart(chapter)+"\n\n");
+            }
+            else{
+              for (String key : displayExamples.keySet()){
+                System.out.println(displayExamples.get(key));
+              }  
             }
         }
         System.exit(exitCode);
