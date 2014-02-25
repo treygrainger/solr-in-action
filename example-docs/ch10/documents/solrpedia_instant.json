@@ -1,0 +1,20 @@
+[
+{
+"id" : "1",
+"query" : "Prince William",
+"last_executed_on" : "2013-08-10T00:00:00Z/DAY",
+"popularity" : 20000
+},
+{
+"id" : "2",
+"query" : "Fort William",
+"last_executed_on" : "2013-07-15T00:00:00Z/DAY",
+"popularity" : 20005
+},
+{
+"id" : "3",
+"query" : "William and Mary",
+"last_executed_on" : "2013-07-22T00:00:00Z/DAY",
+"popularity" : 19995
+}
+]

@@ -99,7 +99,7 @@ public class Listing implements ExampleDriver.Example {
         listings.put("10.8", "/solrpedia/select?q=northatlantic+curent&df=suggest&q.op=AND&spellcheck.dictionary=wordbreak&spellcheck.dictionary=default");
         listings.put("10.10", "/solrpedia/suggest?q=atm");
         listings.put("10.15", "/solrpedia_instant/select?q=query_ngram:willia&sort=popularity+desc&rows=1&fl=query&wt=json");
-        listings.put("10.16", "/solrpedia_instant/select?q=%7B!boost+b%3D%24recency+v%3D%24qq%7D&sort=score+desc&rows=1&wt=json&qq=query_ngram:willia&recency=product(recip(ms(NOW/HOUR,last_executed_on),1.27E-10,0.08,0.05),popularity)");
+        listings.put("10.16", "/solrpedia_instant/select?q=%7B!boost+b%3D%24recency+v%3D%24qq%7D&sort=score%20desc&rows=1&wt=json&qq=query_ngram:willia&recency=product(recip(ms(NOW/HOUR,last_executed_on),1.27E-10,0.08,0.05),popularity)");
 
         // chapter 11: Result grouping/field collapsing
         listings.put("11.2",
