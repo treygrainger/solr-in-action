@@ -7,9 +7,9 @@ import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;
-
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.HttpResponse;
@@ -159,8 +159,8 @@ public class Listing implements ExampleDriver.Example {
 
     @SuppressWarnings("static-access")
     public Option[] getOptions() {
-        return new Option[] {
-            OptionBuilder.withArgName("#").hasArg().isRequired(true).withDescription("Required: Listing #, such as 4.4")
+      return new Option[] {
+            OptionBuilder.withArgName("#").hasArg().isRequired(false).withDescription("Required: Listing #, such as 4.4")
                 .withLongOpt("num")
                 .create("n"),
             OptionBuilder.withArgName("URL").hasArg().isRequired(false)
@@ -176,7 +176,17 @@ public class Listing implements ExampleDriver.Example {
 
     public void runExample(ExampleDriver driver) throws Exception {
         String wt = driver.getCommandLine().getOptionValue("f", "xml");
-        String listingKey = driver.getCommandLine().getOptionValue("n");
+        String listingKey = driver.getCommandLine().getOptionValue("n");        
+        if (driver.getCommandLine().getArgList().size() == 0){
+          Option[] options = this.getOptions();
+          options[0].setRequired(true);
+          ExampleDriver.processCommandLineArgs(this, new String[]{"--help"});
+        }
+        
+        if ((listingKey == null) && driver.getCommandLine().getArgList().size() == 1){
+          listingKey = driver.getCommandLine().getArgs()[0];
+        }
+        
         Object listingObject = listings.get(listingKey);
         
         String[] listingValues;

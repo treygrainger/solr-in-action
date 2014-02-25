@@ -76,7 +76,7 @@ you favorite web browser, or you can alternatively just pass the listing number
 into the included http utility to execute the request.
 e.g. the following command will execute the request demonstrated in listing 2.1:
 
-  java -jar solr-in-action.jar listing -n 2.1
+  java -jar solr-in-action.jar listing 2.1
 
 Enjoy!
 ================================================================================
