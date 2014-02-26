@@ -36,19 +36,17 @@
         </lst>
     </requestHandler>
 
-
     <updateRequestProcessorChain name="langid">
       <processor class="org.apache.solr.update.processor.LangDetectLanguageIdentifierUpdateProcessorFactory">
-        <lst name="invariants">
-          <str name="langid.fl">content,content_lang1,content_lang2,content_lang3</str>
-          <str name="langid.langField">language</str>
-          <str name="langid.langsField">languages</str>
-          <str name="langid.map">true</str>
-          <str name="langid.map.individual">true</str>
-          <str name="langid.map.fl">content_lang1,content_lang2,content_lang3</str>str>
-          <str name="langid.whitelist">en,es,fr</str>
-          <str name="langid.map.lcmap">en:english es:spanish fr:french</str>
-        </lst>
+          <lst name="invariants">
+            <str name="langid.fl">content</str>
+            <str name="langid.langField">language</str>
+            <str name="langid.map">true</str>
+            <str name="langid.map.fl">content</str>
+            <str name="langid.whitelist">en,es,fr</str>
+            <str name="langid.map.lcmap">en:english es:spanish fr:french</str>
+            <str name="langid.fallback">en</str>
+          </lst>
       </processor>
       <processor class="solr.LogUpdateProcessorFactory" />
       <processor class="solr.RunUpdateProcessorFactory" />

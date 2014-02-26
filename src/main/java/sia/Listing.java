@@ -134,6 +134,16 @@ public class Listing implements ExampleDriver.Example {
             "/field-per-language/select?fl=title&defType=edismax&qf=content_english%20content_french%20content_spanish&q=%22wisdom%22",
             "/field-per-language/select?fl=title&defType=edismax&qf=content_english%20content_french%20content_spanish&q=%22sabidur%C3%ADa%22",
             "/field-per-language/select?fl=title&defType=edismax&qf=content_english%20content_french%20content_spanish&q=%22sagesse%22"});
+        listings.put("14.9",
+            "/multi-language-field/select?fl=title&df=content&q=en,fr,es%7Cabandon%20AND%20en,fr,es%7Cunderstanding%20AND%20en,fr,es%7Csagess");
+        listings.put("14.12",
+            "/langid/select?q=*:*&fl=title,language,languages");
+        listings.put("14.14",
+            "/langid2/select?q=id:[1%20TO%203]&fl=title,language,content_english,content_spanish,content_french&defType=edismax&qf=content_english%20content_spanish%20content_french");
+        listings.put("14.17",
+            "/multi-langid/select?q=*:*&df=content&fl=title,content,language");
+        listings.put("14.18",
+            "/multi-langid/select?q=en,es,fr%7Cabandon&df=content&fl=title,content,language");
 
         // chapter 15: Performing Queries and Handling Results
         listings.put("15.1", "/salestax/select?q=*:*&userSalesTax=0.07&fl=id,basePrice,totalPrice:product(basePrice,%20sum(1,%20$userSalesTax))");

@@ -271,6 +271,7 @@ public class MultiTextFieldTokenizer extends Tokenizer {
 
       tokenHash.get(position).add(clone);
     }
+    tokenStream.close();
 
   }
 
