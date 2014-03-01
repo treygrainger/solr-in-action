@@ -6,7 +6,7 @@
     "lang_s" : "en",
     "timestamp_tdt" : "2012-05-22T09:30:22Z/HOUR",
     "favourites_count_ti" : "10",
-    "text_t" : "#Yummm :) Drinking a latte at Caffe Grecco in SF's historic North Beach... Learning text analysis with #SolrInAction by @Manning on my i-Pad"
+    "text_t" : "#Yummm :) Drinking a latte at Caffe Grecco in SF's historic North Beach... Learning text analysis with #SolrInAction by @ManningBooks on my i-Pad"
   },
   {
     "id" : "2",
@@ -15,7 +15,7 @@
     "lang_s" : "en",
     "timestamp_tdt" : "2012-05-23T09:30:22Z/HOUR",
     "favourites_count_ti" : "10",
-    "text_t" : "Just downloaded the ebook of #SolrInAction from @Manning http://bit.ly/T3eGYG to learn more about #Solr http://bit.ly/3ynriE",
+    "text_t" : "Just downloaded the ebook of #SolrInAction from @ManningBooks http://bit.ly/T3eGYG to learn more about #Solr http://bit.ly/3ynriE",
     "link_ss" : [ "http://manning.com/grainger/", "http://lucene.apache.org/solr/"]
   }
 ]

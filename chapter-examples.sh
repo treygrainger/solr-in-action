@@ -1,5 +1,5 @@
 if [ "$#" -ne 3  -a "$#" -ne 2 ]; then
-  echo "Usage: run.sh \$SOLR_IN_ACTION \$SOLR_INSTALL [\$CHAPTER_NUMBER]"
+  echo "Usage: chapter-examples.sh \$SOLR_IN_ACTION \$SOLR_INSTALL [\$CHAPTER_NUMBER]"
   echo "i.e. chapter-examples.sh ~/solr-in-action ~/solr 16"
   echo "if no \$CHAPTER_NUMBER is specified, all chapters will be executed"
   exit 0

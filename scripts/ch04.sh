@@ -11,8 +11,31 @@ echo -e "----------------------------------------\n"
 echo -e "CHAPTER 4"
 echo -e "----------------------------------------\n"
 echo -e "\n\n"
-echo -e "pg xxx"
+echo -e "pg 85"
 echo -e "\n"
 cd $SOLR_INSTALL/example/
 java -jar start.jar &
 sleep 10 #give Solr time to start
+echo -e "\n\n"
+echo -e "pg 91"
+echo -e "\n"
+java -jar $SOLR_IN_ACTION/solr-in-action.jar listing 4.4
+echo -e "\n\n"
+echo -e "pg 97"
+echo -e "\n"
+java -jar $SOLR_IN_ACTION/solr-in-action.jar listing 4.7
+echo -e "\n\n"
+echo -e "pg 100"
+echo -e "\n"
+java -jar $SOLR_IN_ACTION/solr-in-action.jar listing 4.8
+echo -e "\n\n"
+echo -e "pg 101"
+echo -e "\n"
+java -jar $SOLR_IN_ACTION/solr-in-action.jar listing 4.9
+echo -e "\n\n"
+echo -e "pg 109"
+echo -e "\n"
+java -jar $SOLR_IN_ACTION/solr-in-action.jar listing 4.12
+
+
+
