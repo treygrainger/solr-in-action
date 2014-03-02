@@ -1,0 +1,20 @@
+<add>
+     <doc>
+          <field name="id">1</field>
+          <field name="text">Tribeca Family Festival Street Fair - You'll find snacks and face painting, as well as many other activities such as a video-game-hacking workshop from the Museum of the Moving Image and soapy bubble wands from Gazillion Bubble Garden. Storytellers, puppeteers, and cast members from many Broadway and off-Broadway shows will perform on the festival’s main stage throughout the day.
+          </field> 
+          <field name="location">40.7213827,-74.010068</field>
+          <field name="city">New York, NY</field>
+          <field name="popularity">50</field>
+          <field name="publicationDate">2012-03-15T12:00:00.0Z</field>
+     </doc>
+     <doc>
+          <field name="id">2</field>
+          <field name="text">Lamar Street Festival - The historic Cedars South Side area (just south of downtown) will be busy Oct. 19 with the very first Lamar Street Festival, being held around the 100-year-old South Side on Lamar building, which began as a Sears store. There will be music, art, films, and other opportunities for creative fun, all with a focus on local talent.
+          </field>
+          <field name="location">32.7712,-96.8119</field>
+          <field name="city">Dallas, TX</field>
+          <field name="popularity">100</field>
+          <field name="publicationDate">2013-10-17T12:00:00.0Z</field>
+     </doc>     
+</add>

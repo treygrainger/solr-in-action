@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+  <luceneMatchVersion>4.7</luceneMatchVersion>
+  <lib dir="../../../contrib/extraction/lib" regex=".*\.jar" />
+  <lib dir="../../../dist/" regex="solr-cell-\d.*\.jar" />
+
+  <lib dir="../../../contrib/clustering/lib/" regex=".*\.jar" />
+  <lib dir="../../../dist/" regex="solr-clustering-\d.*\.jar" />
+
+  <lib dir="../../../contrib/langid/lib/" regex=".*\.jar" />
+  <lib dir="../../../dist/" regex="solr-langid-\d.*\.jar" />
+
+  <lib dir="../../../contrib/velocity/lib" regex=".*\.jar" />
+  <lib dir="../../../dist/" regex="solr-velocity-\d.*\.jar" />
+    
+    <valueSourceParser name="concatenate"
+    class="sia.ch15.ConcatenateFunctionParser" />
+
+    <dataDir>${solr.data.dir:}</dataDir>
+
+    <directoryFactory name="DirectoryFactory"
+                    class="${solr.directoryFactory:solr.NRTCachingDirectoryFactory}"/> 
+
+  <codecFactory class="solr.SchemaCodecFactory"/>
+
+    <schemaFactory class="ClassicIndexSchemaFactory"/>
+
+  <indexConfig>
+      <lockType>${solr.lock.type:native}</lockType>
+
+  </indexConfig>
+
+  <jmx />
+  <updateHandler class="solr.DirectUpdateHandler2">
+    <updateLog>
+      <str name="dir">${solr.ulog.dir:}</str>
+    </updateLog>
+
+     <autoCommit> 
+       <maxTime>15000</maxTime> 
+       <openSearcher>false</openSearcher> 
+     </autoCommit>
+  </updateHandler>
+  
+   <query>
+       <maxBooleanClauses>1024</maxBooleanClauses>
+
+    <filterCache class="solr.FastLRUCache"
+                 size="512"
+                 initialSize="512"
+                 autowarmCount="0"/>
+
+       <queryResultCache class="solr.LRUCache"
+                     size="512"
+                     initialSize="512"
+                     autowarmCount="0"/>
+   
+       <documentCache class="solr.LRUCache"
+                   size="512"
+                   initialSize="512"
+                   autowarmCount="0"/>
+    
+        <enableLazyFieldLoading>true</enableLazyFieldLoading>
+   <queryResultWindowSize>20</queryResultWindowSize>
+   <queryResultMaxDocsCached>200</queryResultMaxDocsCached>
+
+          <useColdSearcher>false</useColdSearcher>
+
+       <maxWarmingSearchers>2</maxWarmingSearchers>
+
+  </query>
+
+
+   <requestDispatcher handleSelect="false" >
+       <requestParsers enableRemoteStreaming="true" 
+                    multipartUploadLimitInKB="2048000"
+                    formdataUploadLimitInKB="2048"
+                    addHttpRequestToContext="false"/>
+
+        <httpCaching never304="true" />
+     </requestDispatcher>
+
+    <requestHandler name="/select" class="solr.SearchHandler">
+    <!-- default values for query parameters can be specified, these
+         will be overridden by parameters in the request
+      -->
+     <lst name="defaults">
+         <str name="echoParams">none</str>
+         <str name="wt">json</str>
+         <str name="indent">true</str>
+         <str name="df">text</str>
+     </lst>
+
+       </requestHandler>
+
+
+  <requestHandler name="/get" class="solr.RealTimeGetHandler">
+     <lst name="defaults">
+       <str name="omitHeader">true</str>
+       <str name="wt">json</str>
+       <str name="indent">true</str>
+     </lst>
+  </requestHandler>
+
+ 
+   <requestHandler name="/update" class="solr.UpdateRequestHandler" />
+
+  
+   <requestHandler name="/analysis/field" 
+                  startup="lazy"
+                  class="solr.FieldAnalysisRequestHandler" />
+
+
+    <requestHandler name="/analysis/document" 
+                  class="solr.DocumentAnalysisRequestHandler" 
+                  startup="lazy" />
+
+    <requestHandler name="/admin/" 
+                  class="solr.admin.AdminHandlers" />
+ 
+  <!-- ping/healthcheck -->
+  <requestHandler name="/admin/ping" class="solr.PingRequestHandler">
+    <lst name="invariants">
+      <str name="q">solrpingquery</str>
+    </lst>
+    <lst name="defaults">
+      <str name="echoParams">all</str>
+    </lst>
+    <str name="healthcheckFile">server-enabled.txt</str>
+  </requestHandler>
+
+    <str name="queryAnalyzerFieldType">text_general</str>
+
+
+
+  <!-- Term Vector Component
+
+       http://wiki.apache.org/solr/TermVectorComponent
+    -->
+  <searchComponent name="tvComponent" class="solr.TermVectorComponent"/>
+
+  <searchComponent name="terms" class="solr.TermsComponent"/>
+
+  <!-- A request handler for demonstrating the terms component -->
+  <requestHandler name="/terms" class="solr.SearchHandler" startup="lazy">
+     <lst name="defaults">
+      <bool name="terms">true</bool>
+      <bool name="distrib">false</bool>
+    </lst>     
+    <arr name="components">
+      <str>terms</str>
+    </arr>
+  </requestHandler>
+
+<queryResponseWriter name="json" class="solr.JSONResponseWriter">
+     <!-- For the purposes of the tutorial, JSON responses are written as
+      plain text so that they are easy to read in *any* browser.
+      If you expect a MIME type of "application/json" just remove this override.
+     -->
+    <str name="content-type">text/plain; charset=UTF-8</str>
+  </queryResponseWriter>
+  
+ 
+  <admin>
+    <defaultQuery>*:*</defaultQuery>
+  </admin>
+
+</config>

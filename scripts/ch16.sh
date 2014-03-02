@@ -51,7 +51,7 @@ curl "http://localhost:8983/solr/distance-relevancy/select?q=restaurant_name:(Bu
 echo -e "\n\n"
 echo -e "pg 561"
 echo -e "\n"
-curl "http://localhost:8983/solr/news-relevancy/select?fq=\{\!cache=false%20v=$keywords\}&q=_query_:%22\{\!func\}scale(query(\$keywords),0,100)%22%20AND%20_query_:%22\{\!func\}div(100,map(geodist(location,\$pt),0,1,1))%22%20AND%20_query_:%22\{\!func\}recip(rord(publicationDate)1,100,1)%22%20AND%20_query_:%22\{\!func\}scale(popularity,0,100)%22&keywords=%22street%20festival%22&pt=33.748,-84.391"
+curl "http://localhost:8983/solr/news-relevancy/select?fq=\{\!cache=false%20v=$keywords\}&q=_query_:%22\{\!func\}scale(query(\$keywords),0,100)%22%20AND%20_query_:%22\{\!func\}div(100,map(geodist(location,\$pt),0,1,1))%22%20AND%20_query_:%22\{\!func\}recip(rord(publicationDate),1,100,1)%22%20AND%20_query_:%22\{\!func\}scale(popularity,0,100)%22&keywords=%22street%20festival%22&pt=33.748,-84.391"
 echo -e "\n\n"
 echo -e "pg 567"
 echo -e "\n"
