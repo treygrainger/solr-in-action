@@ -123,9 +123,9 @@ public class Listing implements ExampleDriver.Example {
 
         // chapter 13: SolrCloud
         listings.put("13.6",
-            "http://localhost:8983/solr/admin/collections?action=CREATE&name=support&numShards=1&replicationFactor=2&maxShardsPerNode=1&collection.configName=support");
+            "/admin/collections?action=CREATE&name=support&numShards=1&replicationFactor=2&maxShardsPerNode=1&collection.configName=support");
         listings.put("13.7",
-            "http://localhost:8983/solr/admin/collections?action=CREATEALIAS&name=logmill-write&collections=logmill");
+            "/admin/collections?action=CREATEALIAS&name=logmill-write&collections=logmill");
 
         // chapter 14: Multilingual Search
         listings.put("14.4",

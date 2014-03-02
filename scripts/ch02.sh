@@ -4,8 +4,13 @@ if [ "$#" -ne 2 ]; then
 fi
 SOLR_IN_ACTION=${1%/}
 SOLR_INSTALL=${2%/}
-kill -9 $(ps aux | grep '[j]ava -jar start.jar' | awk '{print $2}') #stops Solr if running from previous chapter
-sleep 2 #give process time to stop
+
+for ID in `ps waux | grep java | grep start.jar | awk '{print $2}' | sort -r`
+  do
+    kill -9 $ID
+    echo "Killed process $ID"
+    sleep 2
+done
 
 echo -e "----------------------------------------\n"
 echo -e "CHAPTER 2"
@@ -18,8 +23,10 @@ echo -e "\n\n"
 echo -e "pg 28"
 echo -e "\n"
 cd $SOLR_INSTALL/example/
-java -jar start.jar &
-sleep 10 #give Solr time to start
+echo -e "Starting Solr example server on port 8983; see $SOLR_INSTALL/example/solr.log for errors and log messages"
+java -jar start.jar 1>solr.log 2>&1 &
+sleep 10 
+tail -30 solr.log
 echo -e "\n\n"
 echo -e "pg 33"
 echo -e "\n"
@@ -33,7 +40,7 @@ echo -e "\n\n"
 echo -e "pg 45"
 echo -e "\n"
 echo "Stopping Solr"
-kill -9 $(ps aux | grep '[j]ava -jar start.jar' | awk '{print $2}') #stops Solr if running from previous chapter
+kill -9 $(ps aux | grep '[j]ava -jar start.jar' | awk '{print $2}')
 echo "Copying example folder to a new application called \"realestate\""
 cd $SOLR_INSTALL/
 rm -rf realestate
@@ -50,9 +57,15 @@ echo "name=realestate" > realestate/core.properties
 echo -e "\n\n"
 echo -e "pg 46"
 echo -e "\n"
-echo "Starting Solr"
 cd $SOLR_INSTALL/realestate
-java -jar start.jar &
-sleep 10 #give Solr time to start
+echo -e "Starting Solr realestate server"
+java -jar start.jar 1>realestate.log 2>&1 &
+sleep 10
+tail -30 realestate.log
 echo "Stopping Solr"
-kill -9 $(ps aux | grep '[j]ava -jar start.jar' | awk '{print $2}') #stops Solr if running from previous chapter
+for ID in `ps waux | grep java | grep start.jar | awk '{print $2}' | sort -r`
+  do
+    kill -9 $ID
+    echo "Killed process $ID"
+done
+

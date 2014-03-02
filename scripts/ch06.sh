@@ -4,8 +4,11 @@ if [ "$#" -ne 2 ]; then
 fi
 SOLR_IN_ACTION=${1%/}
 SOLR_INSTALL=${2%/}
-kill -9 $(ps aux | grep '[j]ava -jar start.jar' | awk '{print $2}') #stops Solr if running from previous chapter
-sleep 2 #give process time to stop
+for ID in `ps waux | grep java | grep start.jar | awk '{print $2}' | sort -r`
+  do
+    kill -9 $ID
+    echo "Killed process $ID"
+done
 
 echo -e "----------------------------------------\n"
 echo -e "CHAPTER 6"
@@ -17,8 +20,10 @@ cp $SOLR_IN_ACTION/example-docs/ch6/schema.xml $SOLR_INSTALL/example/solr/collec
 cp $SOLR_IN_ACTION/example-docs/ch6/wdfftypes.txt $SOLR_INSTALL/example/solr/collection1/conf/
 echo -e "Updated schema.xml and wdfftypes.txt for chapter 6"
 cd $SOLR_INSTALL/example/
-java -jar start.jar &
-sleep 10 #give Solr time to start
+echo -e "Starting Solr example server on port 8983; see $SOLR_INSTALL/example/solr.log for errors and log messages"
+java -jar start.jar 1>solr.log 2>&1 &
+sleep 10 
+tail -30 solr.log
 echo -e "\n\n"
 echo -e "pg 186"
 echo -e "\n"

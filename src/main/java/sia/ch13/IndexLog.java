@@ -4,15 +4,27 @@ import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.log4j.Logger;
+import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServer;
+import org.apache.solr.client.solrj.SolrServerException;
 import org.apache.solr.client.solrj.impl.CloudSolrServer;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrDocument;
+import org.apache.solr.common.SolrDocumentList;
+import org.apache.solr.common.SolrException;
 import org.apache.solr.common.SolrInputDocument;
+
 import sia.ExampleDriver;
 
 import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Index log messages into the logmill search index.
@@ -95,7 +107,7 @@ public class IndexLog extends ExampleDriver.SolrJClientExample {
         while ((line = reader.readLine()) != null) {
             doc = parseNextDoc(line, ++lineNum, fmt);
             if (doc != null) {
-                solr.add(doc);
+                addDocWithRetry(solr, doc, 10);
                 ++numSent;
             } else {
                 ++numSkipped;
@@ -109,10 +121,51 @@ public class IndexLog extends ExampleDriver.SolrJClientExample {
         // hard commit all docs sent
         solr.commit(true,true);
 
-        solr.shutdown();
-
         float tookSecs = Math.round(((System.currentTimeMillis() - startMs)/1000f)*100f)/100f;
         log.info(String.format("Sent %d log messages (skipped %d) took %f seconds", numSent, numSkipped, tookSecs));
+        
+        // queries to demonstrate results of indexing
+        SolrQuery solrQuery = new SolrQuery("*:*");
+        solrQuery.setRows(0);
+        QueryResponse resp = solr.query(solrQuery);
+        SolrDocumentList hits = resp.getResults();        
+        log.info("Match all docs distributed query found "+hits.getNumFound()+" docs.");        
+
+        solrQuery.set("shards", "shard1");
+        resp = solr.query(solrQuery);
+        hits = resp.getResults();        
+        log.info("Match all docs non-distributed query to shard1 found "+hits.getNumFound()+" docs.");        
+
+        solrQuery.set("shards", "shard2");
+        resp = solr.query(solrQuery);
+        hits = resp.getResults();        
+        log.info("Match all docs non-distributed query to shard2 found "+hits.getNumFound()+" docs.");        
+        
+        solr.shutdown();        
+    }
+    
+    /**
+     * Send a document to Solr for indexing with re-try support in case of communication exception. 
+     */
+    protected void addDocWithRetry(CloudSolrServer solr, SolrInputDocument doc, int retryInSecs) 
+        throws Exception
+    {
+      try {
+        solr.add(doc);
+      } catch (Exception solrExc) {
+        // add some basic re-try logic in the event of a communication error
+        Throwable rootCause = SolrException.getRootCause(solrExc);
+        if (rootCause instanceof IOException) {
+          log.error(rootCause.getClass().getSimpleName()+
+              " when trying to send a document to SolrCloud, will re-try after waiting "+
+              retryInSecs+" seconds; "+rootCause);
+          try {
+            Thread.sleep(retryInSecs*1000);
+          } catch (InterruptedException ignoreMe) {}
+          // re-try this doc
+          solr.add(doc);
+        }
+      }      
     }
 
     /**
@@ -213,5 +266,5 @@ public class IndexLog extends ExampleDriver.SolrJClientExample {
         log.info("Parsed log message at line "+lineNum+" into SolrInputDocument: "+doc);
 
         return doc;
-    }
+    }    
 }
