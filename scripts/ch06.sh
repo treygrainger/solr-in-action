@@ -11,8 +11,16 @@ echo -e "----------------------------------------\n"
 echo -e "CHAPTER 6"
 echo -e "----------------------------------------\n"
 echo -e "\n\n"
-echo -e "pg xxx"
+echo -e "pg 167"
 echo -e "\n"
+cp $SOLR_IN_ACTION/example-docs/ch6/schema.xml $SOLR_INSTALL/example/solr/collection1/conf/
+cp $SOLR_IN_ACTION/example-docs/ch6/wdfftypes.txt $SOLR_INSTALL/example/solr/collection1/conf/
+echo -e "Updated schema.xml and wdfftypes.txt for chapter 6"
 cd $SOLR_INSTALL/example/
 java -jar start.jar &
 sleep 10 #give Solr time to start
+echo -e "\n\n"
+echo -e "pg 186"
+echo -e "\n"
+cd $SOLR_IN_ACTION/example-docs
+java -jar post.jar ch6/tweets.xml

@@ -11,8 +11,20 @@ echo -e "----------------------------------------\n"
 echo -e "CHAPTER 5"
 echo -e "----------------------------------------\n"
 echo -e "\n\n"
-echo -e "pg xxx"
+echo -e "pg 142"
 echo -e "\n"
 cd $SOLR_INSTALL/example/
 java -jar start.jar &
 sleep 10 #give Solr time to start
+cd $SOLR_IN_ACTION/example-docs
+java -jar post.jar ch5/tweets.xml
+echo -e "\n\n"
+echo -e "pg 143"
+echo -e "\n"
+java -Dtype=application/json -jar post.jar ch5/tweets.json
+echo -e "\n\n"
+echo -e "pg 143"
+echo -e "\n"
+echo -e "Running the ExampleSolrJClient from Listing 5.15"
+cd $SOLR_IN_ACTION
+java -jar solr-in-action.jar ExampleSolrJClient

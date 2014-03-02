@@ -4,7 +4,7 @@ if [ "$#" -ne 2 ]; then
 fi
 SOLR_IN_ACTION=${1%/}
 SOLR_INSTALL=${2%/}
-kill -9 $(ps aux | grep '[j]ava -jar start.jar' | awk '{print $2}') #stops Solr if running from previous chapter
+kill -9 $(ps aux | grep java | grep start.jar | awk '{print $2}') #stops Solr if running from previous chapter
 sleep 2 #give process time to stop
 echo -e "----------------------------------------\n"
 echo -e "CHAPTER 10"
