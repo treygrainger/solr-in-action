@@ -4,7 +4,7 @@
     <groupId>com.manning</groupId>
     <artifactId>solr-in-action</artifactId>
     <packaging>jar</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0_solr-4.7.0</version>
     <name>solr-in-action</name>
     <url>http://maven.apache.org</url>
     <build>
