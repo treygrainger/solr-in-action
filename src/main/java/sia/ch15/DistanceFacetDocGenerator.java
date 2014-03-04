@@ -49,7 +49,6 @@ private static Random random = new Random();
 		
 		solrUpdateDocs.append("</add>");
 		
-		System.out.print(solrUpdateDocs);
 		File outputFile = new File(file);
 		BufferedWriter writer = null;
 		try{
