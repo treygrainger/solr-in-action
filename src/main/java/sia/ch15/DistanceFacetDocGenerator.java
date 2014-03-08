@@ -24,36 +24,27 @@ private static Random random = new Random();
 		String file = args[0];
 		
 		List<WeightedLocation> locations = getWeightedLocations();
-		StringBuilder solrUpdateDocs = new StringBuilder("<add>\n");
-		
-		List<String> docs = new ArrayList<String>();
-		
-		for (WeightedLocation location : locations){
-			for (Integer i = 0; i < location.numDocs; i++){
-				StringBuilder doc = new StringBuilder();
-				doc.append("  <doc>\n");
-				doc.append("    <field name=\"id\">{id}</field>\n");
-				doc.append("    <field name=\"location\">" + changeLastDigit(location.latitude) + "," + changeLastDigit(location.longitude) + "</field>\n");
-				doc.append("    <field name=\"city\">" + location.place + "</field>\n");
-				doc.append("  </doc>\n");
-				docs.add(doc.toString());
-			}
-		}
-		
-		Collections.shuffle(docs);
-		Integer nextDocId = 1;
-		for (String doc : docs){
-			solrUpdateDocs.append(doc.replace("{id}",nextDocId.toString()));
-			nextDocId +=1;
-		}
-		
-		solrUpdateDocs.append("</add>");
-		
+
 		File outputFile = new File(file);
-		BufferedWriter writer = null;
-		try{
-			writer = new BufferedWriter (new FileWriter(outputFile));
-			writer.write(solrUpdateDocs.toString());
+        BufferedWriter writer = null;
+        Integer nextDocId = 1;
+        try{
+          writer = new BufferedWriter (new FileWriter(outputFile));
+          writer.write("<add>\n");
+    		for (WeightedLocation location : locations){
+    			for (Integer i = 0; i < location.numDocs; i++){
+    				StringBuilder doc = new StringBuilder();
+    				doc.append("  <doc>\n");
+    				doc.append("    <field name=\"id\">" + nextDocId.toString() + "</field>\n");
+    				doc.append("    <field name=\"location\">" + changeLastDigit(location.latitude) + "," + changeLastDigit(location.longitude) + "</field>\n");
+    				doc.append("    <field name=\"city\">" + location.place + "</field>\n");
+    				doc.append("  </doc>\n");
+    				writer.write(doc.toString());
+                    nextDocId +=1;
+    			}
+    		}
+    		writer.write("</add>");
+		
 		}
 		catch (Exception e){
 			e.printStackTrace();
