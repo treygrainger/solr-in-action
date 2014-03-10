@@ -1,3 +1,4 @@
+#Input Validation
 if [ "$#" -ne 2 ]; then
   echo -e "Usage: ch13.sh \$SOLR_IN_ACTION \$SOLR_INSTALL"
   exit 0
@@ -5,12 +6,34 @@ fi
 SOLR_IN_ACTION=${1%/}
 SOLR_INSTALL=${2%/}
 
-for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
+
+#Helper Functions
+waitOnSolrToStartOnPort(){
+  PORT=$1
+  timeoutInSeconds="60"
+  timer="0" 
+  while [ $timer -lt $timeoutInSeconds ] && [ $(curl -sL -w "%{http_code}" --connect-timeout 2 "http://localhost:$PORT/solr/" -o /dev/null) -ne "200" ]
+  do 
+    sleep 1
+    timer=$[$timer+1]
+  done
+  if [ $timer == $timeoutInSeconds ]; then
+    echo "There was a problem starting Solr. Exiting script."; exit 1
+  fi
+}
+
+stopSolr(){
+  for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
   do
     kill -9 $ID
-    echo "Stopped previous Solr process: $ID"
-done #stops Solr if running from previous chapter
+    echo "Stopped running Solr process: $ID"
+  done
+}
 
+
+#Chapter Examples
+stopSolr
+echo -e "\n"
 echo -e "----------------------------------------\n"
 echo -e "CHAPTER 13"
 echo -e "----------------------------------------\n"
@@ -25,7 +48,7 @@ find . -name core.properties -exec rm {} \;
 echo "name=logmill" > solr/logmill/core.properties
 echo -e "Starting Solr on 8983 for hosting shard1 of the logmill collection; see $SOLR_INSTALL/shard1/shard1.log for errors and log messages"
 java -Dcollection.configName=logmill -DzkRun -DnumShards=2 -Dbootstrap_confdir=./solr/logmill/conf -jar start.jar 1>shard1.log 2>&1 &
-sleep 12
+waitOnSolrToStartOnPort 8983
 tail -30 $SOLR_INSTALL/shard1/shard1.log
 echo -e "\n\n"
 echo -e "pg 409"
@@ -36,7 +59,7 @@ cd shard2/
 rm -rf solr/logmill/conf/
 echo -e "Starting Solr on 8984 for hosting shard2 of the logmill collection; see $SOLR_INSTALL/shard2/shard2.log for errors and log messages"
 java -DzkHost=localhost:9983 -Djetty.port=8984 -jar start.jar 1>shard2.log 2>&1 &
-sleep 12 
+waitOnSolrToStartOnPort 8984
 tail -30 $SOLR_INSTALL/shard2/shard2.log
 echo -e "\n\n"
 echo -e "pg 410"
@@ -63,9 +86,5 @@ echo -e "pg 440"
 echo -e "\n"
 echo -e "Creating the logmill-write alias using the Collections API"
 java -jar solr-in-action.jar listing 13.7
-for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
-  do
-    kill -9 $ID
-    echo "Stopped Solr process: $ID"
-done
-
+echo "Stopping Solr"
+stopSolr

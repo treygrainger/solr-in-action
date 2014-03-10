@@ -1,14 +1,38 @@
+#Input Validation
 if [ "$#" -ne 2 ]; then
   echo -e "Usage: ch15.sh \$SOLR_IN_ACTION \$SOLR_INSTALL"
   exit 0
 fi
 SOLR_IN_ACTION=${1%/}
 SOLR_INSTALL=${2%/}
-for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
+
+
+#Helper Functions
+waitOnSolrToStart(){
+  timeoutInSeconds="60"
+  timer="0" 
+  while [ $timer -lt $timeoutInSeconds ] && [ $(curl -sL -w "%{http_code}" --connect-timeout 2 "http://localhost:8983/solr/" -o /dev/null) -ne "200" ]
+  do 
+    sleep 1
+    timer=$[$timer+1]
+  done
+  if [ $timer == $timeoutInSeconds ]; then
+    echo "There was a problem starting Solr. Exiting script."; exit 1
+  fi
+}
+
+stopSolr(){
+  for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
   do
     kill -9 $ID
-    echo "Stopped previous Solr process: $ID"
-done #stops Solr if running from previous chapter
+    echo "Stopped running Solr process: $ID"
+  done
+}
+
+
+#Chapter Examples
+stopSolr
+echo -e "\n"
 echo -e "----------------------------------------\n"
 echo -e "CHAPTER 15"
 echo -e "----------------------------------------\n"
@@ -19,7 +43,8 @@ cp -r $SOLR_IN_ACTION/example-docs/ch15/cores/ solr/
 cp $SOLR_IN_ACTION/solr-in-action.jar solr/lib/
 echo -e "Starting Solr example server on port 8983; see $SOLR_INSTALL/example/solr.log for errors and log messages"
 java -jar start.jar 1>solr.log 2>&1 &
-sleep 10 #give Solr time to start
+waitOnSolrToStart
+tail -30 solr.log
 cd $SOLR_IN_ACTION/example-docs/
 java -Durl=http://localhost:8983/solr/news/update -jar post.jar ch15/documents/news.xml
 curl "http://localhost:8983/solr/news/select?q=%22United%20States%22%20AND%20France%20AND%20President%20AND%20_val_%3A%22recip(ord(date)%2C1%2C100%2C100)%22"
@@ -72,12 +97,7 @@ curl "http://localhost:8983/solr/geospatial/select?q=*:*&fq=%7B!geofilt%7D&fl=*,
 echo -e "\n"
 echo -e "pg 532"
 echo -e "\n"
-for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
-  do
-    kill -9 $ID
-    echo "Stopped previous Solr instance: $ID"
-done #stops Solr if running from previous chapter
-sleep 2 #give processes time to die
+stopSolr
 cd $SOLR_INSTALL/example/webapps/
 cp -r $SOLR_IN_ACTION/example-docs/ch15/jts/ ./
 jar -uf solr.war WEB-INF/lib/jts.jar
@@ -86,7 +106,8 @@ cd $SOLR_INSTALL/example/
 cp solr/geospatial/conf/jts_schema.xml solr/geospatial/conf/schema.xml
 echo -e "Starting Solr example server on port 8983; see $SOLR_INSTALL/example/solr.log for errors and log messages"
 java -jar start.jar 1>solr.log 2>&1 &
-sleep 20 #give Solr time to start
+waitOnSolrToStart
+tail -30 solr.log
 curl "http://localhost:8983/solr/geospatial/select?q=*:*&fq=%7B!geofilt%20pt=37.775,-122.419%20sfield=location_rpt%20d=5%7D"
 curl "http://localhost:8983/solr/geospatial/select?q=*:*&fq=%7B!bbox%20pt=37.775,-122.419%20sfield=location_rpt%20d=5%7D"
 curl "http://localhost:8983/solr/geospatial/select?q=*:*&fq=location_rpt:%22Intersects(-90%20-90%2090%2090)%22"
@@ -121,8 +142,5 @@ echo -e "pg 545"
 echo -e "\n"
 java -Durl=http://localhost:8983/solr/join_useractions/update -jar post.jar ch15/documents/join_useractions.xml
 curl "http://localhost:8983/solr/join_restaurants/select?fl=restaurantname,text&q=%22Indian%22&fq=%7B!join%20fromIndex=join_useractions%20toIndex=join_restaurants%20from=restaurantid%20to=id%7Duserid:user123%20AND%20actiontype:clicked%20AND%20actiondate:%5BNOW-14DAYS%20TO%20*%5D"
-for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
-  do
-    kill -9 $ID
-    echo "Stopped Solr process: $ID"
-done
+echo "Stopping Solr"
+stopSolr

@@ -9,6 +9,7 @@ for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
     kill -9 $ID
     echo "Stopped previous Solr process: $ID"
 done #stops Solr if running from previous chapter
+echo -e "\n"
 echo -e "----------------------------------------\n"
 echo -e "CHAPTER 16"
 echo -e "----------------------------------------\n"
@@ -18,6 +19,7 @@ cd $SOLR_INSTALL/example/
 cp -r $SOLR_IN_ACTION/example-docs/ch16/cores/ solr/
 java -jar start.jar &
 sleep 10 #give Solr time to start
+tail -30 solr.log
 cd $SOLR_IN_ACTION/example-docs/
 java -Durl=http://localhost:8983/solr/no-title-boost/update -jar post.jar ch16/documents/no-title-boost.xml
 java -jar $SOLR_IN_ACTION/solr-in-action.jar listing 16.1
@@ -28,7 +30,7 @@ java -jar $SOLR_IN_ACTION/solr-in-action.jar listing 16.2
 echo -e "\n"
 echo -e "pg 557"
 echo -e "\n"
-cp $SOLR_IN_ACTION/example-docs/
+cd $SOLR_IN_ACTION/example-docs/
 java -Durl=http://localhost:8983/solr/title-boost/update -jar post.jar ch16/documents/title-boost.xml
 java -jar $SOLR_IN_ACTION/solr-in-action.jar listing 16.3
 echo -e "\n"
@@ -95,6 +97,7 @@ echo -e "\n"
 echo -e "pg 584"
 echo -e "\n"
 java -jar $SOLR_IN_ACTION/solr-in-action.jar listing 16.12
+echo "Stopping Solr"
 for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
   do
     kill -9 $ID

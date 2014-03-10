@@ -14,10 +14,10 @@ if [ "$#" -ne 2 ]; then
   CHAPTER_SCRIPT="$CHAPTER_SCRIPTS_FOLDER"/ch"$CHAPTER_NUMBER".sh
   CHAPTER_SCRIPT_WITH_ZERO="$CHAPTER_SCRIPTS_FOLDER"/ch0"$CHAPTER_NUMBER".sh
   if [[ -x "$CHAPTER_SCRIPT" ]]; then
-    echo $CHAPTER_SCRIPT
+    echo "Executing: $CHAPTER_SCRIPT"
     ./"$CHAPTER_SCRIPT" $SOLR_IN_ACTION $SOLR_INSTALL
   elif [[ -x "$CHAPTER_SCRIPT_WITH_ZERO" ]]; then
-    echo $CHAPTER_SCRIPT
+    echo "Executing: $CHAPTER_SCRIPT"
     ./"$CHAPTER_SCRIPT_WITH_ZERO" $SOLR_IN_ACTION $SOLR_INSTALL
   else
     echo "Could not find chapter $CHAPTER_NUMBER."
