@@ -7,9 +7,8 @@ SOLR_INSTALL=${2%/}
 for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
   do
     kill -9 $ID
-    echo "Killed previous Solr process: $ID"
+    echo "Stopped previous Solr process: $ID"
 done #stops Solr if running from previous chapter
-sleep 2 #give processes time to die
 echo -e "----------------------------------------\n"
 echo -e "CHAPTER 8"
 echo -e "----------------------------------------\n"
@@ -80,3 +79,8 @@ echo -e "\n"
 echo -e "pg 278"
 echo -e "\n"
 java -jar $SOLR_IN_ACTION/solr-in-action.jar listing 8.16
+for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
+  do
+    kill -9 $ID
+    echo "Stopped Solr process: $ID"
+done

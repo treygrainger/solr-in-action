@@ -5,17 +5,15 @@ fi
 SOLR_IN_ACTION=${1%/}
 SOLR_INSTALL=${2%/}
 
-for ID in `ps waux | grep java | grep start.jar | awk '{print $2}' | sort -r`
+for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
   do
     kill -9 $ID
-    echo "Killed process $ID"
-    sleep 2
-done
+    echo "Stopped previous Solr process: $ID"
+done #stops Solr if running from previous chapter
 
 echo -e "----------------------------------------\n"
 echo -e "CHAPTER 13"
 echo -e "----------------------------------------\n"
-echo -e "\n\n"
 echo -e "pg 407"
 echo -e "\n"
 cd $SOLR_INSTALL
@@ -65,4 +63,9 @@ echo -e "pg 440"
 echo -e "\n"
 echo -e "Creating the logmill-write alias using the Collections API"
 java -jar solr-in-action.jar listing 13.7
+for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
+  do
+    kill -9 $ID
+    echo "Stopped Solr process: $ID"
+done
 

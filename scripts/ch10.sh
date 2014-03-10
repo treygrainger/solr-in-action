@@ -5,16 +5,15 @@ fi
 SOLR_IN_ACTION=${1%/}
 SOLR_INSTALL=${2%/}
 
-for ID in `ps waux | grep java | grep start.jar | awk '{print $2}' | sort -r`
+for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
   do
     kill -9 $ID
-    echo "Killed process $ID"
-done
+    echo "Stopped previous Solr process: $ID"
+done #stops Solr if running from previous chapter
 
 echo -e "----------------------------------------\n"
 echo -e "CHAPTER 10"
 echo -e "----------------------------------------\n"
-echo -e "\n"
 echo -e "pg 307"
 echo -e "\n"
 cd $SOLR_IN_ACTION/example-docs/
@@ -65,3 +64,8 @@ echo -e "\n"
 echo -e "pg 327"
 echo -e "\n"
 java -jar $SOLR_IN_ACTION/solr-in-action.jar listing 10.16
+for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
+  do
+    kill -9 $ID
+    echo "Stopped Solr process: $ID"
+done

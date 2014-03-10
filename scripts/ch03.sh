@@ -6,6 +6,4 @@ fi
 echo -e "----------------------------------------\n"
 echo -e "CHAPTER 3"
 echo -e "----------------------------------------\n"
-echo -e "\n\n"
 echo -e "No examples to run for chapter 3."
-echo -e "\n"

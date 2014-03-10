@@ -4,13 +4,14 @@ if [ "$#" -ne 2 ]; then
 fi
 SOLR_IN_ACTION=${1%/}
 SOLR_INSTALL=${2%/}
-kill -9 $(ps aux | grep '[j]ava -jar start.jar' | awk '{print $2}') #stops Solr if running from previous chapter
-sleep 2 #give process time to stop
-
+for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
+  do
+    kill -9 $ID
+    echo "Stopped previous Solr process: $ID"
+done #stops Solr if running from previous chapter
 echo -e "----------------------------------------\n"
 echo -e "CHAPTER 14"
 echo -e "----------------------------------------\n"
-echo -e "\n"
 echo -e "pg 455"
 echo -e "\n"
 cd $SOLR_INSTALL/example/
@@ -70,3 +71,8 @@ echo -e "\n"
 cd $SOLR_IN_ACTION/example-docs/
 java -Durl=http://localhost:8983/solr/multi-langid/update?mtf-langid.hidePrependedLangs=true -jar post.jar ch14/documents/multi-langid.xml
 java -jar $SOLR_IN_ACTION/solr-in-action.jar listing 14.18
+for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
+  do
+    kill -9 $ID
+    echo "Stopped Solr process: $ID"
+done

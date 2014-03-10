@@ -9,11 +9,9 @@ for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
     kill -9 $ID
     echo "Stopped previous Solr process: $ID"
 done #stops Solr if running from previous chapter
-sleep 2 #give processes time to die
 echo -e "----------------------------------------\n"
 echo -e "CHAPTER 15"
 echo -e "----------------------------------------\n"
-echo -e "\n"
 echo -e "pg 504"
 echo -e "\n"
 cd $SOLR_INSTALL/example/
@@ -123,3 +121,8 @@ echo -e "pg 545"
 echo -e "\n"
 java -Durl=http://localhost:8983/solr/join_useractions/update -jar post.jar ch15/documents/join_useractions.xml
 curl "http://localhost:8983/solr/join_restaurants/select?fl=restaurantname,text&q=%22Indian%22&fq=%7B!join%20fromIndex=join_useractions%20toIndex=join_restaurants%20from=restaurantid%20to=id%7Duserid:user123%20AND%20actiontype:clicked%20AND%20actiondate:%5BNOW-14DAYS%20TO%20*%5D"
+for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
+  do
+    kill -9 $ID
+    echo "Stopped Solr process: $ID"
+done
