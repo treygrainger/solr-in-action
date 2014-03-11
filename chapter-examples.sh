@@ -20,12 +20,13 @@ if [ "$#" -ne 2 ]; then
     echo "Executing: $CHAPTER_SCRIPT"
     ./"$CHAPTER_SCRIPT_WITH_ZERO" $SOLR_IN_ACTION $SOLR_INSTALL
   else
-    echo "Could not find chapter $CHAPTER_NUMBER."
+    echo -e "Could not find chapter $CHAPTER_NUMBER."
   fi
   exit 0
 else
   for CHAPTER_SCRIPT in "$CHAPTER_SCRIPTS_FOLDER"/*
   do
+    echo -e "\n"
     echo $CHAPTER_SCRIPT
     if [[ -x "$CHAPTER_SCRIPT" ]]; then
       $CHAPTER_SCRIPT $SOLR_IN_ACTION $SOLR_INSTALL
