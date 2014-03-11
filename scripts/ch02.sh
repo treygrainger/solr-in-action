@@ -1,13 +1,10 @@
-#Input Validation
+#!/bin/bash
 if [ "$#" -ne 2 ]; then
-  echo -e "Usage: ch02.sh \$SOLR_IN_ACTION \$SOLR_INSTALL"
+  echo -e "Usage: ch2.sh \$SOLR_IN_ACTION \$SOLR_INSTALL"
   exit 0
 fi
-SOLR_IN_ACTION=${1%/}
-SOLR_INSTALL=${2%/}
 
-
-#Helper Functions
+############ Helper Functions ############
 waitOnSolrToStart(){
   timeoutInSeconds="60"
   timer="0" 
@@ -24,22 +21,29 @@ waitOnSolrToStart(){
 stopSolr(){
   for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
   do
-    kill -9 $ID
+    kill -9 $ID > /dev/null
     echo "Stopped running Solr process: $ID"
   done
 }
 
+function absolutePath {
+  (cd "${1%/*}" &>/dev/null && printf "%s/%s" "$(pwd)" "${1##*/}")
+}
 
-#Chapter Examples
+SOLR_IN_ACTION=$(absolutePath $1)
+SOLR_INSTALL=$(absolutePath $2)
+
+############ Chapter Examples ############
 stopSolr
-echo -e "\n"
-echo -e "----------------------------------------\n"
+echo -e "----------------------------------------"
 echo -e "CHAPTER 2"
-echo -e "----------------------------------------\n"
+echo -e "----------------------------------------"
+
 echo -e "pg 27"
 echo -e "\n"
-java -version
+java -version 2>&1
 echo -e "\n"
+
 echo -e "pg 28"
 echo -e "\n"
 cd $SOLR_INSTALL/example/
@@ -48,15 +52,18 @@ java -jar start.jar 1>solr.log 2>&1 &
 waitOnSolrToStart
 tail -30 solr.log
 echo -e "\n"
+
 echo -e "pg 33"
 echo -e "\n"
 cd $SOLR_INSTALL/example/exampledocs
 java -jar post.jar *.xml
 echo -e "\n"
+
 echo -e "pg 37"
 echo -e "\n"
 java -jar $SOLR_IN_ACTION/solr-in-action.jar listing 2.1
 echo -e "\n"
+
 echo -e "pg 45"
 echo -e "\n"
 echo "Stopping Solr"
@@ -75,6 +82,7 @@ rm -rf realestate
 mv collection1 realestate
 echo "name=realestate" > realestate/core.properties
 echo -e "\n"
+
 echo -e "pg 46"
 echo -e "\n"
 cd $SOLR_INSTALL/realestate
@@ -82,5 +90,6 @@ echo -e "Starting Solr realestate server"
 java -jar start.jar 1>realestate.log 2>&1 &
 waitOnSolrToStart
 tail -30 realestate.log
+
 echo "Stopping Solr"
 stopSolr

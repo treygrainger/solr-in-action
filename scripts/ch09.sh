@@ -1,13 +1,10 @@
-#Input Validation
+#!/bin/bash
 if [ "$#" -ne 2 ]; then
-  echo -e "Usage: ch09.sh \$SOLR_IN_ACTION \$SOLR_INSTALL"
+  echo -e "Usage: ch9.sh \$SOLR_IN_ACTION \$SOLR_INSTALL"
   exit 0
 fi
-SOLR_IN_ACTION=${1%/}
-SOLR_INSTALL=${2%/}
 
-
-#Helper Functions
+############ Helper Functions ############
 waitOnSolrToStart(){
   timeoutInSeconds="60"
   timer="0" 
@@ -24,18 +21,24 @@ waitOnSolrToStart(){
 stopSolr(){
   for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
   do
-    kill -9 $ID
+    kill -9 $ID > /dev/null
     echo "Stopped running Solr process: $ID"
   done
 }
 
+function absolutePath {
+  (cd "${1%/*}" &>/dev/null && printf "%s/%s" "$(pwd)" "${1##*/}")
+}
 
-#Chapter Examples
+SOLR_IN_ACTION=$(absolutePath $1)
+SOLR_INSTALL=$(absolutePath $2)
+
+############ Chapter Examples ############
 stopSolr
-echo -e "\n"
-echo -e "----------------------------------------\n"
+echo -e "----------------------------------------"
 echo -e "CHAPTER 9"
-echo -e "----------------------------------------\n"
+echo -e "----------------------------------------"
+
 echo -e "pg 284"
 echo -e "\n"
 # chapter 9 expects the user manually creating the ufo core,
@@ -58,6 +61,7 @@ java -Xmx512m -jar start.jar 1>solr.log 2>&1 &
 waitOnSolrToStart
 tail -30 solr.log
 echo -e "\n"
+
 echo -e "pg 286"
 echo -e "\n"
 # Note: If you downloaded the ufo_awesome.json file to somewhere other 
@@ -75,28 +79,35 @@ if [ ! -e $UFO_DATA_JSON ]; then
 fi
 java -jar $SOLR_IN_ACTION/solr-in-action.jar ufo -jsonInput $UFO_DATA_JSON
 echo -e "\n"
+
 echo -e "pg 288"
 echo -e "\n"
 java -jar $SOLR_IN_ACTION/solr-in-action.jar listing 9.1 
 echo -e "\n"
+
 echo -e "pg 289"
 echo -e "\n"
 java -jar $SOLR_IN_ACTION/solr-in-action.jar listing 9.2 
 echo -e "\n"
+
 echo -e "pg 296"
 echo -e "\n"
 java -jar $SOLR_IN_ACTION/solr-in-action.jar listing 9.4 
 echo -e "\n"
+
 echo -e "pg 297"
 echo -e "\n"
 java -jar $SOLR_IN_ACTION/solr-in-action.jar listing 9.5 
 echo -e "\n"
+
 echo -e "pg 298"
 echo -e "\n"
 java -jar $SOLR_IN_ACTION/solr-in-action.jar listing 9.6 
 echo -e "\n"
+
 echo -e "pg 301"
 echo -e "\n"
 java -jar $SOLR_IN_ACTION/solr-in-action.jar listing 9.7
+
 echo "Stopping Solr"
 stopSolr

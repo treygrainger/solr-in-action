@@ -1,13 +1,10 @@
-#Input Validation
+#!/bin/bash
 if [ "$#" -ne 2 ]; then
-  echo -e "Usage: ch05.sh \$SOLR_IN_ACTION \$SOLR_INSTALL"
+  echo -e "Usage: ch5.sh \$SOLR_IN_ACTION \$SOLR_INSTALL"
   exit 0
 fi
-SOLR_IN_ACTION=${1%/}
-SOLR_INSTALL=${2%/}
 
-
-#Helper Functions
+############ Helper Functions ############
 waitOnSolrToStart(){
   timeoutInSeconds="60"
   timer="0" 
@@ -24,18 +21,24 @@ waitOnSolrToStart(){
 stopSolr(){
   for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
   do
-    kill -9 $ID
+    kill -9 $ID > /dev/null
     echo "Stopped running Solr process: $ID"
   done
 }
 
+function absolutePath {
+  (cd "${1%/*}" &>/dev/null && printf "%s/%s" "$(pwd)" "${1##*/}")
+}
 
-#Chapter Examples
+SOLR_IN_ACTION=$(absolutePath $1)
+SOLR_INSTALL=$(absolutePath $2)
+
+############ Chapter Examples ############
 stopSolr
-echo -e "\n"
-echo -e "----------------------------------------\n"
+echo -e "----------------------------------------"
 echo -e "CHAPTER 5"
-echo -e "----------------------------------------\n"
+echo -e "----------------------------------------"
+rm -rf $SOLR_INSTALL/example/solr/collection1/data #clear docs from other chapters
 echo -e "pg 142"
 echo -e "\n"
 cd $SOLR_INSTALL/example/
@@ -43,16 +46,18 @@ echo -e "Starting Solr example server on port 8983; see $SOLR_INSTALL/example/so
 java -jar start.jar 1>solr.log 2>&1 &
 waitOnSolrToStart
 tail -30 solr.log
+echo -e "\n"
 cd $SOLR_IN_ACTION/example-docs
 java -jar post.jar ch5/tweets.xml
 echo -e "\n"
+
 echo -e "pg 143"
 echo -e "\n"
 java -Dtype=application/json -jar post.jar ch5/tweets.json
 echo -e "\n"
-echo -e "pg 143"
-echo -e "\n"
 echo -e "Running the ExampleSolrJClient from Listing 5.15"
 cd $SOLR_IN_ACTION
 java -jar solr-in-action.jar ExampleSolrJClient
+
+echo "Stopping Solr"
 stopSolr

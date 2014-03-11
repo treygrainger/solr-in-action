@@ -1,13 +1,10 @@
-#Input Validation
+#!/bin/bash
 if [ "$#" -ne 2 ]; then
   echo -e "Usage: ch13.sh \$SOLR_IN_ACTION \$SOLR_INSTALL"
   exit 0
 fi
-SOLR_IN_ACTION=${1%/}
-SOLR_INSTALL=${2%/}
 
-
-#Helper Functions
+############ Helper Functions ############
 waitOnSolrToStartOnPort(){
   PORT=$1
   timeoutInSeconds="60"
@@ -25,18 +22,24 @@ waitOnSolrToStartOnPort(){
 stopSolr(){
   for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
   do
-    kill -9 $ID
+    kill -9 $ID > /dev/null
     echo "Stopped running Solr process: $ID"
   done
 }
 
+function absolutePath {
+  (cd "${1%/*}" &>/dev/null && printf "%s/%s" "$(pwd)" "${1##*/}")
+}
 
-#Chapter Examples
+SOLR_IN_ACTION=$(absolutePath $1)
+SOLR_INSTALL=$(absolutePath $2)
+
+############ Chapter Examples ############
 stopSolr
-echo -e "\n"
-echo -e "----------------------------------------\n"
+echo -e "----------------------------------------"
 echo -e "CHAPTER 13"
-echo -e "----------------------------------------\n"
+echo -e "----------------------------------------"
+
 echo -e "pg 407"
 echo -e "\n"
 cd $SOLR_INSTALL
@@ -50,7 +53,8 @@ echo -e "Starting Solr on 8983 for hosting shard1 of the logmill collection; see
 java -Dcollection.configName=logmill -DzkRun -DnumShards=2 -Dbootstrap_confdir=./solr/logmill/conf -jar start.jar 1>shard1.log 2>&1 &
 waitOnSolrToStartOnPort 8983
 tail -30 $SOLR_INSTALL/shard1/shard1.log
-echo -e "\n\n"
+echo -e "\n"
+
 echo -e "pg 409"
 echo -e "\n"
 cd $SOLR_INSTALL/
@@ -61,30 +65,38 @@ echo -e "Starting Solr on 8984 for hosting shard2 of the logmill collection; see
 java -DzkHost=localhost:9983 -Djetty.port=8984 -jar start.jar 1>shard2.log 2>&1 &
 waitOnSolrToStartOnPort 8984
 tail -30 $SOLR_INSTALL/shard2/shard2.log
-echo -e "\n\n"
+echo -e "\n"
+
 echo -e "pg 410"
 echo -e "\n"
 echo -e "Indexing log messages into the logmill collection using CloudSolrServer"
 cd $SOLR_IN_ACTION
-java -jar solr-in-action.jar indexlog -log=example-docs/ch13/solr.log
-echo -e "\n\n"
+java -jar solr-in-action.jar indexlog -log=example-docs/ch13/solr.log 2>&1
+echo -e "\n"
+
 echo -e "pg 437"
 echo -e "\n"
 cd $SOLR_INSTALL/shard1/
 cp -r solr/logmill/conf /tmp/support_conf
 cd $SOLR_INSTALL/shard1/scripts/cloud-scripts
 echo -e "Uploading configuration directory to ZooKeeper using Solr's zkcli utility"
-./zkcli.sh -zkhost localhost:9983 -cmd upconfig -confdir /tmp/support_conf -confname support
-echo -e "\n\n"
+./zkcli.sh -zkhost localhost:9983 -cmd upconfig -confdir /tmp/support_conf -confname support 2>&1
+echo -e "\n"
+
+#delete support collection if it already exists so we don't get an error
+curl -Ssf "http://localhost:8983/solr/admin/collections?action=DELETE&name=support" 2>&1 /dev/null
+
 echo -e "pg 439"
 echo -e "\n"
 echo -e "Creating the support collection using the Collections API"
 cd $SOLR_IN_ACTION
 java -jar solr-in-action.jar listing 13.6
-echo -e "\n\n"
+echo -e "\n"
+
 echo -e "pg 440"
 echo -e "\n"
 echo -e "Creating the logmill-write alias using the Collections API"
 java -jar solr-in-action.jar listing 13.7
+
 echo "Stopping Solr"
 stopSolr

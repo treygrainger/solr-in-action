@@ -1,13 +1,10 @@
-#Input Validation
+#!/bin/bash
 if [ "$#" -ne 2 ]; then
-  echo -e "Usage: ch04.sh \$SOLR_IN_ACTION \$SOLR_INSTALL"
+  echo -e "Usage: ch4.sh \$SOLR_IN_ACTION \$SOLR_INSTALL"
   exit 0
 fi
-SOLR_IN_ACTION=${1%/}
-SOLR_INSTALL=${2%/}
 
-
-#Helper Functions
+############ Helper Functions ############
 waitOnSolrToStart(){
   timeoutInSeconds="60"
   timer="0" 
@@ -24,18 +21,24 @@ waitOnSolrToStart(){
 stopSolr(){
   for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
   do
-    kill -9 $ID
+    kill -9 $ID > /dev/null
     echo "Stopped running Solr process: $ID"
   done
 }
 
+function absolutePath {
+  (cd "${1%/*}" &>/dev/null && printf "%s/%s" "$(pwd)" "${1##*/}")
+}
 
-#Chapter Examples
+SOLR_IN_ACTION=$(absolutePath $1)
+SOLR_INSTALL=$(absolutePath $2)
+
+############ Chapter Examples ############
 stopSolr
-echo -e "\n"
-echo -e "----------------------------------------\n"
+echo -e "----------------------------------------"
 echo -e "CHAPTER 4"
-echo -e "----------------------------------------\n"
+echo -e "----------------------------------------"
+
 echo -e "pg 85"
 echo -e "\n"
 cd $SOLR_INSTALL/example/
@@ -43,25 +46,31 @@ echo -e "Starting Solr example server on port 8983; see $SOLR_INSTALL/example/so
 java -jar start.jar 1>solr.log 2>&1 &
 waitOnSolrToStart
 tail -30 solr.log
-echo -e "\n\n"
+echo -e "\n"
+
 echo -e "pg 91"
 echo -e "\n"
 java -jar $SOLR_IN_ACTION/solr-in-action.jar listing 4.4
-echo -e "\n\n"
+echo -e "\n"
+
 echo -e "pg 97"
 echo -e "\n"
 java -jar $SOLR_IN_ACTION/solr-in-action.jar listing 4.7
-echo -e "\n\n"
+echo -e "\n"
+
 echo -e "pg 100"
 echo -e "\n"
 java -jar $SOLR_IN_ACTION/solr-in-action.jar listing 4.8
-echo -e "\n\n"
+echo -e "\n"
+
 echo -e "pg 101"
 echo -e "\n"
 java -jar $SOLR_IN_ACTION/solr-in-action.jar listing 4.9
-echo -e "\n\n"
+echo -e "\n"
+
 echo -e "pg 109"
 echo -e "\n"
 java -jar $SOLR_IN_ACTION/solr-in-action.jar listing 4.12
+
 echo "Stopping Solr"
 stopSolr
