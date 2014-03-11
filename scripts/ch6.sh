@@ -1,6 +1,6 @@
 #!/bin/bash
 if [ "$#" -ne 2 ]; then
-  echo -e "Usage: ch2.sh \$SOLR_IN_ACTION \$SOLR_INSTALL"
+  echo -e "Usage: ch6.sh \$SOLR_IN_ACTION \$SOLR_INSTALL"
   exit 0
 fi
 
@@ -21,7 +21,7 @@ waitOnSolrToStart(){
 stopSolr(){
   for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
   do
-    kill -9 $ID > /dev/null
+    kill -9 $ID
     echo "Stopped running Solr process: $ID"
   done
 }
@@ -36,60 +36,26 @@ SOLR_INSTALL=$(absolutePath $2)
 ############ Chapter Examples ############
 stopSolr
 echo -e "----------------------------------------"
-echo -e "CHAPTER 2"
+echo -e "CHAPTER 6"
 echo -e "----------------------------------------"
 
-echo -e "pg 27"
+echo -e "pg 167"
 echo -e "\n"
-java -version 2>&1
-echo -e "\n"
-
-echo -e "pg 28"
-echo -e "\n"
+cp $SOLR_IN_ACTION/example-docs/ch6/schema.xml $SOLR_INSTALL/example/solr/collection1/conf/
+cp $SOLR_IN_ACTION/example-docs/ch6/wdfftypes.txt $SOLR_INSTALL/example/solr/collection1/conf/
+echo -e "Updated schema.xml and wdfftypes.txt for chapter 6"
 cd $SOLR_INSTALL/example/
 echo -e "Starting Solr example server on port 8983; see $SOLR_INSTALL/example/solr.log for errors and log messages"
 java -jar start.jar 1>solr.log 2>&1 &
 waitOnSolrToStart
-tail -30 solr.log
+echo -e "..."
+tail -10 solr.log
 echo -e "\n"
 
-echo -e "pg 33"
+echo -e "pg 186"
 echo -e "\n"
-cd $SOLR_INSTALL/example/exampledocs
-java -jar post.jar *.xml
-echo -e "\n"
-
-echo -e "pg 37"
-echo -e "\n"
-java -jar $SOLR_IN_ACTION/solr-in-action.jar listing 2.1
-echo -e "\n"
-
-echo -e "pg 45"
-echo -e "\n"
-echo "Stopping Solr"
-stopSolr
-echo "Copying example folder to a new application called \"realestate\""
-cd $SOLR_INSTALL/
-rm -rf realestate
-cp -R example realestate
-cd realestate/
-rm -rf example-DIH/
-rm -rf multicore/
-rm -rf example-schemaless/
-cd solr/
-echo "Creating a realestate core in place of the collection1 core"
-rm -rf realestate
-mv collection1 realestate
-echo "name=realestate" > realestate/core.properties
-echo -e "\n"
-
-echo -e "pg 46"
-echo -e "\n"
-cd $SOLR_INSTALL/realestate
-echo -e "Starting Solr realestate server"
-java -jar start.jar 1>realestate.log 2>&1 &
-waitOnSolrToStart
-tail -30 realestate.log
+cd $SOLR_IN_ACTION/example-docs
+java -jar post.jar ch6/tweets.xml
 
 echo "Stopping Solr"
 stopSolr

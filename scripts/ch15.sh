@@ -21,7 +21,7 @@ waitOnSolrToStart(){
 stopSolr(){
   for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
   do
-    kill -9 $ID > /dev/null
+    kill -9 $ID
     echo "Stopped running Solr process: $ID"
   done
 }
@@ -47,7 +47,8 @@ cp $SOLR_IN_ACTION/solr-in-action.jar solr/lib/
 echo -e "Starting Solr example server on port 8983; see $SOLR_INSTALL/example/solr.log for errors and log messages"
 java -jar start.jar 1>solr.log 2>&1 &
 waitOnSolrToStart
-tail -30 solr.log
+echo -e "..."
+tail -10 solr.log
 cd $SOLR_IN_ACTION/example-docs/
 java -Durl=http://localhost:8983/solr/news/update -jar post.jar ch15/documents/news.xml
 curl -Ssf "http://localhost:8983/solr/news/select?q=%22United%20States%22%20AND%20France%20AND%20President%20AND%20_val_%3A%22recip(ord(date)%2C1%2C100%2C100)%22"
@@ -126,7 +127,8 @@ cp solr/geospatial/conf/jts_schema.xml solr/geospatial/conf/schema.xml
 echo -e "Starting Solr example server on port 8983; see $SOLR_INSTALL/example/solr.log for errors and log messages"
 java -jar start.jar 1>solr.log 2>&1 &
 waitOnSolrToStart
-tail -30 solr.log
+echo -e "..."
+tail -10 solr.log
 echo -e "\n"
 curl -Ssf "http://localhost:8983/solr/geospatial/select?q=*:*&fq=%7B!geofilt%20pt=37.775,-122.419%20sfield=location_rpt%20d=5%7D"
 echo -e "\n"
@@ -142,7 +144,7 @@ echo -e "\n"
 
 echo -e "pg 535"
 echo -e "\n"
-curl -Ssf "http://localhost:8983/solr/geospatial/select?sort=score%20asc&q=%7B!geofilt%20pt=45.15,-93.85%20sfield=location%20d=5%20score=distance%7D"
+curl -Ssf "http://localhost:8983/solr/geospatial/select?sort=score%20asc&q=%7B!geofilt%20pt=37.775,-122.419%20sfield=location%20d=5%20score=distance%7D"
 echo -e "\n"
 curl -Ssf "http://localhost:8983/solr/geospatial/select?sort=score%20asc&q=%7B!geofilt%20pt=37.775,-122.419%20sfield=location_rpt%20d=5%20score=distance%20filter=false%7D"
 echo -e "\n"

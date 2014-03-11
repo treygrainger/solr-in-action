@@ -22,7 +22,7 @@ waitOnSolrToStartOnPort(){
 stopSolr(){
   for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
   do
-    kill -9 $ID > /dev/null
+    kill -9 $ID
     echo "Stopped running Solr process: $ID"
   done
 }
@@ -52,7 +52,8 @@ echo "name=logmill" > solr/logmill/core.properties
 echo -e "Starting Solr on 8983 for hosting shard1 of the logmill collection; see $SOLR_INSTALL/shard1/shard1.log for errors and log messages"
 java -Dcollection.configName=logmill -DzkRun -DnumShards=2 -Dbootstrap_confdir=./solr/logmill/conf -jar start.jar 1>shard1.log 2>&1 &
 waitOnSolrToStartOnPort 8983
-tail -30 $SOLR_INSTALL/shard1/shard1.log
+echo -e "..."
+tail -10 $SOLR_INSTALL/shard1/shard1.log
 echo -e "\n"
 
 echo -e "pg 409"
@@ -64,7 +65,8 @@ rm -rf solr/logmill/conf/
 echo -e "Starting Solr on 8984 for hosting shard2 of the logmill collection; see $SOLR_INSTALL/shard2/shard2.log for errors and log messages"
 java -DzkHost=localhost:9983 -Djetty.port=8984 -jar start.jar 1>shard2.log 2>&1 &
 waitOnSolrToStartOnPort 8984
-tail -30 $SOLR_INSTALL/shard2/shard2.log
+echo -e "..."
+tail -10 $SOLR_INSTALL/shard2/shard2.log
 echo -e "\n"
 
 echo -e "pg 410"

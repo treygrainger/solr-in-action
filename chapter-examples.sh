@@ -40,20 +40,20 @@ if [ "$#" -ne 2 ]; then
 else
   for CHAPTER in {1..16}
   do
-    CHAPTER_SCRIPT = $CHAPTER_SCRIPTS_FOLDER/ch"$CHAPTER".sh
+    CHAPTER_SCRIPT=$CHAPTER_SCRIPTS_FOLDER/ch"$CHAPTER".sh
     echo -e "\n"
     echo $CHAPTER_SCRIPT
     if [[ -x "$CHAPTER_SCRIPT" ]]; then
-      ./"$CHAPTER_SCRIPT" $SOLR_IN_ACTION $SOLR_INSTALL
+      ./"$CHAPTER_SCRIPT" $SOLR_IN_ACTION $SOLR_INSTALL 2>&1
     fi
   done
   for CHAPTER in {A..C}
   do
-    CHAPTER_SCRIPT = $CHAPTER_SCRIPTS_FOLDER/appendix"$CHAPTER".sh
+    CHAPTER_SCRIPT=$CHAPTER_SCRIPTS_FOLDER/appendix"$CHAPTER".sh
     echo -e "\n"
     echo $CHAPTER_SCRIPT
     if [[ -x "$CHAPTER_SCRIPT" ]]; then
-      ./"$CHAPTER_SCRIPT" $SOLR_IN_ACTION $SOLR_INSTALL
+      ./"$CHAPTER_SCRIPT" $SOLR_IN_ACTION $SOLR_INSTALL 2>&1
     fi
   done
 fi

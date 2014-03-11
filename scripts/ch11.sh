@@ -21,7 +21,7 @@ waitOnSolrToStart(){
 stopSolr(){
   for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
   do
-    kill -9 $ID > /dev/null
+    kill -9 $ID
     echo "Stopped running Solr process: $ID"
   done
 }
@@ -46,7 +46,8 @@ cp -r $SOLR_IN_ACTION/example-docs/ch11/cores/ecommerce/ solr/ecommerce/
 echo -e "Starting Solr example server on port 8983; see $SOLR_INSTALL/example/solr.log for errors and log messages"
 java -jar start.jar 1>solr.log 2>&1 &
 waitOnSolrToStart
-tail -30 solr.log
+echo -e "..."
+tail -10 solr.log
 echo -e "\n"
 cd $SOLR_IN_ACTION/example-docs/
 java -Durl=http://localhost:8983/solr/ecommerce/update -jar post.jar ch11/documents/ecommerce.xml

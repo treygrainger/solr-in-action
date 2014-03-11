@@ -36,7 +36,7 @@ waitOnDataImportToFinish(){
 stopSolr(){
   for ID in `ps waux | grep java | grep [s]tart.jar | awk '{print $2}' | sort -r`
   do
-    kill -9 $ID > /dev/null
+    kill -9 $ID
     echo "Stopped running Solr process: $ID"
   done
 }
@@ -67,7 +67,8 @@ cd $SOLR_INSTALL/example/
 echo -e "Starting Solr example server on port 8983; see $SOLR_INSTALL/example/solr.log for errors and log messages"
 java -jar start.jar 1>solr.log 2>&1 &
 waitOnSolrToStart
-tail -30 solr.log
+echo -e "..."
+tail -10 solr.log
 cp $SOLR_IN_ACTION/example-docs/ch10/documents/solrpedia.xml $SOLR_INSTALL/example/
 echo -e "\n"
 
@@ -75,6 +76,7 @@ echo -e "pg 309"
 echo -e "\n"
 curl -Ssf 'http://localhost:8983/solr/solrpedia/dataimport' -H 'Origin: http://localhost:8983' -H 'Accept-Encoding: gzip,deflate,sdch' -H 'Accept-Language: en-US,en;q=0.8' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Accept: application/json, text/javascript, */*; q=0.01' -H 'Referer: http://localhost:8983/solr/' -H 'X-Requested-With: XMLHttpRequest' -H 'Connection: keep-alive' --data 'command=full-import&verbose=true&clean=true&commit=true&wt=json&indent=true&entity=page&optimize=false&debug=false' --compressed
 waitOnDataImportToFinish solrpedia
+echo -e "..."
 tail -10 solr.log
 echo -e "\n"
 java -jar $SOLR_IN_ACTION/solr-in-action.jar listing 10.1

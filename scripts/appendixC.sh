@@ -63,12 +63,14 @@ cd $SOLR_INSTALL/example/
 echo -e "Starting Solr example server on port 8983; see $SOLR_INSTALL/example/solr.log for errors and log messages"
 java -jar start.jar 1>solr.log 2>&1 &
 waitOnSolrToStart
-tail -30 solr.log
+echo -e "..."
+tail -10 solr.log
 echo -e "\n"
 cp $SOLR_IN_ACTION/example-docs/ch10/documents/solrpedia.xml $SOLR_INSTALL/example/
 echo -e "Starting data import of solrpedia documents"
 curl -Ssf 'http://localhost:8983/solr/solrpedia/dataimport' -H 'Origin: http://localhost:8983' -H 'Accept-Encoding: gzip,deflate,sdch' -H 'Accept-Language: en-US,en;q=0.8' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Accept: application/json, text/javascript, */*; q=0.01' -H 'Referer: http://localhost:8983/solr/' -H 'X-Requested-With: XMLHttpRequest' -H 'Connection: keep-alive' --data 'command=full-import&verbose=true&clean=true&commit=true&wt=json&indent=true&optimize=false&debug=false' --compressed
 waitOnDataImportToFinish solrpedia
+echo -e "..."
 tail -10 solr.log
 echo -e "Finished importing solrpedia documents."
 echo -e "\n"
@@ -84,11 +86,13 @@ cd $SOLR_INSTALL/example/
 echo -e "Starting Solr example server on port 8983; see $SOLR_INSTALL/example/solr.log for errors and log messages"
 java -jar start.jar 1>solr.log 2>&1 &
 waitOnSolrToStart
-tail -30 solr.log
+echo -e "..."
+tail -10 solr.log
 echo -e "\n"
 echo -e "Starting data import of solrexchange documents"
 curl -Ssf 'http://localhost:8983/solr/solrexchange/dataimport' -H 'Origin: http://localhost:8983' -H 'Accept-Encoding: gzip,deflate,sdch' -H 'Accept-Language: en-US,en;q=0.8' -H 'Content-Type: application/x-www-form-urlencoded' -H 'Accept: application/json, text/javascript, */*; q=0.01' -H 'Referer: http://localhost:8983/solr/' -H 'X-Requested-With: XMLHttpRequest' -H 'Connection: keep-alive' --data 'command=full-import&verbose=true&clean=true&commit=true&wt=json&indent=true&optimize=false&debug=false' --compressed
 waitOnDataImportToFinish solrexchange
+echo -e "..."
 tail -10 solr.log
 echo -e "Finished importing solrexchange documents."
 echo -e "\n"
