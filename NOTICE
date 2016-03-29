@@ -1,0 +1,10 @@
+==============================================================
+Solr in Action (Code Examples)
+Copyright 2012-2014 Trey Grainger & Timothy Potter
+==============================================================
+
+This product includes software developed by authors Trey Grainger and Timothy Potter for the book Solr in Action (http://solrinaction.com), published by Manning Publications Company (2014).
+
+Portions of this software are derived from the Apache Lucene/Solr project developed at The Apache Software Foundation (http://www.apache.org/).
+
+A binary copy of the Java Topological Suite (JTS) library (https://sourceforge.net/projects/jts-topo-suite/), licensed under the Lesser General Public License version 2.1 (LGPLv2), is included within the example-docs folder of this project ($SOLR_IN_ACTION/example-docs/ch15/jts/). The Solr in Action project does not modify, depend upon, compile against, or include the JTS library when compiled. The JTS library is only included as a linked library when running some advanced geospatial examples from chapter 15 of the book (using $SOLR_IN_ACTION/scripts/ch15.sh). The compiled Solr in Action code does not include the JTS library, so feel free to delete or simply ignore this library within the source tree.

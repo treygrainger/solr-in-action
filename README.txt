@@ -21,6 +21,10 @@ running the example code provided in the book.
   |
   |__README.txt - you're looking at it ;-)
   |
+  |__LICENSE - Open Source License (Apache 2.0)
+  |
+  |__NOTICE - Description of project dependencies
+  |
   |__chapter-examples.sh - script to conveniently execute all examples in the book
   |
   |__solr-in-action.jar - compiled source code (follow step 2 to build this file)
