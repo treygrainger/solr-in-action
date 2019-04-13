@@ -7,14 +7,16 @@ import org.apache.lucene.analysis.TokenFilter;
 import org.apache.lucene.analysis.TokenStream;
 import org.apache.lucene.analysis.tokenattributes.CharTermAttribute;
 
-public class ResolveUrlTokenFilter extends TokenFilter {
+final public class ResolveUrlTokenFilter extends TokenFilter {
 
     private final CharTermAttribute termAttribute = addAttribute(CharTermAttribute.class);
     private final Pattern patternToMatchShortenedUrls;
+    private final UrlResolver urlResolver;
 
-    public ResolveUrlTokenFilter(TokenStream in, Pattern patternToMatchShortenedUrls) {
+    public ResolveUrlTokenFilter(TokenStream in, Pattern patternToMatchShortenedUrls, UrlResolver urlResolver) {
         super(in);
         this.patternToMatchShortenedUrls = patternToMatchShortenedUrls;
+        this.urlResolver = urlResolver;
     }
 
     @Override
@@ -35,18 +37,6 @@ public class ResolveUrlTokenFilter extends TokenFilter {
     }
 
     private String resolveShortenedUrl(String toResolve) {
-        try {
-            // TODO: implement a real way to resolve shortened URLs
-            if ("http://bit.ly/3ynriE".equals(toResolve)) {
-                return "lucene.apache.org/solr";
-            } else if ("http://bit.ly/15tzw".equals(toResolve)) {
-                return "manning.com";
-            }
-        } catch (Exception exc) {
-            // rather than failing analysis if you can't resolve the URL,
-            // you should log the error and return the un-resolved value
-            exc.printStackTrace();
-        }
-        return toResolve;
+        return urlResolver.expand(toResolve);
     }
 }
