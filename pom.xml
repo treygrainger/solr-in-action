@@ -6,7 +6,7 @@
     <packaging>jar</packaging>
     <version>1.0_solr-4.7.0-SNAPSHOT</version>
     <name>solr-in-action</name>
-    <url>http://maven.apache.org</url>
+    <url>https://mvnrepository.com</url>
     <build>
         <plugins>
             <plugin>
@@ -80,4 +80,14 @@
             <version>1.6.6</version>
         </dependency>
     </dependencies>
+    <repositories>
+        <repository>
+            <id>restlet</id>
+            <name>Restlet</name>
+            <url>http://maven.restlet.com</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+    </repositories>
 </project>
